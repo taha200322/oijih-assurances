@@ -1,0 +1,562 @@
+   401→  );
+   402→}
+   403→
+   404→/* ────────────────────────────── Wave SVG Components ────────────────────────────── */
+   405→
+   406→function WaveDivider({ color, flip }: { color: string; flip?: boolean }) {
+   407→  return (
+   408→    <div className={`absolute ${flip ? 'top-0 rotate-180' : 'bottom-0'} left-0 right-0 line-height-0 overflow-hidden pointer-events-none`} style={{ zIndex: 1 }}>
+   409→      <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full" preserveAspectRatio="none" style={{ display: 'block' }}>
+   410→        <path d="M0 40L48 36C96 32 192 24 288 28C384 32 480 48 576 56C672 64 768 64 864 56C960 48 1056 32 1152 28C1248 24 1344 32 1392 36L1440 40V100H1392C1344 100 1248 100 1152 100C1056 100 960 100 864 100C768 100 672 100 576 100C480 100 384 100 288 100C192 100 96 100 48 100H0V40Z" fill={color}/>
+   411→      </svg>
+   412→    </div>
+   413→  );
+   414→}
+   415→
+   416→/* ────────────────────────────── Main Component ────────────────────────────── */
+   417→
+   418→export default function Home() {
+   419→  const [lang, setLang] = useState<'fr' | 'ar'>('fr');
+   420→  const [scrolled, setScrolled] = useState(false);
+   421→  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+   422→  const [activeSection, setActiveSection] = useState('hero');
+   423→  const [scrollProgress, setScrollProgress] = useState(0);
+   424→  const [showBackToTop, setShowBackToTop] = useState(false);
+   425→  const [formData, setFormData] = useState({
+   426→    firstName: '', lastName: '', phone: '', email: '', insuranceType: '', message: '',
+   427→  });
+   428→  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+   429→  const [revealedSections, setRevealedSections] = useState<Set<string>>(new Set());
+   430→
+   431→  const isRTL = lang === 'ar';
+   432→  const data = t[lang];
+   433→
+   434→  // Scroll handling — progress bar, navbar, active section, back-to-top
+   435→  useEffect(() => {
+   436→    const handleScroll = () => {
+   437→      const scrollTop = window.scrollY;
+   438→      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+   439→      setScrollProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
+   440→      setScrolled(scrollTop > 20);
+   441→      setShowBackToTop(scrollTop > 600);
+   442→
+   443→      const sections = ['hero', 'services', 'why', 'process', 'testimonials', 'contact'];
+   444→      for (const id of [...sections].reverse()) {
+   445→        const el = document.getElementById(id);
+   446→        if (el && el.getBoundingClientRect().top <= 150) {
+   447→          setActiveSection(id);
+   448→          break;
+   449→        }
+   450→      }
+   451→    };
+   452→    window.addEventListener('scroll', handleScroll, { passive: true });
+   453→    return () => window.removeEventListener('scroll', handleScroll);
+   454→  }, []);
+   455→
+   456→  // RTL/LTR + page title
+   457→  useEffect(() => {
+   458→    document.documentElement.lang = lang;
+   459→    document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
+   460→    document.title = lang === 'fr'
+   461→      ? 'OIJIH Assurances – Courtier Assurance à Salé, Maroc | Devis Gratuit'
+   462→      : 'تأمينات وجيه – وكيل تأمين في سلا، المغرب | عرض مجاني';
+   463→  }, [lang, isRTL]);
+   464→
+   465→  // Intersection Observer for reveal animations
+   466→  useEffect(() => {
+   467→    const observer = new IntersectionObserver(
+   468→      (entries) => {
+   469→        entries.forEach((entry) => {
+   470→          if (entry.isIntersecting) {
+   471→            setRevealedSections((prev) => new Set(prev).add(entry.target.id));
+   472→          }
+   473→        });
+   474→      },
+   475→      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+   476→    );
+   477→    const sections = document.querySelectorAll('.reveal');
+   478→    sections.forEach((s) => observer.observe(s));
+   479→    return () => observer.disconnect();
+   480→  }, [lang]);
+   481→
+   482→  const scrollTo = useCallback((id: string) => {
+   483→    setMobileMenuOpen(false);
+   484→    const el = document.getElementById(id);
+   485→    if (el) el.scrollIntoView({ behavior: 'smooth' });
+   486→  }, []);
+   487→
+   488→  const handleSubmit = async (e: React.FormEvent) => {
+   489→    e.preventDefault();
+   490→    setFormStatus('sending');
+   491→    try {
+   492→      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+   493→      await fetch(GOOGLE_SCRIPT_URL, {
+   494→        method: 'POST', mode: 'no-cors',
+   495→        headers: { 'Content-Type': 'application/json' },
+   496→        body: JSON.stringify({ ...formData, language: lang, date: new Date().toISOString() }),
+   497→      });
+   498→      setFormStatus('success');
+   499→      setFormData({ firstName: '', lastName: '', phone: '', email: '', insuranceType: '', message: '' });
+   500→      setTimeout(() => setFormStatus('idle'), 5000);
+   501→    } catch {
+   502→      setFormStatus('error');
+   503→      setTimeout(() => setFormStatus('idle'), 5000);
+   504→    }
+   505→  };
+   506→
+   507→  const whatsappLink = `https://wa.me/212660385429?text=${encodeURIComponent(data.whatsapp.message)}`;
+   508→
+   509→  const navItems = [
+   510→    { key: 'accueil', target: 'hero' },
+   511→    { key: 'services', target: 'services' },
+   512→    { key: 'avantages', target: 'why' },
+   513→    { key: 'processus', target: 'process' },
+   514→    { key: 'temoignages', target: 'testimonials' },
+   515→    { key: 'contact', target: 'contact' },
+   516→  ];
+   517→
+   518→  return (
+   519→    <div className={`page-load min-h-screen flex flex-col ${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-inter)]'}`}>
+   520→
+   521→      {/* ══════ Scroll Progress Bar ══════ */}
+   522→      <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
+   523→
+   524→      {/* ══════ Navbar ══════ */}
+   525→      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+   526→        scrolled ? 'bg-white/95 backdrop-blur-xl py-2 shadow-sm' : 'bg-transparent py-3 md:py-4'
+   527→      }`}>
+   528→        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   529→          <div className="flex items-center justify-between">
+   530→            <button onClick={() => scrollTo('hero')} className="flex items-center group">
+   531→              <img
+   532→                src={scrolled ? '/logo.png' : '/logo-white.png'}
+   533→                alt="OIJIH Assurances"
+   534→                className={`h-16 md:h-24 w-auto transition-all duration-500 group-hover:scale-[1.03] ${!scrolled ? 'drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]' : ''}`}
+   535→              />
+   536→            </button>
+   537→
+   538→            <div className="hidden lg:flex items-center gap-1">
+   539→              {navItems.map((item) => (
+   540→                <button
+   541→                  key={item.key}
+   542→                  onClick={() => scrollTo(item.target)}
+   543→                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${
+   544→                    activeSection === item.target
+   545→                      ? 'text-[#C9A84C]'
+   546→                      : scrolled
+   547→                        ? 'text-[#0D1F5C] hover:text-[#C9A84C]'
+   548→                        : 'text-white/80 hover:text-[#C9A84C]'
+   549→                  }`}
+   550→                >
+   551→                  {data.nav[item.key as keyof typeof data.nav]}
+   552→                  {activeSection === item.target && (
+   553→                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-[#C9A84C] rounded-full" />
+   554→                  )}
+   555→                </button>
+   556→              ))}
+   557→            </div>
+   558→
+   559→            <div className="flex items-center gap-3">
+   560→              <div className={`lang-switch ${!scrolled ? 'border-white/30 hover:border-white/50' : 'border-[#0D1F5C]/20 hover:border-[#C9A84C]'}`}>
+   561→                <button onClick={() => setLang('fr')} className={`lang-btn ${lang === 'fr' ? 'lang-btn-active' : ''} ${!scrolled && lang !== 'fr' ? 'text-white/70' : ''}`}>FR</button>
+   562→                <button onClick={() => setLang('ar')} className={`lang-btn ${lang === 'ar' ? 'lang-btn-active' : ''} ${!scrolled && lang !== 'ar' ? 'text-white/70' : ''}`}>AR</button>
+   563→              </div>
+   564→              <button onClick={() => scrollTo('contact')} className="hidden md:inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all hover:shadow-lg hover:shadow-[#C9A84C]/25 hover:-translate-y-0.5 active:translate-y-0">
+   565→                {data.nav.cta}
+   566→              </button>
+   567→              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className={`lg:hidden p-2 transition-colors ${scrolled ? 'text-[#0D1F5C] hover:text-[#C9A84C]' : 'text-white hover:text-[#C9A84C]'}`}>
+   568→                {mobileMenuOpen ? Icons.close : Icons.menu}
+   569→              </button>
+   570→            </div>
+   571→          </div>
+   572→        </div>
+   573→
+   574→        {/* Mobile Menu */}
+   575→        <div className={`lg:hidden absolute top-full left-0 right-0 bg-white shadow-2xl transition-all duration-300 ${mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}`}>
+   576→          <div className="px-4 py-6 space-y-2">
+   577→            {navItems.map((item) => (
+   578→              <button key={item.key} onClick={() => scrollTo(item.target)} className={`block w-full text-left rtl:text-right py-3 px-4 rounded-xl font-medium transition-all ${activeSection === item.target ? 'text-[#C9A84C] bg-[#C9A84C]/5' : 'text-[#0D1F5C] hover:text-[#C9A84C] hover:bg-[#C9A84C]/5'}`}>
+   579→                {data.nav[item.key as keyof typeof data.nav]}
+   580→              </button>
+   581→            ))}
+   582→            <button onClick={() => scrollTo('contact')} className="w-full bg-[#C9A84C] hover:bg-[#B08F35] text-white px-5 py-3.5 rounded-xl text-sm font-semibold transition-all mt-2">{data.nav.cta}</button>
+   583→          </div>
+   584→        </div>
+   585→      </nav>
+   586→
+   587→      {/* ══════ Hero ══════ */}
+   588→      <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
+   589→        <div className="absolute inset-0 bg-[#0D1F5C] hero-gradient" />
+   590→        <div className="absolute inset-0 hero-pattern" />
+   591→        <div className="absolute inset-0 hero-particles" />
+   592→
+   593→        {/* Floating decorative orbs */}
+   594→        <div className="absolute top-20 left-10 w-72 h-72 bg-[#C9A84C]/5 rounded-full blur-3xl animate-float" />
+   595→        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl animate-float-slow" />
+   596→        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-white/[0.03] rounded-full" />
+   597→        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-white/[0.03] rounded-full" />
+   598→
+   599→        {/* Sparkle decorations */}
+   600→        <div className="sparkle" style={{ top: '15%', left: '10%', animationDelay: '0s' }} />
+   601→        <div className="sparkle" style={{ top: '25%', right: '15%', animationDelay: '1s' }} />
+   602→        <div className="sparkle" style={{ bottom: '30%', left: '20%', animationDelay: '2s' }} />
+   603→        <div className="sparkle" style={{ top: '40%', right: '25%', animationDelay: '0.5s' }} />
+   604→
+   605→        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40">
+   606→          <div className="grid lg:grid-cols-2 gap-12 items-center">
+   607→            <div className="animate-fade-in-up">
+   608→              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-5 py-2.5 rounded-full mb-8 border border-white/10">
+   609→                <span className="w-2 h-2 bg-[#C9A84C] rounded-full animate-pulse" />
+   610→                <span className="text-white/80 text-sm font-medium">{lang === 'fr' ? 'L\'assurance de votre sécurité' : 'ضمانك وأمانك'}</span>
+   611→              </div>
+   612→
+   613→              <h1 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-6`}>
+   614→                <span className="animate-word-reveal inline-block" style={{ animationDelay: '0.2s' }}>{data.hero.headline1}</span>
+   615→                <br />
+   616→                <span className="gradient-text animate-word-reveal inline-block" style={{ animationDelay: '0.5s' }}>{data.hero.headline2}</span>
+   617→              </h1>
+   618→
+   619→              <p className="text-white/60 text-lg md:text-xl max-w-xl mb-10 leading-relaxed animate-fade-in" style={{ animationDelay: '0.7s' }}>
+   620→                {data.hero.subtext}
+   621→              </p>
+   622→
+   623→              <div className="flex flex-wrap gap-4 mb-14 animate-fade-in" style={{ animationDelay: '0.9s' }}>
+   624→                <button onClick={() => scrollTo('contact')} className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-8 py-4 rounded-full font-semibold transition-all hover:shadow-2xl hover:shadow-[#C9A84C]/30 hover:-translate-y-1 active:translate-y-0">
+   625→                  {data.hero.btnDevis}
+   626→                  <span className="rtl-flip">{Icons.arrowRight}</span>
+   627→                </button>
+   628→                <a href="tel:+212537838938" className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-8 py-4 rounded-full font-semibold transition-all border border-white/20 hover:border-white/30">
+   629→                  {Icons.phone}
+   630→                  {data.hero.btnCall}
+   631→                </a>
+   632→              </div>
+   633→
+   634→              {/* Stats — glassmorphism cards */}
+   635→              <div className="grid grid-cols-3 gap-4 max-w-lg animate-fade-in" style={{ animationDelay: '1.1s' }}>
+   636→                <AnimatedCounter end={500} suffix="+" label={data.hero.stat1Label} />
+   637→                <AnimatedCounter end={10} suffix="+" label={data.hero.stat2Label} />
+   638→                <AnimatedCounter end={24} suffix="h" label={data.hero.stat3Label} />
+   639→              </div>
+   640→            </div>
+   641→
+   642→            {/* Hero Logo */}
+   643→            <div className="hidden lg:flex justify-center items-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
+   644→              <div className="relative">
+   645→                <img src="/logo-navy.png" alt="OIJIH Assurances" className="w-[340px] md:w-[420px] h-auto drop-shadow-[0_20px_60px_rgba(0,0,0,0.4)] animate-float rounded-2xl" />
+   646→                <div className="absolute inset-0 bg-[#C9A84C]/8 rounded-2xl blur-3xl scale-110 -z-10" />
+   647→              </div>
+   648→            </div>
+   649→          </div>
+   650→        </div>
+   651→
+   652→        <WaveDivider color="#F8F7F4" />
+   653→      </section>
+   654→
+   655→      {/* ══════ Services ══════ */}
+   656→      <section id="services" className="py-20 md:py-28 bg-[#F8F7F4] relative">
+   657→        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   658→          <div className={`reveal ${revealedSections.has('services') ? 'visible' : ''}`} id="services-reveal">
+   659→            <div className="text-center mb-16">
+   660→              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Nos Expertises' : 'خبراتنا'}</span>
+   661→              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>{data.services.title}</h2>
+   662→              <div className="section-divider mx-auto mb-6" />
+   663→              <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.services.subtitle}</p>
+   664→            </div>
+   665→          </div>
+   666→
+   667→          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+   668→            {data.services.items.map((item, i) => (
+   669→              <div key={i} className={`reveal glass-card gradient-border rounded-2xl p-7 md:p-8 group ${revealedSections.has('services') ? 'visible' : ''}`} style={{ transitionDelay: `${i * 80}ms` }}>
+   670→                <div className="icon-container mb-6">{serviceIcons[i]}</div>
+   671→                <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-xl font-bold text-[#0D1F5C] mb-3`}>{item.title}</h3>
+   672→                <p className="text-[#6B7280] text-sm leading-relaxed mb-6">{item.desc}</p>
+   673→                <button onClick={() => scrollTo('contact')} className="inline-flex items-center gap-2 text-[#C9A84C] font-semibold text-sm group-hover:gap-3 transition-all">
+   674→                  {item.cta}
+   675→                  <span className="rtl-flip transition-transform group-hover:translate-x-1">{Icons.arrowRight}</span>
+   676→                </button>
+   677→              </div>
+   678→            ))}
+   679→          </div>
+   680→        </div>
+   681→      </section>
+   682→
+   683→      {/* ══════ Why Us ══════ */}
+   684→      <section id="why" className="py-20 md:py-28 bg-white relative">
+   685→        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   686→          <div className={`reveal ${revealedSections.has('why') ? 'visible' : ''}`} id="why-reveal">
+   687→            <div className="text-center mb-16">
+   688→              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Nos Valeurs' : 'قيمنا'}</span>
+   689→              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>{data.why.title}</h2>
+   690→              <div className="section-divider mx-auto mb-6" />
+   691→              <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.why.subtitle}</p>
+   692→            </div>
+   693→          </div>
+   694→
+   695→          <div className="grid md:grid-cols-3 gap-8">
+   696→            {data.why.items.map((item, i) => (
+   697→              <div key={i} className={`reveal tilt-card bg-white rounded-2xl p-8 md:p-10 text-center shadow-lg shadow-[#0D1F5C]/5 border border-[#E5E7EB]/50 hover:border-[#C9A84C]/30 ${revealedSections.has('why') ? 'visible' : ''}`} style={{ transitionDelay: `${i * 120}ms` }}>
+   698→                <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-[#0D1F5C]/[0.04] text-[#C9A84C] mb-6 transition-all group-hover:bg-[#C9A84C]/10 group-hover:scale-110">
+   699→                  {whyIcons[i]}
+   700→                </div>
+   701→                <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-2xl font-bold text-[#0D1F5C] mb-4`}>{item.title}</h3>
+   702→                <p className="text-[#6B7280] leading-relaxed">{item.desc}</p>
+   703→              </div>
+   704→            ))}
+   705→          </div>
+   706→        </div>
+   707→      </section>
+   708→
+   709→      {/* ══════ Process ══════ */}
+   710→      <section id="process" className="py-24 md:py-32 bg-[#0D1F5C] relative overflow-hidden">
+   711→        <div className="absolute inset-0 hero-pattern opacity-30" />
+   712→        <div className="absolute top-0 left-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+   713→        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+   714→
+   715→        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   716→          <div className={`reveal ${revealedSections.has('process') ? 'visible' : ''}`} id="process-reveal">
+   717→            <div className="text-center mb-16">
+   718→              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Étapes Simples' : 'خطوات بسيطة'}</span>
+   719→              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4`}>{data.process.title}</h2>
+   720→              <div className="section-divider mx-auto mb-6" />
+   721→              <p className="text-white/50 text-lg max-w-2xl mx-auto">{data.process.subtitle}</p>
+   722→            </div>
+   723→          </div>
+   724→
+   725→          <div className="grid md:grid-cols-3 gap-8 relative">
+   726→            {/* Animated connector line */}
+   727→            <div className="hidden md:block absolute top-[88px] left-[20%] right-[20%] h-[2px]">
+   728→              <div className={`h-full bg-gradient-to-r from-[#C9A84C]/30 via-[#C9A84C] to-[#C9A84C]/30 ${revealedSections.has('process') ? 'animate-draw-line' : ''}`} />
+   729→            </div>
+   730→
+   731→            {data.process.steps.map((step, i) => (
+   732→              <div key={i} className={`reveal relative text-center ${revealedSections.has('process') ? 'visible' : ''}`} style={{ transitionDelay: `${i * 150}ms` }}>
+   733→                <div className="relative z-10 inline-flex items-center justify-center w-36 h-36 md:w-40 md:h-40 rounded-full border-4 border-[#C9A84C] bg-[#0D1F5C] text-white mb-6 mx-auto shadow-2xl shadow-[#C9A84C]/15 step-pulse" style={{ animationDelay: `${i * 0.5}s` }}>
+   734→                  <span className="text-4xl md:text-5xl font-bold text-[#C9A84C]">{`0${i + 1}`}</span>
+   735→                </div>
+   736→                <div className="flex justify-center mb-5">
+   737→                  <div className="w-14 h-14 rounded-xl bg-[#C9A84C]/10 border border-[#C9A84C]/20 text-[#C9A84C] flex items-center justify-center">{processStepIcons[i]}</div>
+   738→                </div>
+   739→                <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-xl font-bold text-white mb-3`}>{step.title}</h3>
+   740→                <p className="text-white/60 leading-relaxed max-w-sm mx-auto">{step.desc}</p>
+   741→              </div>
+   742→            ))}
+   743→          </div>
+   744→        </div>
+   745→      </section>
+   746→
+   747→      {/* ══════ Testimonials ══════ */}
+   748→      <section id="testimonials" className="py-20 md:py-28 bg-[#0D1F5C] relative overflow-hidden">
+   749→        <div className="absolute inset-0 hero-pattern opacity-50" />
+   750→        <div className="absolute top-0 left-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+   751→        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+   752→        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   753→          <div className={`reveal ${revealedSections.has('testimonials') ? 'visible' : ''}`} id="testimonials-reveal">
+   754→            <div className="text-center mb-16">
+   755→              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4`}>{data.testimonials.title}</h2>
+   756→              <div className="section-divider mx-auto mb-6" />
+   757→              <p className="text-white/50 text-lg max-w-2xl mx-auto">{data.testimonials.subtitle}</p>
+   758→            </div>
+   759→          </div>
+   760→
+   761→          <div className="grid md:grid-cols-3 gap-8">
+   762→            {data.testimonials.items.map((item, i) => (
+   763→              <div key={i} className={`reveal testimonial-card glass-card-dark rounded-2xl p-8 ${revealedSections.has('testimonials') ? 'visible' : ''}`} style={{ transitionDelay: `${i * 120}ms` }}>
+   764→                <div className="flex gap-1 text-[#C9A84C] mb-5">
+   765→                  {[...Array(5)].map((_, j) => (<span key={j}>{Icons.star}</span>))}
+   766→                </div>
+   767→                <p className="text-white/80 leading-relaxed mb-8 text-sm">{item.text}</p>
+   768→                <div className="flex items-center gap-3 pt-5 border-t border-white/15">
+   769→                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#C9A84C] to-[#B08F35] flex items-center justify-center text-white shadow-lg overflow-hidden">{Icons.person}</div>
+   770→                  <div>
+   771→                    <div className="text-white font-semibold text-sm">{item.name}</div>
+   772→                    <div className="text-white/50 text-xs">{item.role}</div>
+   773→                  </div>
+   774→                </div>
+   775→              </div>
+   776→            ))}
+   777→          </div>
+   778→        </div>
+   779→      </section>
+   780→
+   781→      {/* ══════ Contact ══════ */}
+   782→      <section id="contact" className="py-20 md:py-28 bg-[#F8F7F4] relative">
+   783→        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   784→          <div className={`reveal ${revealedSections.has('contact') ? 'visible' : ''}`} id="contact-reveal">
+   785→            <div className="text-center mb-16">
+   786→              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Écrivez-nous' : 'اكتبوا لنا'}</span>
+   787→              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>{data.contact.title}</h2>
+   788→              <div className="section-divider mx-auto mb-6" />
+   789→              <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.contact.subtitle}</p>
+   790→            </div>
+   791→          </div>
+   792→
+   793→          <div className="grid lg:grid-cols-5 gap-12">
+   794→            <div className={`lg:col-span-3 reveal ${revealedSections.has('contact') ? 'visible' : ''}`}>
+   795→              <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-6 md:p-10 shadow-xl shadow-[#0D1F5C]/5 border border-[#E5E7EB]/50">
+   796→                <div className="grid sm:grid-cols-2 gap-5 mb-5">
+   797→                  <div className="form-field">
+   798→                    <input type="text" required value={formData.firstName} onChange={(e) => setFormData({ ...formData, firstName: e.target.value })} placeholder=" " dir="auto" />
+   799→                    <label>{data.contact.firstName}</label>
+   800→                  </div>
+   801→                  <div className="form-field">
+   802→                    <input type="text" required value={formData.lastName} onChange={(e) => setFormData({ ...formData, lastName: e.target.value })} placeholder=" " dir="auto" />
+   803→                    <label>{data.contact.lastName}</label>
+   804→                  </div>
+   805→                </div>
+   806→                <div className="grid sm:grid-cols-2 gap-5 mb-5">
+   807→                  <div className="form-field">
+   808→                    <input type="tel" required value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} placeholder=" " dir="ltr" />
+   809→                    <label>{data.contact.phone}</label>
+   810→                  </div>
+   811→                  <div className="form-field">
+   812→                    <input type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder=" " dir="ltr" />
+   813→                    <label>{data.contact.email}</label>
+   814→                  </div>
+   815→                </div>
+   816→                <div className="form-field mb-5">
+   817→                  <select required value={formData.insuranceType} onChange={(e) => setFormData({ ...formData, insuranceType: e.target.value })} className={formData.insuranceType ? 'has-value' : ''}>
+   818→                    <option value="">{data.contact.selectType}</option>
+   819→                    {insuranceTypes[lang].map((type, i) => (<option key={i} value={type}>{type}</option>))}
+   820→                  </select>
+   821→                  <label>{data.contact.insuranceType}</label>
+   822→                </div>
+   823→                <div className="form-field mb-6">
+   824→                  <textarea rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} placeholder=" " />
+   825→                  <label>{data.contact.message}</label>
+   826→                </div>
+   827→                <button type="submit" disabled={formStatus === 'sending'} className="w-full bg-[#0D1F5C] hover:bg-[#162572] text-white py-4 rounded-xl font-semibold transition-all hover:shadow-xl hover:shadow-[#0D1F5C]/20 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-base">
+   828→                  {formStatus === 'sending' ? (
+   829→                    <><svg className="animate-spin h-5 w-5" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>{data.contact.sending}</>
+   830→                  ) : (<>{data.contact.send}<span className="rtl-flip">{Icons.arrowRight}</span></>)}
+   831→                </button>
+   832→                {formStatus === 'success' && (<div className="mt-4 p-4 bg-emerald-50 text-emerald-700 rounded-xl text-sm font-medium text-center flex items-center justify-center gap-2">{Icons.check} {data.contact.success}</div>)}
+   833→                {formStatus === 'error' && (<div className="mt-4 p-4 bg-red-50 text-red-700 rounded-xl text-sm font-medium text-center">{data.contact.error}</div>)}
+   834→              </form>
+   835→            </div>
+   836→
+   837→            <div className={`lg:col-span-2 reveal ${revealedSections.has('contact') ? 'visible' : ''}`} style={{ transitionDelay: '200ms' }}>
+   838→              <div className="space-y-5">
+   839→                {[
+   840→                  { href: 'tel:+212662409860', label: lang === 'fr' ? 'Téléphone Personnel' : 'هاتف شخصي', value: '06 62 40 98 60', icon: Icons.phone },
+   841→                  { href: 'tel:+212537838938', label: lang === 'fr' ? 'Téléphone Agence' : 'هاتف الوكالة', value: '05 37 83 89 38', icon: Icons.phone },
+   842→                  { href: 'mailto:oijih.assurance25@gmail.com', label: data.contact.email, value: 'oijih.assurance25@gmail.com', icon: Icons.email },
+   843→                ].map((item, i) => (
+   844→                  <a key={i} href={item.href} className="flex items-start gap-4 p-5 bg-white rounded-xl hover:bg-[#0D1F5C]/[0.02] transition-all group border border-transparent hover:border-[#C9A84C]/20 shadow-sm">
+   845→                    <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1F5C] transition-all shadow-sm">{item.icon}</div>
+   846→                    <div>
+   847→                      <div className="text-sm text-[#6B7280] mb-1">{item.label}</div>
+   848→                      <div className="text-[#0D1F5C] font-semibold text-sm" dir="ltr">{item.value}</div>
+   849→                    </div>
+   850→                  </a>
+   851→                ))}
+   852→
+   853→                <div className="flex items-start gap-4 p-5 bg-white rounded-xl border border-transparent hover:border-[#C9A84C]/20 transition-all shadow-sm">
+   854→                  <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 shadow-sm">{Icons.location}</div>
+   855→                  <div>
+   856→                    <div className="text-sm text-[#6B7280] mb-1">{lang === 'fr' ? 'Adresse' : 'العنوان'}</div>
+   857→                    <div className="text-[#0D1F5C] font-semibold text-sm leading-relaxed">
+   858→                      {lang === 'fr' ? 'N°960, Lotissement Sidi Abdellah, Secteur Al Fath, Laayayda, Salé, Maroc' : 'رقم 960، تجزئة سيدي عبد الله، قطاع الفتح، العيايدة، سلا، المغرب'}
+   859→                    </div>
+   860→                  </div>
+   861→                </div>
+   862→
+   863→                <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 p-4 bg-[#25D366]/10 rounded-xl text-[#25D366] font-semibold hover:bg-[#25D366]/20 transition-all border border-[#25D366]/20">
+   864→                  {Icons.whatsapp}
+   865→                  {lang === 'fr' ? 'Écrivez-nous sur WhatsApp' : 'راسلونا على واتساب'}
+   866→                </a>
+   867→              </div>
+   868→            </div>
+   869→          </div>
+   870→        </div>
+   871→      </section>
+   872→
+   873→      {/* ══════ Google Maps ══════ */}
+   874→      <section id="map" className="py-20 md:py-28 bg-white relative">
+   875→        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   876→          <div className={`reveal ${revealedSections.has('map') ? 'visible' : ''}`} id="map-reveal">
+   877→            <div className="text-center mb-12">
+   878→              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Localisation' : 'الموقع'}</span>
+   879→              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>{data.map.title}</h2>
+   880→              <div className="section-divider mx-auto mb-6" />
+   881→              <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.map.subtitle}</p>
+   882→            </div>
+   883→          </div>
+   884→          <div className={`reveal ${revealedSections.has('map') ? 'visible' : ''}`}>
+   885→            <div className="map-container">
+   886→              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3306.5!2d-6.7985!3d34.0531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDAzJzExLjIiTiA2wrA0Nyc1NC42Ilc!5e0!3m2!1sfr!2sma!4v1" width="100%" height="400" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="OIJIH Assurances Location" className="w-full" />
+   887→            </div>
+   888→            <div className="flex flex-wrap gap-4 mt-8 justify-center">
+   889→              <a href="https://www.google.com/maps/search/?api=1&query=34.0531,-6.7985" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#0D1F5C] hover:bg-[#162572] text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all hover:shadow-xl hover:shadow-[#0D1F5C]/20 hover:-translate-y-0.5">{Icons.externalLink}{data.map.openMaps}</a>
+   890→              <a href="https://www.google.com/maps/dir/?api=1&destination=34.0531,-6.7985" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all hover:shadow-xl hover:shadow-[#C9A84C]/20 hover:-translate-y-0.5">{Icons.location}{data.map.directions}</a>
+   891→            </div>
+   892→          </div>
+   893→        </div>
+   894→      </section>
+   895→
+   896→      {/* ══════ Footer ══════ */}
+   897→      <footer className="bg-[#0D1F5C] pt-16 pb-8 text-white">
+   898→        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   899→          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+   900→            <div className="lg:col-span-1">
+   901→              <img src="/logo-white.png" alt="OIJIH Assurances" className="h-16 md:h-20 w-auto mb-5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]" />
+   902→              <p className="text-white/60 text-sm leading-relaxed mb-2">{data.footer.slogan}</p>
+   903→              <p className="text-[#C9A84C] font-semibold text-sm">{data.footer.tagline}</p>
+   904→            </div>
+   905→            <div>
+   906→              <h4 className="font-semibold text-[#C9A84C] mb-5 text-sm tracking-wider uppercase">{data.footer.quickLinks}</h4>
+   907→              <ul className="space-y-3">
+   908→                {navItems.slice(0, 5).map((item) => (
+   909→                  <li key={item.key}><button onClick={() => scrollTo(item.target)} className="footer-link text-white/50 hover:text-[#C9A84C] text-sm transition-all">{data.nav[item.key as keyof typeof data.nav]}</button></li>
+   910→                ))}
+   911→              </ul>
+   912→            </div>
+   913→            <div>
+   914→              <h4 className="font-semibold text-[#C9A84C] mb-5 text-sm tracking-wider uppercase">{data.footer.contactUs}</h4>
+   915→              <div className="space-y-3 text-sm">
+   916→                <a href="tel:+212662409860" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors" dir="ltr"><span className="text-[#C9A84C]">{Icons.phone}</span> 06 62 40 98 60</a>
+   917→                <a href="tel:+212537838938" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors" dir="ltr"><span className="text-[#C9A84C]">{Icons.phone}</span> 05 37 83 89 38</a>
+   918→                <a href="mailto:oijih.assurance25@gmail.com" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors" dir="ltr"><span className="text-[#C9A84C]">{Icons.email}</span> oijih.assurance25@gmail.com</a>
+   919→                <div className="flex items-start gap-3 text-white/50 pt-1">
+   920→                  <span className="text-[#C9A84C] mt-0.5">{Icons.location}</span>
+   921→                  <span className="text-xs leading-relaxed">{lang === 'fr' ? 'N°960, Lot. Sidi Abdellah, Al Fath, Laayayda, Salé' : 'رقم 960، تجزئة سيدي عبد الله، الفتح، العيايدة، سلا'}</span>
+   922→                </div>
+   923→              </div>
+   924→            </div>
+   925→            <div>
+   926→              <h4 className="font-semibold text-[#C9A84C] mb-5 text-sm tracking-wider uppercase">{lang === 'fr' ? 'Suivez-nous' : 'تابعونا'}</h4>
+   927→              <div className="flex gap-3">
+   928→                {[Icons.facebook, Icons.instagram, Icons.linkedin].map((icon, i) => (
+   929→                  <a key={i} href="#" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#C9A84C] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#C9A84C]">{icon}</a>
+   930→                ))}
+   931→                <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#25D366] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#25D366]">{Icons.whatsapp}</a>
+   932→              </div>
+   933→              <div className="mt-6 flex flex-wrap gap-2">
+   934→                {(lang === 'fr' ? ['Confiance', 'Proximité', 'Engagement'] : ['الثقة', 'القرب', 'الالتزام']).map((v, i) => (
+   935→                  <span key={i} className="text-xs bg-white/[0.06] text-[#C9A84C] px-3 py-1.5 rounded-full border border-white/[0.06]">{v}</span>
+   936→                ))}
+   937→              </div>
+   938→            </div>
+   939→          </div>
+   940→          <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+   941→            <p className="text-white/30 text-sm">&copy; {new Date().getFullYear()} OIJIH Assurances / تأمينات وجيه. {data.footer.rights}</p>
+   942→            <p className="text-white/20 text-xs">{lang === 'fr' ? 'Courtier d\'assurance agréé à Salé, Maroc' : 'وكيل تأمين معتمد في سلا، المغرب'}</p>
+   943→          </div>
+   944→        </div>
+   945→      </footer>
+   946→
+   947→      {/* ══════ Floating WhatsApp ══════ */}
+   948→      <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="whatsapp-btn fixed bottom-6 z-50 w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-2xl shadow-[#25D366]/30" style={{ [isRTL ? 'left' : 'right']: '1.5rem' }} aria-label="WhatsApp">
+   949→        {Icons.whatsapp}
+   950→      </a>
+   951→
+   952→      {/* ══════ Back to Top ══════ */}
+   953→      {showBackToTop && (
+   954→        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="back-to-top fixed bottom-24 z-50 w-12 h-12 bg-[#C9A84C] hover:bg-[#B08F35] rounded-full flex items-center justify-center text-white shadow-lg shadow-[#C9A84C]/30" style={{ [isRTL ? 'left' : 'right']: '1.75rem' }} aria-label="Back to top">
+   955→          {Icons.arrowUp}
+   956→        </button>
+   957→      )}
+   958→    </div>
+   959→  );
+   960→}
+
+[showing lines 401-960 of 961; use offset=961 with limit to continue reading]

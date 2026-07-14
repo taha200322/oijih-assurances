@@ -1,14 +1,11 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
+# OIJIH Assurances - robots.txt
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /_next/
+
+# Sitemap
+Sitemap: https://oijih-assurances.ma/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1

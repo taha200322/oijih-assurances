@@ -12,6 +12,7 @@ const t = {
       avantages: 'Avantages',
       processus: 'Processus',
       temoignages: 'Témoignages',
+      faq: 'FAQ',
       contact: 'Contact',
       cta: 'Devis Gratuit',
     },
@@ -23,10 +24,12 @@ const t = {
       btnCall: 'Appelez-nous',
       stat1Val: '500+',
       stat1Label: 'Clients Satisfaits',
-      stat2Val: '10+',
+      stat2Val: '20+',
       stat2Label: 'Ans d\'Expérience',
       stat3Val: '24h',
       stat3Label: 'Réponse Rapide',
+      stat4Val: '15+',
+      stat4Label: 'Compagnies Partenaires',
     },
     services: {
       title: 'Nos Services',
@@ -44,7 +47,7 @@ const t = {
       title: 'Pourquoi Nous Choisir ?',
       subtitle: 'Des valeurs qui font la différence dans votre protection',
       items: [
-        { title: 'Confiance', desc: 'Depuis plus de 10 ans, nous bâtissons des relations durables fondées sur la transparence et l\'honnêteté. Nos clients nous confient ce qu\'ils ont de plus précieux, et nous honorons cette confiance chaque jour par notre engagement sans faille.' },
+        { title: 'Confiance', desc: 'Forts de plus de 20 ans d\'expérience, nous bâtissons des relations durables fondées sur la transparence et l\'honnêteté. Nos clients nous confient ce qu\'ils ont de plus précieux, et nous honorons cette confiance chaque jour par notre engagement sans faille.' },
         { title: 'Proximité', desc: 'Implantés au cœur de Salé, nous sommes à vos côtés à chaque étape. Un conseiller dédié, joignable et réactif, qui comprend vos besoins locaux et vous accompagne personnellement dans toutes vos démarches d\'assurance.' },
         { title: 'Engagement', desc: 'Nous nous engageons à vous offrir le meilleur rapport couverture-prix du marché. En cas de sinistre, notre réactivité et notre accompagnement font toute la différence pour une prise en charge rapide et efficace.' },
       ],
@@ -88,6 +91,17 @@ const t = {
       openMaps: 'Ouvrir dans Google Maps',
       directions: 'Itinéraire',
     },
+    faq: {
+      title: 'Questions Fréquentes',
+      subtitle: 'Tout ce que vous devez savoir sur nos services',
+      items: [
+        { q: 'Quels types d\'assurance proposez-vous ?', a: 'Nous proposons une gamme complète : assurance auto, habitation, multirisque, santé, entreprise et voyage. Chaque contrat est personnalisé selon vos besoins spécifiques et votre budget.' },
+        { q: 'Combien de temps faut-il pour obtenir un devis ?', a: 'Nous nous engageons à vous répondre sous 24 heures. Dans la plupart des cas, vous recevez votre devis gratuit le jour même de votre demande.' },
+        { q: 'Que faire en cas de sinistre ?', a: 'Contactez-nous immédiatement par téléphone ou WhatsApp. Notre équipe vous guide étape par étape et assure un suivi complet jusqu\'au règlement de votre dossier.' },
+        { q: 'Proposez-vous des tarifs pour les entreprises ?', a: 'Oui, nous offrons des solutions sur mesure pour les professionnels et entreprises : multirisque professionnelle, flotte automobile, responsabilité civile et couverture des employés.' },
+        { q: 'Quelles compagnies d\'assurance représentez-vous ?', a: 'Nous travaillons avec plus de 15 compagnies d\'assurance de premier plan au Maroc, ce qui nous permet de vous proposer les meilleures garanties aux tarifs les plus compétitifs.' },
+      ],
+    },
     footer: {
       slogan: 'Ce qui compte pour vous, compte pour nous',
       tagline: 'L\'assurance de votre sécurité',
@@ -106,6 +120,7 @@ const t = {
       avantages: 'المزايا',
       processus: 'المراحل',
       temoignages: 'آراء العملاء',
+      faq: 'الأسئلة الشائعة',
       contact: 'اتصل بنا',
       cta: 'عرض مجاني',
     },
@@ -117,10 +132,12 @@ const t = {
       btnCall: 'اتصل بنا',
       stat1Val: '+500',
       stat1Label: 'عميل راضٍ',
-      stat2Val: '+10',
+      stat2Val: '+20',
       stat2Label: 'سنوات خبرة',
       stat3Val: '24س',
       stat3Label: 'رد سريع',
+      stat4Val: '+15',
+      stat4Label: 'شريك تأمين',
     },
     services: {
       title: 'خدماتنا',
@@ -138,7 +155,7 @@ const t = {
       title: 'لماذا تختارنا ؟',
       subtitle: 'قيم تصنع الفرق في حمايتكم',
       items: [
-        { title: 'الثقة', desc: 'منذ أكثر من 10 سنوات، نبني علاقات دائمة قائمة على الشفافية والصدق. عملاؤنا يأتمنوننا على أغلى ما يملكون، ونحن نكرم هذه الثقة كل يوم بالتزامنا الذي لا يتزعزع.' },
+        { title: 'الثقة', desc: 'بخبرة تتجاوز 20 سنة، نبني علاقات دائمة قائمة على الشفافية والصدق. عملاؤنا يأتمنوننا على أغلى ما يملكون، ونحن نكرم هذه الثقة كل يوم بالتزامنا الذي لا يتزعزع.' },
         { title: 'القرب', desc: 'متواجدون في قلب سلا، نحن بجانبكم في كل مرحلة. مستشار مخصص، متاح ومتفاعل، يفهم احتياجاتكم المحلية ويرافقكم شخصياً في جميع إجراءات التأمين.' },
         { title: 'الالتزام', desc: 'نلتزم بتقديم أفضل نسبة تغطية-سعر في السوق. في حالة حادث سينستر، تفاعلنا ومرافقتنا يصنعان الفرق لأخذ عهد سريع وفعال.' },
       ],
@@ -181,6 +198,17 @@ const t = {
       subtitle: 'تعالوا لقائنا في مقرنا',
       openMaps: 'فتح في خرائط جوجل',
       directions: 'الاتجاهات',
+    },
+    faq: {
+      title: 'الأسئلة الشائعة',
+      subtitle: 'كل ما تحتاجون معرفته عن خدماتنا',
+      items: [
+        { q: 'ما هي أنواع التأمين التي تقدمونها؟', a: 'نقدم مجموعة شاملة: تأمين السيارة والسكن ومتعدد المخاطر والصحة والمؤسسات والسفر. كل عقد مخصص حسب احتياجاتكم وميزانيتكم.' },
+        { q: 'كم يستغرق الحصول على عرض؟', a: 'نلتزم بالرد خلال 24 ساعة. في معظم الحالات، تتلقون عرضكم المجاني في نفس يوم طلبكم.' },
+        { q: 'ماذا أفعل في حالة حادث؟', a: 'اتصلوا بنا فوراً هاتفياً أو عبر واتساب. فريقنا يرافقكم خطوة بخطوة ويضمن متابعة كاملة حتى تسوية ملفكم.' },
+        { q: 'هل تقدمون أسعاراً للمؤسسات؟', a: 'نعم، نقدم حلولاً مخصصة للمهنيين والمؤسسات: التأمين متعدد المخاطر المهنية وأسطول السيارات والمسؤولية المدنية وتغطية الموظفين.' },
+        { q: 'أي شركات تأمين تمثلون؟', a: 'نعمل مع أكثر من 15 شركة تأمين رائدة في المغرب، مما يتيح لنا تقديم أفضل الضمانات بأسعار تنافسية.' },
+      ],
     },
     footer: {
       slogan: 'ما يهمكم، يهمنا',
@@ -413,6 +441,35 @@ function WaveDivider({ color, flip }: { color: string; flip?: boolean }) {
   );
 }
 
+/* ────────────────────────────── FAQ Accordion Item ────────────────────────────── */
+
+function FaqItem({ question, answer, isRTL, index }: { question: string; answer: string; isRTL: boolean; index: number }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div
+      className={`border border-[#0D1F5C]/10 rounded-2xl overflow-hidden transition-all duration-300 ${open ? 'shadow-lg shadow-[#0D1F5C]/5 border-[#A8875A]/30' : 'hover:border-[#0D1F5C]/20'}`}
+      style={{ animationDelay: `${index * 0.1}s` }}
+    >
+      <button
+        onClick={() => setOpen(!open)}
+        className={`w-full flex items-center justify-between px-6 py-5 text-left transition-colors duration-200 ${open ? 'bg-[#0D1F5C]/[0.03]' : 'hover:bg-[#0D1F5C]/[0.02]'}`}
+      >
+        <span className={`font-semibold text-[#0D1F5C] ${isRTL ? 'font-[var(--font-cairo)] text-right' : 'font-[var(--font-inter)]'} pr-4`}>
+          {question}
+        </span>
+        <span className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${open ? 'bg-[#A8875A] text-white rotate-180' : 'bg-[#0D1F5C]/5 text-[#0D1F5C]'}`}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </span>
+      </button>
+      <div className={`transition-all duration-300 ease-in-out ${open ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
+        <div className={`px-6 pb-5 text-[#0D1F5C]/70 leading-relaxed ${isRTL ? 'font-[var(--font-cairo)] text-right' : 'font-[var(--font-inter)]'}`}>
+          {answer}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ────────────────────────────── Main Component ────────────────────────────── */
 
 export default function Home() {
@@ -440,7 +497,7 @@ export default function Home() {
       setScrolled(scrollTop > 20);
       setShowBackToTop(scrollTop > 600);
 
-      const sections = ['hero', 'services', 'why', 'process', 'testimonials', 'contact'];
+      const sections = ['hero', 'services', 'why', 'process', 'testimonials', 'faq', 'contact'];
       for (const id of [...sections].reverse()) {
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top <= 150) {
@@ -458,7 +515,7 @@ export default function Home() {
     document.documentElement.lang = lang;
     document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
     document.title = lang === 'fr'
-      ? 'OIJIH Assurances – Courtier Assurance à Salé, Maroc | Devis Gratuit'
+      ? 'OIJIH Assurances – Courtier Assurance à Salé, Maroc | +20 Ans d\'Expérience | Devis Gratuit'
       : 'تأمينات وجيه – وكيل تأمين في سلا، المغرب | عرض مجاني';
   }, [lang, isRTL]);
 
@@ -504,7 +561,7 @@ export default function Home() {
     }
   };
 
-  const whatsappLink = `https://wa.me/212660385429?text=${encodeURIComponent(data.whatsapp.message)}`;
+  const whatsappLink = `https://wa.me/212662409860?text=${encodeURIComponent(data.whatsapp.message)}`;
 
   const navItems = [
     { key: 'accueil', target: 'hero' },
@@ -512,6 +569,7 @@ export default function Home() {
     { key: 'avantages', target: 'why' },
     { key: 'processus', target: 'process' },
     { key: 'temoignages', target: 'testimonials' },
+    { key: 'faq', target: 'faq' },
     { key: 'contact', target: 'contact' },
   ];
 
@@ -542,29 +600,29 @@ export default function Home() {
                   onClick={() => scrollTo(item.target)}
                   className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${
                     activeSection === item.target
-                      ? 'text-[#C9A84C]'
+                      ? 'text-[#A8875A]'
                       : scrolled
-                        ? 'text-[#0D1F5C] hover:text-[#C9A84C]'
-                        : 'text-white/80 hover:text-[#C9A84C]'
+                        ? 'text-[#0D1F5C] hover:text-[#A8875A]'
+                        : 'text-white/80 hover:text-[#A8875A]'
                   }`}
                 >
                   {data.nav[item.key as keyof typeof data.nav]}
                   {activeSection === item.target && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-[#C9A84C] rounded-full" />
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-[#A8875A] rounded-full" />
                   )}
                 </button>
               ))}
             </div>
 
             <div className="flex items-center gap-3">
-              <div className={`lang-switch ${!scrolled ? 'border-white/30 hover:border-white/50' : 'border-[#0D1F5C]/20 hover:border-[#C9A84C]'}`}>
+              <div className={`lang-switch ${!scrolled ? 'border-white/30 hover:border-white/50' : 'border-[#0D1F5C]/20 hover:border-[#A8875A]'}`}>
                 <button onClick={() => setLang('fr')} className={`lang-btn ${lang === 'fr' ? 'lang-btn-active' : ''} ${!scrolled && lang !== 'fr' ? 'text-white/70' : ''}`}>FR</button>
                 <button onClick={() => setLang('ar')} className={`lang-btn ${lang === 'ar' ? 'lang-btn-active' : ''} ${!scrolled && lang !== 'ar' ? 'text-white/70' : ''}`}>AR</button>
               </div>
-              <button onClick={() => scrollTo('contact')} className="hidden md:inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all hover:shadow-lg hover:shadow-[#C9A84C]/25 hover:-translate-y-0.5 active:translate-y-0">
+              <button onClick={() => scrollTo('contact')} className="hidden md:inline-flex items-center gap-2 bg-[#A8875A] hover:bg-[#8C6F47] text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all hover:shadow-lg hover:shadow-[#A8875A]/25 hover:-translate-y-0.5 active:translate-y-0">
                 {data.nav.cta}
               </button>
-              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className={`lg:hidden p-2 transition-colors ${scrolled ? 'text-[#0D1F5C] hover:text-[#C9A84C]' : 'text-white hover:text-[#C9A84C]'}`}>
+              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className={`lg:hidden p-2 transition-colors ${scrolled ? 'text-[#0D1F5C] hover:text-[#A8875A]' : 'text-white hover:text-[#A8875A]'}`}>
                 {mobileMenuOpen ? Icons.close : Icons.menu}
               </button>
             </div>
@@ -575,11 +633,11 @@ export default function Home() {
         <div className={`lg:hidden absolute top-full left-0 right-0 bg-white shadow-2xl transition-all duration-300 ${mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}`}>
           <div className="px-4 py-6 space-y-2">
             {navItems.map((item) => (
-              <button key={item.key} onClick={() => scrollTo(item.target)} className={`block w-full text-left rtl:text-right py-3 px-4 rounded-xl font-medium transition-all ${activeSection === item.target ? 'text-[#C9A84C] bg-[#C9A84C]/5' : 'text-[#0D1F5C] hover:text-[#C9A84C] hover:bg-[#C9A84C]/5'}`}>
+              <button key={item.key} onClick={() => scrollTo(item.target)} className={`block w-full text-left rtl:text-right py-3 px-4 rounded-xl font-medium transition-all ${activeSection === item.target ? 'text-[#A8875A] bg-[#A8875A]/5' : 'text-[#0D1F5C] hover:text-[#A8875A] hover:bg-[#A8875A]/5'}`}>
                 {data.nav[item.key as keyof typeof data.nav]}
               </button>
             ))}
-            <button onClick={() => scrollTo('contact')} className="w-full bg-[#C9A84C] hover:bg-[#B08F35] text-white px-5 py-3.5 rounded-xl text-sm font-semibold transition-all mt-2">{data.nav.cta}</button>
+            <button onClick={() => scrollTo('contact')} className="w-full bg-[#A8875A] hover:bg-[#8C6F47] text-white px-5 py-3.5 rounded-xl text-sm font-semibold transition-all mt-2">{data.nav.cta}</button>
           </div>
         </div>
       </nav>
@@ -591,8 +649,8 @@ export default function Home() {
         <div className="absolute inset-0 hero-particles" />
 
         {/* Floating decorative orbs */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-[#C9A84C]/5 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl animate-float-slow" />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-[#A8875A]/5 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#A8875A]/5 rounded-full blur-3xl animate-float-slow" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-white/[0.03] rounded-full" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-white/[0.03] rounded-full" />
 
@@ -606,7 +664,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in-up">
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-5 py-2.5 rounded-full mb-8 border border-white/10">
-                <span className="w-2 h-2 bg-[#C9A84C] rounded-full animate-pulse" />
+                <span className="w-2 h-2 bg-[#A8875A] rounded-full animate-pulse" />
                 <span className="text-white/80 text-sm font-medium">{lang === 'fr' ? 'L\'assurance de votre sécurité' : 'ضمانك وأمانك'}</span>
               </div>
 
@@ -621,7 +679,7 @@ export default function Home() {
               </p>
 
               <div className="flex flex-wrap gap-4 mb-14 animate-fade-in" style={{ animationDelay: '0.9s' }}>
-                <button onClick={() => scrollTo('contact')} className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-8 py-4 rounded-full font-semibold transition-all hover:shadow-2xl hover:shadow-[#C9A84C]/30 hover:-translate-y-1 active:translate-y-0">
+                <button onClick={() => scrollTo('contact')} className="inline-flex items-center gap-2 bg-[#A8875A] hover:bg-[#8C6F47] text-white px-8 py-4 rounded-full font-semibold transition-all hover:shadow-2xl hover:shadow-[#A8875A]/30 hover:-translate-y-1 active:translate-y-0">
                   {data.hero.btnDevis}
                   <span className="rtl-flip">{Icons.arrowRight}</span>
                 </button>
@@ -632,10 +690,14 @@ export default function Home() {
               </div>
 
               {/* Stats — glassmorphism cards */}
-              <div className="grid grid-cols-3 gap-4 max-w-lg animate-fade-in" style={{ animationDelay: '1.1s' }}>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-2xl animate-fade-in" style={{ animationDelay: '1.1s' }}>
                 <AnimatedCounter end={500} suffix="+" label={data.hero.stat1Label} />
-                <AnimatedCounter end={10} suffix="+" label={data.hero.stat2Label} />
-                <AnimatedCounter end={24} suffix="h" label={data.hero.stat3Label} />
+                <AnimatedCounter end={20} suffix="+" label={data.hero.stat2Label} />
+                <div ref={null} className="hero-stat-card px-4 py-4 text-center">
+                  <div className="text-2xl md:text-3xl font-bold gradient-text mb-1">24h</div>
+                  <div className="text-white/60 text-xs sm:text-sm font-medium">{data.hero.stat3Label}</div>
+                </div>
+                <AnimatedCounter end={15} suffix="+" label={data.hero.stat4Label} />
               </div>
             </div>
 
@@ -643,7 +705,7 @@ export default function Home() {
             <div className="hidden lg:flex justify-center items-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
               <div className="relative">
                 <img src="/logo-navy.png" alt="OIJIH Assurances" className="w-[340px] md:w-[420px] h-auto drop-shadow-[0_20px_60px_rgba(0,0,0,0.4)] animate-float rounded-2xl" />
-                <div className="absolute inset-0 bg-[#C9A84C]/8 rounded-2xl blur-3xl scale-110 -z-10" />
+                <div className="absolute inset-0 bg-[#A8875A]/8 rounded-2xl blur-3xl scale-110 -z-10" />
               </div>
             </div>
           </div>
@@ -657,7 +719,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`reveal ${revealedSections.has('services') ? 'visible' : ''}`} id="services-reveal">
             <div className="text-center mb-16">
-              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Nos Expertises' : 'خبراتنا'}</span>
+              <span className="inline-block text-[#A8875A] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Nos Expertises' : 'خبراتنا'}</span>
               <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>{data.services.title}</h2>
               <div className="section-divider mx-auto mb-6" />
               <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.services.subtitle}</p>
@@ -670,7 +732,7 @@ export default function Home() {
                 <div className="icon-container mb-6">{serviceIcons[i]}</div>
                 <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-xl font-bold text-[#0D1F5C] mb-3`}>{item.title}</h3>
                 <p className="text-[#6B7280] text-sm leading-relaxed mb-6">{item.desc}</p>
-                <button onClick={() => scrollTo('contact')} className="inline-flex items-center gap-2 text-[#C9A84C] font-semibold text-sm group-hover:gap-3 transition-all">
+                <button onClick={() => scrollTo('contact')} className="inline-flex items-center gap-2 text-[#A8875A] font-semibold text-sm group-hover:gap-3 transition-all">
                   {item.cta}
                   <span className="rtl-flip transition-transform group-hover:translate-x-1">{Icons.arrowRight}</span>
                 </button>
@@ -685,7 +747,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`reveal ${revealedSections.has('why') ? 'visible' : ''}`} id="why-reveal">
             <div className="text-center mb-16">
-              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Nos Valeurs' : 'قيمنا'}</span>
+              <span className="inline-block text-[#A8875A] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Nos Valeurs' : 'قيمنا'}</span>
               <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>{data.why.title}</h2>
               <div className="section-divider mx-auto mb-6" />
               <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.why.subtitle}</p>
@@ -694,8 +756,8 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {data.why.items.map((item, i) => (
-              <div key={i} className={`reveal tilt-card bg-white rounded-2xl p-8 md:p-10 text-center shadow-lg shadow-[#0D1F5C]/5 border border-[#E5E7EB]/50 hover:border-[#C9A84C]/30 ${revealedSections.has('why') ? 'visible' : ''}`} style={{ transitionDelay: `${i * 120}ms` }}>
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-[#0D1F5C]/[0.04] text-[#C9A84C] mb-6 transition-all group-hover:bg-[#C9A84C]/10 group-hover:scale-110">
+              <div key={i} className={`reveal tilt-card bg-white rounded-2xl p-8 md:p-10 text-center shadow-lg shadow-[#0D1F5C]/5 border border-[#E5E7EB]/50 hover:border-[#A8875A]/30 ${revealedSections.has('why') ? 'visible' : ''}`} style={{ transitionDelay: `${i * 120}ms` }}>
+                <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-[#0D1F5C]/[0.04] text-[#A8875A] mb-6 transition-all group-hover:bg-[#A8875A]/10 group-hover:scale-110">
                   {whyIcons[i]}
                 </div>
                 <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-2xl font-bold text-[#0D1F5C] mb-4`}>{item.title}</h3>
@@ -709,13 +771,13 @@ export default function Home() {
       {/* ══════ Process ══════ */}
       <section id="process" className="py-24 md:py-32 bg-[#0D1F5C] relative overflow-hidden">
         <div className="absolute inset-0 hero-pattern opacity-30" />
-        <div className="absolute top-0 left-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-0 w-96 h-96 bg-[#A8875A]/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#A8875A]/5 rounded-full blur-3xl" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`reveal ${revealedSections.has('process') ? 'visible' : ''}`} id="process-reveal">
             <div className="text-center mb-16">
-              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Étapes Simples' : 'خطوات بسيطة'}</span>
+              <span className="inline-block text-[#A8875A] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Étapes Simples' : 'خطوات بسيطة'}</span>
               <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4`}>{data.process.title}</h2>
               <div className="section-divider mx-auto mb-6" />
               <p className="text-white/50 text-lg max-w-2xl mx-auto">{data.process.subtitle}</p>
@@ -725,16 +787,16 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8 relative">
             {/* Animated connector line */}
             <div className="hidden md:block absolute top-[88px] left-[20%] right-[20%] h-[2px]">
-              <div className={`h-full bg-gradient-to-r from-[#C9A84C]/30 via-[#C9A84C] to-[#C9A84C]/30 ${revealedSections.has('process') ? 'animate-draw-line' : ''}`} />
+              <div className={`h-full bg-gradient-to-r from-[#A8875A]/30 via-[#A8875A] to-[#A8875A]/30 ${revealedSections.has('process') ? 'animate-draw-line' : ''}`} />
             </div>
 
             {data.process.steps.map((step, i) => (
               <div key={i} className={`reveal relative text-center ${revealedSections.has('process') ? 'visible' : ''}`} style={{ transitionDelay: `${i * 150}ms` }}>
-                <div className="relative z-10 inline-flex items-center justify-center w-36 h-36 md:w-40 md:h-40 rounded-full border-4 border-[#C9A84C] bg-[#0D1F5C] text-white mb-6 mx-auto shadow-2xl shadow-[#C9A84C]/15 step-pulse" style={{ animationDelay: `${i * 0.5}s` }}>
-                  <span className="text-4xl md:text-5xl font-bold text-[#C9A84C]">{`0${i + 1}`}</span>
+                <div className="relative z-10 inline-flex items-center justify-center w-36 h-36 md:w-40 md:h-40 rounded-full border-4 border-[#A8875A] bg-[#0D1F5C] text-white mb-6 mx-auto shadow-2xl shadow-[#A8875A]/15 step-pulse" style={{ animationDelay: `${i * 0.5}s` }}>
+                  <span className="text-4xl md:text-5xl font-bold text-[#A8875A]">{`0${i + 1}`}</span>
                 </div>
                 <div className="flex justify-center mb-5">
-                  <div className="w-14 h-14 rounded-xl bg-[#C9A84C]/10 border border-[#C9A84C]/20 text-[#C9A84C] flex items-center justify-center">{processStepIcons[i]}</div>
+                  <div className="w-14 h-14 rounded-xl bg-[#A8875A]/10 border border-[#A8875A]/20 text-[#A8875A] flex items-center justify-center">{processStepIcons[i]}</div>
                 </div>
                 <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-xl font-bold text-white mb-3`}>{step.title}</h3>
                 <p className="text-white/60 leading-relaxed max-w-sm mx-auto">{step.desc}</p>
@@ -747,8 +809,8 @@ export default function Home() {
       {/* ══════ Testimonials ══════ */}
       <section id="testimonials" className="py-20 md:py-28 bg-[#0D1F5C] relative overflow-hidden">
         <div className="absolute inset-0 hero-pattern opacity-50" />
-        <div className="absolute top-0 left-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-0 w-96 h-96 bg-[#A8875A]/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#A8875A]/5 rounded-full blur-3xl" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`reveal ${revealedSections.has('testimonials') ? 'visible' : ''}`} id="testimonials-reveal">
             <div className="text-center mb-16">
@@ -761,12 +823,12 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8">
             {data.testimonials.items.map((item, i) => (
               <div key={i} className={`reveal testimonial-card glass-card-dark rounded-2xl p-8 ${revealedSections.has('testimonials') ? 'visible' : ''}`} style={{ transitionDelay: `${i * 120}ms` }}>
-                <div className="flex gap-1 text-[#C9A84C] mb-5">
+                <div className="flex gap-1 text-[#A8875A] mb-5">
                   {[...Array(5)].map((_, j) => (<span key={j}>{Icons.star}</span>))}
                 </div>
                 <p className="text-white/80 leading-relaxed mb-8 text-sm">{item.text}</p>
                 <div className="flex items-center gap-3 pt-5 border-t border-white/15">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#C9A84C] to-[#B08F35] flex items-center justify-center text-white shadow-lg overflow-hidden">{Icons.person}</div>
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#A8875A] to-[#8C6F47] flex items-center justify-center text-white shadow-lg overflow-hidden">{Icons.person}</div>
                   <div>
                     <div className="text-white font-semibold text-sm">{item.name}</div>
                     <div className="text-white/50 text-xs">{item.role}</div>
@@ -783,7 +845,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`reveal ${revealedSections.has('contact') ? 'visible' : ''}`} id="contact-reveal">
             <div className="text-center mb-16">
-              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Écrivez-nous' : 'اكتبوا لنا'}</span>
+              <span className="inline-block text-[#A8875A] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Écrivez-nous' : 'اكتبوا لنا'}</span>
               <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>{data.contact.title}</h2>
               <div className="section-divider mx-auto mb-6" />
               <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.contact.subtitle}</p>
@@ -841,8 +903,8 @@ export default function Home() {
                   { href: 'tel:+212537838938', label: lang === 'fr' ? 'Téléphone Agence' : 'هاتف الوكالة', value: '05 37 83 89 38', icon: Icons.phone },
                   { href: 'mailto:oijih.assurance25@gmail.com', label: data.contact.email, value: 'oijih.assurance25@gmail.com', icon: Icons.email },
                 ].map((item, i) => (
-                  <a key={i} href={item.href} className="flex items-start gap-4 p-5 bg-white rounded-xl hover:bg-[#0D1F5C]/[0.02] transition-all group border border-transparent hover:border-[#C9A84C]/20 shadow-sm">
-                    <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1F5C] transition-all shadow-sm">{item.icon}</div>
+                  <a key={i} href={item.href} className="flex items-start gap-4 p-5 bg-white rounded-xl hover:bg-[#0D1F5C]/[0.02] transition-all group border border-transparent hover:border-[#A8875A]/20 shadow-sm">
+                    <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#A8875A] flex items-center justify-center shrink-0 group-hover:bg-[#A8875A] group-hover:text-[#0D1F5C] transition-all shadow-sm">{item.icon}</div>
                     <div>
                       <div className="text-sm text-[#6B7280] mb-1">{item.label}</div>
                       <div className="text-[#0D1F5C] font-semibold text-sm" dir="ltr">{item.value}</div>
@@ -850,8 +912,8 @@ export default function Home() {
                   </a>
                 ))}
 
-                <div className="flex items-start gap-4 p-5 bg-white rounded-xl border border-transparent hover:border-[#C9A84C]/20 transition-all shadow-sm">
-                  <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 shadow-sm">{Icons.location}</div>
+                <div className="flex items-start gap-4 p-5 bg-white rounded-xl border border-transparent hover:border-[#A8875A]/20 transition-all shadow-sm">
+                  <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#A8875A] flex items-center justify-center shrink-0 shadow-sm">{Icons.location}</div>
                   <div>
                     <div className="text-sm text-[#6B7280] mb-1">{lang === 'fr' ? 'Adresse' : 'العنوان'}</div>
                     <div className="text-[#0D1F5C] font-semibold text-sm leading-relaxed">
@@ -875,7 +937,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`reveal ${revealedSections.has('map') ? 'visible' : ''}`} id="map-reveal">
             <div className="text-center mb-12">
-              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Localisation' : 'الموقع'}</span>
+              <span className="inline-block text-[#A8875A] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Localisation' : 'الموقع'}</span>
               <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>{data.map.title}</h2>
               <div className="section-divider mx-auto mb-6" />
               <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.map.subtitle}</p>
@@ -887,7 +949,7 @@ export default function Home() {
             </div>
             <div className="flex flex-wrap gap-4 mt-8 justify-center">
               <a href="https://www.google.com/maps/search/?api=1&query=34.0531,-6.7985" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#0D1F5C] hover:bg-[#162572] text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all hover:shadow-xl hover:shadow-[#0D1F5C]/20 hover:-translate-y-0.5">{Icons.externalLink}{data.map.openMaps}</a>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=34.0531,-6.7985" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all hover:shadow-xl hover:shadow-[#C9A84C]/20 hover:-translate-y-0.5">{Icons.location}{data.map.directions}</a>
+              <a href="https://www.google.com/maps/dir/?api=1&destination=34.0531,-6.7985" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#A8875A] hover:bg-[#8C6F47] text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all hover:shadow-xl hover:shadow-[#A8875A]/20 hover:-translate-y-0.5">{Icons.location}{data.map.directions}</a>
             </div>
           </div>
         </div>
@@ -900,39 +962,39 @@ export default function Home() {
             <div className="lg:col-span-1">
               <img src="/logo-white.png" alt="OIJIH Assurances" className="h-16 md:h-20 w-auto mb-5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]" />
               <p className="text-white/60 text-sm leading-relaxed mb-2">{data.footer.slogan}</p>
-              <p className="text-[#C9A84C] font-semibold text-sm">{data.footer.tagline}</p>
+              <p className="text-[#A8875A] font-semibold text-sm">{data.footer.tagline}</p>
             </div>
             <div>
-              <h4 className="font-semibold text-[#C9A84C] mb-5 text-sm tracking-wider uppercase">{data.footer.quickLinks}</h4>
+              <h4 className="font-semibold text-[#A8875A] mb-5 text-sm tracking-wider uppercase">{data.footer.quickLinks}</h4>
               <ul className="space-y-3">
                 {navItems.slice(0, 5).map((item) => (
-                  <li key={item.key}><button onClick={() => scrollTo(item.target)} className="footer-link text-white/50 hover:text-[#C9A84C] text-sm transition-all">{data.nav[item.key as keyof typeof data.nav]}</button></li>
+                  <li key={item.key}><button onClick={() => scrollTo(item.target)} className="footer-link text-white/50 hover:text-[#A8875A] text-sm transition-all">{data.nav[item.key as keyof typeof data.nav]}</button></li>
                 ))}
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-[#C9A84C] mb-5 text-sm tracking-wider uppercase">{data.footer.contactUs}</h4>
+              <h4 className="font-semibold text-[#A8875A] mb-5 text-sm tracking-wider uppercase">{data.footer.contactUs}</h4>
               <div className="space-y-3 text-sm">
-                <a href="tel:+212662409860" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors" dir="ltr"><span className="text-[#C9A84C]">{Icons.phone}</span> 06 62 40 98 60</a>
-                <a href="tel:+212537838938" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors" dir="ltr"><span className="text-[#C9A84C]">{Icons.phone}</span> 05 37 83 89 38</a>
-                <a href="mailto:oijih.assurance25@gmail.com" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors" dir="ltr"><span className="text-[#C9A84C]">{Icons.email}</span> oijih.assurance25@gmail.com</a>
+                <a href="tel:+212662409860" className="flex items-center gap-3 text-white/50 hover:text-[#A8875A] transition-colors" dir="ltr"><span className="text-[#A8875A]">{Icons.phone}</span> 06 62 40 98 60</a>
+                <a href="tel:+212537838938" className="flex items-center gap-3 text-white/50 hover:text-[#A8875A] transition-colors" dir="ltr"><span className="text-[#A8875A]">{Icons.phone}</span> 05 37 83 89 38</a>
+                <a href="mailto:oijih.assurance25@gmail.com" className="flex items-center gap-3 text-white/50 hover:text-[#A8875A] transition-colors" dir="ltr"><span className="text-[#A8875A]">{Icons.email}</span> oijih.assurance25@gmail.com</a>
                 <div className="flex items-start gap-3 text-white/50 pt-1">
-                  <span className="text-[#C9A84C] mt-0.5">{Icons.location}</span>
+                  <span className="text-[#A8875A] mt-0.5">{Icons.location}</span>
                   <span className="text-xs leading-relaxed">{lang === 'fr' ? 'N°960, Lot. Sidi Abdellah, Al Fath, Laayayda, Salé' : 'رقم 960، تجزئة سيدي عبد الله، الفتح، العيايدة، سلا'}</span>
                 </div>
               </div>
             </div>
             <div>
-              <h4 className="font-semibold text-[#C9A84C] mb-5 text-sm tracking-wider uppercase">{lang === 'fr' ? 'Suivez-nous' : 'تابعونا'}</h4>
+              <h4 className="font-semibold text-[#A8875A] mb-5 text-sm tracking-wider uppercase">{lang === 'fr' ? 'Suivez-nous' : 'تابعونا'}</h4>
               <div className="flex gap-3">
                 {[Icons.facebook, Icons.instagram, Icons.linkedin].map((icon, i) => (
-                  <a key={i} href="#" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#C9A84C] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#C9A84C]">{icon}</a>
+                  <a key={i} href="#" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#A8875A] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#A8875A]">{icon}</a>
                 ))}
                 <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#25D366] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#25D366]">{Icons.whatsapp}</a>
               </div>
               <div className="mt-6 flex flex-wrap gap-2">
                 {(lang === 'fr' ? ['Confiance', 'Proximité', 'Engagement'] : ['الثقة', 'القرب', 'الالتزام']).map((v, i) => (
-                  <span key={i} className="text-xs bg-white/[0.06] text-[#C9A84C] px-3 py-1.5 rounded-full border border-white/[0.06]">{v}</span>
+                  <span key={i} className="text-xs bg-white/[0.06] text-[#A8875A] px-3 py-1.5 rounded-full border border-white/[0.06]">{v}</span>
                 ))}
               </div>
             </div>
@@ -951,7 +1013,7 @@ export default function Home() {
 
       {/* ══════ Back to Top ══════ */}
       {showBackToTop && (
-        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="back-to-top fixed bottom-24 z-50 w-12 h-12 bg-[#C9A84C] hover:bg-[#B08F35] rounded-full flex items-center justify-center text-white shadow-lg shadow-[#C9A84C]/30" style={{ [isRTL ? 'left' : 'right']: '1.75rem' }} aria-label="Back to top">
+        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="back-to-top fixed bottom-24 z-50 w-12 h-12 bg-[#A8875A] hover:bg-[#8C6F47] rounded-full flex items-center justify-center text-white shadow-lg shadow-[#A8875A]/30" style={{ [isRTL ? 'left' : 'right']: '1.75rem' }} aria-label="Back to top">
           {Icons.arrowUp}
         </button>
       )}
