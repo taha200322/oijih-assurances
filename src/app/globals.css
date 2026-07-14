@@ -355,24 +355,27 @@ input:focus, textarea:focus, select:focus {
   box-shadow: 0 10px 40px rgba(13, 31, 92, 0.1);
 }
 
-/* Language switcher */
+/* Language switcher — proper button with border */
 .lang-switch {
   position: relative;
   display: inline-flex;
   border-radius: 9999px;
   overflow: hidden;
-  border: 2px solid #E5E7EB;
-  transition: border-color 0.3s ease;
+  border: 2.5px solid #0D1F5C;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .lang-switch:hover {
   border-color: #C9A84C;
+  box-shadow: 0 2px 8px rgba(201, 168, 76, 0.15);
 }
 
 .lang-btn {
-  padding: 4px 12px;
+  padding: 5px 14px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   transition: all 0.3s ease;
   cursor: pointer;
   border: none;
@@ -384,6 +387,7 @@ input:focus, textarea:focus, select:focus {
   background: #0D1F5C;
   color: #FFFFFF;
   border-radius: 9999px;
+  box-shadow: 0 2px 6px rgba(13, 31, 92, 0.2);
 }
 
 /* Intersection observer animation trigger */
@@ -397,6 +401,18 @@ input:focus, textarea:focus, select:focus {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Staggered children reveal */
+.reveal.visible > * {
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+.reveal.visible > *:nth-child(1) { animation-delay: 0.05s; }
+.reveal.visible > *:nth-child(2) { animation-delay: 0.15s; }
+.reveal.visible > *:nth-child(3) { animation-delay: 0.25s; }
+.reveal.visible > *:nth-child(4) { animation-delay: 0.35s; }
+.reveal.visible > *:nth-child(5) { animation-delay: 0.45s; }
+.reveal.visible > *:nth-child(6) { animation-delay: 0.55s; }
 
 /* Hero pattern overlay */
 .hero-pattern {
@@ -418,4 +434,13 @@ input:focus, textarea:focus, select:focus {
 [dir="rtl"] .footer-link:hover {
   padding-left: 0;
   padding-right: 4px;
+}
+
+/* Hide Next.js dev indicator (bottom-left "N" icon) */
+nextjs-portal,
+#__next-build-indicator,
+#__next-route-announcer,
+[data-nextjs-toast],
+[data-nextjs-dialog-overlay] {
+  display: none !important;
 }
