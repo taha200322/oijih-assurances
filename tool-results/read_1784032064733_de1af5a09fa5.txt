@@ -1,0 +1,1108 @@
+     1→'use client';
+     2→
+     3→import { useState, useEffect, useCallback, useRef } from 'react';
+     4→
+     5→/* ────────────────────────────── Translation Data ────────────────────────────── */
+     6→
+     7→const t = {
+     8→  fr: {
+     9→    nav: {
+    10→      accueil: 'Accueil',
+    11→      services: 'Services',
+    12→      avantages: 'Avantages',
+    13→      processus: 'Processus',
+    14→      temoignages: 'Témoignages',
+    15→      contact: 'Contact',
+    16→      cta: 'Devis Gratuit',
+    17→    },
+    18→    hero: {
+    19→      headline1: 'Votre Sécurité,',
+    20→      headline2: 'Notre Priorité',
+    21→      subtext: 'OIJIH Assurances vous accompagne avec expertise et dévouement pour protéger ce qui compte le plus pour vous. Des solutions d\'assurance sur mesure, adaptées à vos besoins.',
+    22→      btnDevis: 'Devis Gratuit',
+    23→      btnCall: 'Appelez-nous',
+    24→      stat1Val: '500+',
+    25→      stat1Label: 'Clients Satisfaits',
+    26→      stat2Val: '10+',
+    27→      stat2Label: 'Ans d\'Expérience',
+    28→      stat3Val: '24h',
+    29→      stat3Label: 'Réponse Rapide',
+    30→    },
+    31→    services: {
+    32→      title: 'Nos Services',
+    33→      subtitle: 'Des solutions d\'assurance complètes pour chaque aspect de votre vie',
+    34→      items: [
+    35→        { title: 'Assurance Auto', desc: 'Protégez votre véhicule avec une couverture complète. Accidents, vol, bris de glace — roulez en toute sérénité sur les routes du Maroc.', cta: 'Demander un devis' },
+    36→        { title: 'Assurance Habitation', desc: 'Sécurisez votre foyer contre les risques d\'incendie, de vol et de catastrophes naturelles. Votre maison mérite la meilleure protection.', cta: 'Demander un devis' },
+    37→        { title: 'Famille & Vie', desc: 'Assurez l\'avenir de vos proches avec nos solutions d\'assurance vie et familiale. Prévoyance et tranquillité d\'esprit pour vos enfants.', cta: 'Demander un devis' },
+    38→        { title: 'Assurance Santé', desc: 'Accédez aux meilleurs soins avec une couverture santé adaptée. Hospitalisation, consultations et soins spécialisés pris en charge.', cta: 'Demander un devis' },
+    39→        { title: 'Assurance Entreprise', desc: 'Protégez votre activité avec des solutions professionnelles sur mesure. Responsabilité civile, locaux, employés et biens d\'entreprise.', cta: 'Demander un devis' },
+    40→        { title: 'Assurance Voyage', desc: 'Voyagez l\'esprit libre avec une assurance voyage complète. Annulation, bagages, frais médicaux à l\'étranger — couverture mondiale.', cta: 'Demander un devis' },
+    41→      ],
+    42→    },
+    43→    why: {
+    44→      title: 'Pourquoi Nous Choisir ?',
+    45→      subtitle: 'Des valeurs qui font la différence dans votre protection',
+    46→      items: [
+    47→        { title: 'Confiance', desc: 'Depuis plus de 10 ans, nous bâtissons des relations durables fondées sur la transparence et l\'honnêteté. Nos clients nous confient ce qu\'ils ont de plus précieux, et nous honorons cette confiance chaque jour par notre engagement sans faille.' },
+    48→        { title: 'Proximité', desc: 'Implantés au cœur de Salé, nous sommes à vos côtés à chaque étape. Un conseiller dédié, joignable et réactif, qui comprend vos besoins locaux et vous accompagne personnellement dans toutes vos démarches d\'assurance.' },
+    49→        { title: 'Engagement', desc: 'Nous nous engageons à vous offrir le meilleur rapport couverture-prix du marché. En cas de sinistre, notre réactivité et notre accompagnement font toute la différence pour une prise en charge rapide et efficace.' },
+    50→      ],
+    51→    },
+    52→    process: {
+    53→      title: 'Comment Ça Marche ?',
+    54→      subtitle: 'Un processus simple et rapide pour votre tranquillité',
+    55→      steps: [
+    56→        { title: 'Contactez-nous', desc: 'Appelez-nous, envoyez un email ou remplissez notre formulaire. Notre équipe est disponible pour répondre à toutes vos questions et comprendre vos besoins spécifiques.' },
+    57→        { title: 'Analyse & Devis', desc: 'Nos experts analysent votre situation et vous proposent les meilleures solutions d\'assurance adaptées à vos besoins et votre budget, avec un devis gratuit et sans engagement.' },
+    58→        { title: 'Vous Êtes Protégé', desc: 'Une fois votre contrat signé, vous êtes couvert immédiatement. Nous restons à vos côtés pour tout accompagnement et gestion de sinistre tout au long de votre contrat.' },
+    59→      ],
+    60→    },
+    61→    testimonials: {
+    62→      title: 'Ce Que Disent Nos Clients',
+    63→      subtitle: 'Des témoignages qui parlent d\'eux-mêmes',
+    64→      items: [
+    65→        { name: 'Mohammed B.', role: 'Entrepreneur à Salé', text: 'OIJIH Assurances m\'a trouvé la couverture parfaite pour mon entreprise à un tarif très compétitif. Leur réactivité et leur professionnalisme sont remarquables. Je les recommande sans hésitation à tous les entrepreneurs.' },
+    66→        { name: 'Fatima Z.', role: 'Propriétaire à Rabat', text: 'Suite à un dégât des eaux, OIJIH a été d\'une efficacité redoutable. En moins de 48h, mon dossier était traité et l\'indemnisation arrivée. Un service client exceptionnel qui vous rassure vraiment quand ça compte.' },
+    67→        { name: 'Ahmed R.', role: 'Famille à Salé', text: 'Nous avons souscrit une assurance familiale complète et nous sommes ravis du service. L\'équipe est toujours disponible et à l\'écoute. Ils prennent le temps d\'expliquer chaque détail avec patience et clarté.' },
+    68→      ],
+    69→    },
+    70→    contact: {
+    71→      title: 'Contactez-Nous',
+    72→      subtitle: 'Nous sommes à votre écoute pour toute question ou demande de devis',
+    73→      firstName: 'Prénom',
+    74→      lastName: 'Nom',
+    75→      phone: 'Téléphone',
+    76→      email: 'Email',
+    77→      insuranceType: 'Type d\'assurance',
+    78→      message: 'Message',
+    79→      selectType: 'Sélectionnez un type',
+    80→      send: 'Envoyer',
+    81→      sending: 'Envoi en cours...',
+    82→      success: 'Message envoyé avec succès ! Nous vous répondrons sous 24h.',
+    83→      error: 'Erreur lors de l\'envoi. Veuillez réessayer ou nous contacter par téléphone.',
+    84→    },
+    85→    map: {
+    86→      title: 'Notre Agence',
+    87→      subtitle: 'Venez nous rencontrer dans nos locaux',
+    88→      openMaps: 'Ouvrir dans Google Maps',
+    89→      directions: 'Itinéraire',
+    90→    },
+    91→    footer: {
+    92→      slogan: 'Ce qui compte pour vous, compte pour nous',
+    93→      tagline: 'L\'assurance de votre sécurité',
+    94→      quickLinks: 'Liens Rapides',
+    95→      contactUs: 'Contact',
+    96→      rights: 'Tous droits réservés.',
+    97→    },
+    98→    whatsapp: {
+    99→      message: 'Bonjour, je souhaite obtenir un devis d\'assurance. Merci !',
+   100→    },
+   101→  },
+   102→  ar: {
+   103→    nav: {
+   104→      accueil: 'الرئيسية',
+   105→      services: 'الخدمات',
+   106→      avantages: 'المزايا',
+   107→      processus: 'المراحل',
+   108→      temoignages: 'آراء العملاء',
+   109→      contact: 'اتصل بنا',
+   110→      cta: 'عرض مجاني',
+   111→    },
+   112→    hero: {
+   113→      headline1: 'أمانكم،',
+   114→      headline2: 'أولويتنا',
+   115→      subtext: 'تأمينات وجيه ترافقكم بخبرة وإخلاص لحماية ما يهمكم أكثر. حلول تأمين مصممة خصيصاً لتلبية احتياجاتكم.',
+   116→      btnDevis: 'طلب عرض مجاني',
+   117→      btnCall: 'اتصل بنا',
+   118→      stat1Val: '+500',
+   119→      stat1Label: 'عميل راضٍ',
+   120→      stat2Val: '+10',
+   121→      stat2Label: 'سنوات خبرة',
+   122→      stat3Val: '24س',
+   123→      stat3Label: 'رد سريع',
+   124→    },
+   125→    services: {
+   126→      title: 'خدماتنا',
+   127→      subtitle: 'حلول تأمين شاملة لكل جانب من حياتكم',
+   128→      items: [
+   129→        { title: 'تأمين السيارة', desc: 'احموا مركبتكم بتغطية شاملة. حوادث، سرقة، كسر زجاج — قودوا بطمأنينة على طرقات المغرب.', cta: 'طلب عرض' },
+   130→        { title: 'تأمين السكن', desc: 'ؤوا منزلكم ضد مخاطر الحريق والسرقة والكوارث الطبيعية. منزلكم يستحق أفضل حماية.', cta: 'طلب عرض' },
+   131→        { title: 'العائلة والحياة', desc: 'ؤوا مستقبل أحبائكم بحلول تأمين الحياة والعائلة. توقع وراحة بال لأبنائكم.', cta: 'طلب عرض' },
+   132→        { title: 'تأمين الصحة', desc: 'صلوا إلى أفضل الرعاية بتغطية صحية مناسبة. الاستشفاء والاستشارات والرعاية المتخصصة مشمولة.', cta: 'طلب عرض' },
+   133→        { title: 'تأمين المؤسسات', desc: 'ؤوا نشاطكم بحلول مهنية مصممة خصيصاً. المسؤولية المدنية والمحلات والموظفين وممتلكات المؤسسة.', cta: 'طلب عرض' },
+   134→        { title: 'تأمين السفر', desc: 'سافروا مطمئنين بتأمين سفر شامل. الإلغاء والأمتعة والمصاريف الطبية بالخارج — تغطية عالمية.', cta: 'طلب عرض' },
+   135→      ],
+   136→    },
+   137→    why: {
+   138→      title: 'لماذا تختارنا ؟',
+   139→      subtitle: 'قيم تصنع الفرق في حمايتكم',
+   140→      items: [
+   141→        { title: 'الثقة', desc: 'منذ أكثر من 10 سنوات، نبني علاقات دائمة قائمة على الشفافية والصدق. عملاؤنا يأتمنوننا على أغلى ما يملكون، ونحن نكرم هذه الثقة كل يوم بالتزامنا الذي لا يتزعزع.' },
+   142→        { title: 'القرب', desc: 'متواجدون في قلب سلا، نحن بجانبكم في كل مرحلة. مستشار مخصص، متاح ومتفاعل، يفهم احتياجاتكم المحلية ويرافقكم شخصياً في جميع إجراءات التأمين.' },
+   143→        { title: 'الالتزام', desc: 'نلتزم بتقديم أفضل نسبة تغطية-سعر في السوق. في حالة حادث سينستر، تفاعلنا ومرافقتنا يصنعان الفرق لأخذ عهد سريع وفعال.' },
+   144→      ],
+   145→    },
+   146→    process: {
+   147→      title: 'كيف تعمل الخدمة ؟',
+   148→      subtitle: 'مسار بسيط وسريع لراحتكم',
+   149→      steps: [
+   150→        { title: 'تواصلوا معنا', desc: 'اتصلوا بنا أو أرسلوا بريداً إلكترونياً أو املؤوا استمارتنا. فريقنا متاح للإجابة على جميع أسئلتكم وفهم احتياجاتكم الخاصة.' },
+   151→        { title: 'التحليل والعرض', desc: 'يحلل خبراؤنا وضعكم ويقترحون أفضل حلول التأمين المناسبة لاحتياجاتكم وميزانيتكم، مع عرض مجاني وبدون التزام.' },
+   152→        { title: 'أنتم محميون', desc: 'بمجرد توقيع عقدكم، أنتم مؤمنون فوراً. نبقى بجانبكم لأي مرافقة وتدبير حادث طوال مدة عقدكم.' },
+   153→      ],
+   154→    },
+   155→    testimonials: {
+   156→      title: 'ماذا يقول عملاؤنا',
+   157→      subtitle: 'شهادات تتحدث عن نفسها',
+   158→      items: [
+   159→        { name: 'محمد ب.', role: 'مقاول بسلا', text: 'وجدت لي تأمينات وجيه التغطية المثالية لمؤسستي بسعر تنافسي جداً. تفاعلهم واحترافيتهم ملحوظان. أوصي بهم دون تردد لكل المقاولين.' },
+   160→        { name: 'فاطمة ز.', role: 'مالكة بالرباط', text: 'بعد حادث مياه، كانت تأمينات وجيه ذات فعالية مذهلة. في أقل من 48 ساعة، تمت معالجة ملفي ووصل التعويض. خدمة عملاء استثنائية تطمئنكم فعلاً.' },
+   161→        { name: 'أحمد ر.', role: 'عائلة بسلا', text: 'اشتركنا في تأمين عائلي شامل ونحن سعداء بالخدمة. الفريق دائماً متاح ومصغٍ. يأخذون الوقت لشرح كل تفصيل بصبر ووضوح.' },
+   162→      ],
+   163→    },
+   164→    contact: {
+   165→      title: 'تواصلوا معنا',
+   166→      subtitle: 'نحن في استماعكم لأي سؤال أو طلب عرض',
+   167→      firstName: 'الاسم',
+   168→      lastName: 'النسب',
+   169→      phone: 'الهاتف',
+   170→      email: 'البريد الإلكتروني',
+   171→      insuranceType: 'نوع التأمين',
+   172→      message: 'الرسالة',
+   173→      selectType: 'اختروا نوع التأمين',
+   174→      send: 'إرسال',
+   175→      sending: 'جارٍ الإرسال...',
+   176→      success: 'تم إرسال الرسالة بنجاح ! سنرد عليكم خلال 24 ساعة.',
+   177→      error: 'خطأ في الإرسال. يرجى المحاولة مرة أخرى أو الاتصال بنا هاتفياً.',
+   178→    },
+   179→    map: {
+   180→      title: 'وكالتنا',
+   181→      subtitle: 'تعالوا لقائنا في مقرنا',
+   182→      openMaps: 'فتح في خرائط جوجل',
+   183→      directions: 'الاتجاهات',
+   184→    },
+   185→    footer: {
+   186→      slogan: 'ما يهمكم، يهمنا',
+   187→      tagline: 'ضمانك وأمانك',
+   188→      quickLinks: 'روابط سريعة',
+   189→      contactUs: 'اتصل بنا',
+   190→      rights: 'جميع الحقوق محفوظة.',
+   191→    },
+   192→    whatsapp: {
+   193→      message: 'مرحباً، أرغب في الحصول على عرض تأمين مجاني. شكراً!',
+   194→    },
+   195→  },
+   196→};
+   197→
+   198→/* ────────────────────────────── SVG Icons ────────────────────────────── */
+   199→
+   200→const Icons = {
+   201→  car: (
+   202→    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+   203→      <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/>
+   204→      <circle cx="7" cy="17" r="2"/><path d="M9 17h6"/>
+   205→      <circle cx="17" cy="17" r="2"/>
+   206→    </svg>
+   207→  ),
+   208→  home: (
+   209→    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+   210→      <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+   211→      <polyline points="9 22 9 12 15 12 15 22"/>
+   212→    </svg>
+   213→  ),
+   214→  family: (
+   215→    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+   216→      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+   217→      <circle cx="9" cy="7" r="4"/>
+   218→      <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+   219→      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+   220→    </svg>
+   221→  ),
+   222→  health: (
+   223→    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+   224→      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+   225→    </svg>
+   226→  ),
+   227→  business: (
+   228→    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+   229→      <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
+   230→      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+   231→    </svg>
+   232→  ),
+   233→  travel: (
+   234→    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+   235→      <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
+   236→    </svg>
+   237→  ),
+   238→  trust: (
+   239→    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+   240→      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+   241→      <path d="m9 12 2 2 4-4"/>
+   242→    </svg>
+   243→  ),
+   244→  proximity: (
+   245→    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+   246→      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+   247→      <circle cx="12" cy="10" r="3"/>
+   248→    </svg>
+   249→  ),
+   250→  commitment: (
+   251→    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+   252→      <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+   253→      <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+   254→      <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+   255→      <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+   256→    </svg>
+   257→  ),
+   258→  phone: (
+   259→    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+   260→      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+   261→    </svg>
+   262→  ),
+   263→  email: (
+   264→    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+   265→      <rect width="20" height="16" x="2" y="4" rx="2"/>
+   266→      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+   267→    </svg>
+   268→  ),
+   269→  location: (
+   270→    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+   271→      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+   272→      <circle cx="12" cy="10" r="3"/>
+   273→    </svg>
+   274→  ),
+   275→  whatsapp: (
+   276→    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+   277→      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+   278→    </svg>
+   279→  ),
+   280→  facebook: (
+   281→    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+   282→      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+   283→    </svg>
+   284→  ),
+   285→  instagram: (
+   286→    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+   287→      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+   288→    </svg>
+   289→  ),
+   290→  linkedin: (
+   291→    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+   292→      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+   293→    </svg>
+   294→  ),
+   295→  menu: (
+   296→    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+   297→      <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+   298→    </svg>
+   299→  ),
+   300→  close: (
+   301→    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+   302→      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+   303→    </svg>
+   304→  ),
+   305→  arrowRight: (
+   306→    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+   307→      <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+   308→    </svg>
+   309→  ),
+   310→  check: (
+   311→    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+   312→      <polyline points="20 6 9 17 4 12"/>
+   313→    </svg>
+   314→  ),
+   315→  star: (
+   316→    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="1">
+   317→      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+   318→    </svg>
+   319→  ),
+   320→  externalLink: (
+   321→    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+   322→      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+   323→    </svg>
+   324→  ),
+   325→};
+   326→
+   327→const serviceIcons = [Icons.car, Icons.home, Icons.family, Icons.health, Icons.business, Icons.travel];
+   328→const whyIcons = [Icons.trust, Icons.proximity, Icons.commitment];
+   329→
+   330→/* ────────────────────────────── Insurance Types ────────────────────────────── */
+   331→
+   332→const insuranceTypes = {
+   333→  fr: ['Assurance Auto', 'Assurance Habitation', 'Famille & Vie', 'Assurance Santé', 'Assurance Entreprise', 'Assurance Voyage'],
+   334→  ar: ['تأمين السيارة', 'تأمين السكن', 'العائلة والحياة', 'تأمين الصحة', 'تأمين المؤسسات', 'تأمين السفر'],
+   335→};
+   336→
+   337→/* ────────────────────────────── Main Component ────────────────────────────── */
+   338→
+   339→export default function Home() {
+   340→  const [lang, setLang] = useState<'fr' | 'ar'>('fr');
+   341→  const [scrolled, setScrolled] = useState(false);
+   342→  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+   343→  const [formData, setFormData] = useState({
+   344→    firstName: '',
+   345→    lastName: '',
+   346→    phone: '',
+   347→    email: '',
+   348→    insuranceType: '',
+   349→    message: '',
+   350→  });
+   351→  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+   352→  const [revealedSections, setRevealedSections] = useState<Set<string>>(new Set());
+   353→
+   354→  const isRTL = lang === 'ar';
+   355→  const data = t[lang];
+   356→
+   357→  // Handle scroll
+   358→  useEffect(() => {
+   359→    const handleScroll = () => setScrolled(window.scrollY > 20);
+   360→    window.addEventListener('scroll', handleScroll, { passive: true });
+   361→    return () => window.removeEventListener('scroll', handleScroll);
+   362→  }, []);
+   363→
+   364→  // Handle RTL/LTR
+   365→  useEffect(() => {
+   366→    document.documentElement.lang = lang;
+   367→    document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
+   368→  }, [lang, isRTL]);
+   369→
+   370→  // Intersection Observer for reveal animations
+   371→  useEffect(() => {
+   372→    const observer = new IntersectionObserver(
+   373→      (entries) => {
+   374→        entries.forEach((entry) => {
+   375→          if (entry.isIntersecting) {
+   376→            setRevealedSections((prev) => new Set(prev).add(entry.target.id));
+   377→          }
+   378→        });
+   379→      },
+   380→      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+   381→    );
+   382→
+   383→    const sections = document.querySelectorAll('.reveal');
+   384→    sections.forEach((s) => observer.observe(s));
+   385→    return () => observer.disconnect();
+   386→  }, [lang]);
+   387→
+   388→  // Smooth scroll to section
+   389→  const scrollTo = useCallback((id: string) => {
+   390→    setMobileMenuOpen(false);
+   391→    const el = document.getElementById(id);
+   392→    if (el) el.scrollIntoView({ behavior: 'smooth' });
+   393→  }, []);
+   394→
+   395→  // Form handler
+   396→  const handleSubmit = async (e: React.FormEvent) => {
+   397→    e.preventDefault();
+   398→    setFormStatus('sending');
+   399→
+   400→    try {
+   401→      // Google Apps Script Web App URL - Replace with your deployment URL
+   402→      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+   403→
+   404→      const payload = {
+   405→        firstName: formData.firstName,
+   406→        lastName: formData.lastName,
+   407→        phone: formData.phone,
+   408→        email: formData.email,
+   409→        insuranceType: formData.insuranceType,
+   410→        message: formData.message,
+   411→        language: lang,
+   412→        date: new Date().toISOString(),
+   413→      };
+   414→
+   415→      await fetch(GOOGLE_SCRIPT_URL, {
+   416→        method: 'POST',
+   417→        mode: 'no-cors',
+   418→        headers: { 'Content-Type': 'application/json' },
+   419→        body: JSON.stringify(payload),
+   420→      });
+   421→
+   422→      setFormStatus('success');
+   423→      setFormData({ firstName: '', lastName: '', phone: '', email: '', insuranceType: '', message: '' });
+   424→      setTimeout(() => setFormStatus('idle'), 5000);
+   425→    } catch {
+   426→      setFormStatus('error');
+   427→      setTimeout(() => setFormStatus('idle'), 5000);
+   428→    }
+   429→  };
+   430→
+   431→  // WhatsApp link
+   432→  const whatsappLink = `https://wa.me/212660385429?text=${encodeURIComponent(data.whatsapp.message)}`;
+   433→
+   434→  return (
+   435→    <div className={`min-h-screen flex flex-col ${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-inter)]'}`}>
+   436→      {/* ──────── Navbar ──────── */}
+   437→      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'nav-glass-scrolled py-2' : 'nav-glass py-3 md:py-4'}`}>
+   438→        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   439→          <div className="flex items-center justify-between">
+   440→            {/* Logo */}
+   441→            <button onClick={() => scrollTo('hero')} className="flex items-center gap-2 group">
+   442→              <img src="/logo.png" alt="OIJIH Assurances" className="h-10 md:h-12 w-auto transition-transform group-hover:scale-105" />
+   443→            </button>
+   444→
+   445→            {/* Desktop Nav Links */}
+   446→            <div className="hidden lg:flex items-center gap-8">
+   447→              {[
+   448→                { key: 'accueil', target: 'hero' },
+   449→                { key: 'services', target: 'services' },
+   450→                { key: 'avantages', target: 'why' },
+   451→                { key: 'processus', target: 'process' },
+   452→                { key: 'temoignages', target: 'testimonials' },
+   453→                { key: 'contact', target: 'contact' },
+   454→              ].map((item) => (
+   455→                <button
+   456→                  key={item.key}
+   457→                  onClick={() => scrollTo(item.target)}
+   458→                  className="text-sm font-medium text-[#0D1F5C] hover:text-[#C9A84C] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-[#C9A84C] after:transition-all hover:after:w-full"
+   459→                >
+   460→                  {data.nav[item.key as keyof typeof data.nav]}
+   461→                </button>
+   462→              ))}
+   463→            </div>
+   464→
+   465→            {/* Right side: Language + CTA */}
+   466→            <div className="flex items-center gap-3">
+   467→              {/* Language Switcher */}
+   468→              <div className="lang-switch">
+   469→                <button
+   470→                  onClick={() => setLang('fr')}
+   471→                  className={`lang-btn ${lang === 'fr' ? 'lang-btn-active' : ''}`}
+   472→                >
+   473→                  FR
+   474→                </button>
+   475→                <button
+   476→                  onClick={() => setLang('ar')}
+   477→                  className={`lang-btn ${lang === 'ar' ? 'lang-btn-active' : ''}`}
+   478→                >
+   479→                  AR
+   480→                </button>
+   481→              </div>
+   482→
+   483→              {/* Desktop CTA */}
+   484→              <button
+   485→                onClick={() => scrollTo('contact')}
+   486→                className="hidden md:inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:shadow-lg hover:shadow-[#C9A84C]/20"
+   487→              >
+   488→                {data.nav.cta}
+   489→              </button>
+   490→
+   491→              {/* Mobile Menu Button */}
+   492→              <button
+   493→                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+   494→                className="lg:hidden p-2 text-[#0D1F5C]"
+   495→              >
+   496→                {mobileMenuOpen ? Icons.close : Icons.menu}
+   497→              </button>
+   498→            </div>
+   499→          </div>
+   500→        </div>
+   501→
+   502→        {/* Mobile Menu */}
+   503→        <div
+   504→          className={`lg:hidden absolute top-full left-0 right-0 bg-white shadow-xl transition-all duration-300 ${
+   505→            mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
+   506→          }`}
+   507→        >
+   508→          <div className="px-4 py-6 space-y-4">
+   509→            {[
+   510→              { key: 'accueil', target: 'hero' },
+   511→              { key: 'services', target: 'services' },
+   512→              { key: 'avantages', target: 'why' },
+   513→              { key: 'processus', target: 'process' },
+   514→              { key: 'temoignages', target: 'testimonials' },
+   515→              { key: 'contact', target: 'contact' },
+   516→            ].map((item) => (
+   517→              <button
+   518→                key={item.key}
+   519→                onClick={() => scrollTo(item.target)}
+   520→                className="block w-full text-left rtl:text-right py-2 text-[#0D1F5C] hover:text-[#C9A84C] font-medium transition-colors"
+   521→              >
+   522→                {data.nav[item.key as keyof typeof data.nav]}
+   523→              </button>
+   524→            ))}
+   525→            <button
+   526→              onClick={() => scrollTo('contact')}
+   527→              className="w-full bg-[#C9A84C] hover:bg-[#B08F35] text-white px-5 py-3 rounded-full text-sm font-semibold transition-all"
+   528→            >
+   529→              {data.nav.cta}
+   530→            </button>
+   531→          </div>
+   532→        </div>
+   533→      </nav>
+   534→
+   535→      {/* ──────── Hero ──────── */}
+   536→      <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
+   537→        {/* Background */}
+   538→        <div className="absolute inset-0 bg-[#0D1F5C] hero-gradient hero-pattern" />
+   539→
+   540→        {/* Decorative elements */}
+   541→        <div className="absolute top-20 left-10 w-72 h-72 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+   542→        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+   543→
+   544→        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40">
+   545→          <div className="grid lg:grid-cols-2 gap-12 items-center">
+   546→            {/* Text Content */}
+   547→            <div className="animate-fade-in-up">
+   548→              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+   549→                <span className="w-2 h-2 bg-[#C9A84C] rounded-full animate-pulse" />
+   550→                <span className="text-white/80 text-sm font-medium">{lang === 'fr' ? 'L\'assurance de votre sécurité' : 'ضمانك وأمانك'}</span>
+   551→              </div>
+   552→
+   553→              <h1 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6`}>
+   554→                {data.hero.headline1}
+   555→                <br />
+   556→                <span className="gradient-text">{data.hero.headline2}</span>
+   557→              </h1>
+   558→
+   559→              <p className="text-white/70 text-lg md:text-xl max-w-xl mb-8 leading-relaxed">
+   560→                {data.hero.subtext}
+   561→              </p>
+   562→
+   563→              <div className="flex flex-wrap gap-4 mb-12">
+   564→                <button
+   565→                  onClick={() => scrollTo('contact')}
+   566→                  className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-8 py-4 rounded-full font-semibold transition-all hover:shadow-xl hover:shadow-[#C9A84C]/25 hover:-translate-y-0.5"
+   567→                >
+   568→                  {data.hero.btnDevis}
+   569→                  <span className="rtl-flip">{Icons.arrowRight}</span>
+   570→                </button>
+   571→                <a
+   572→                  href="tel:+212537838938"
+   573→                  className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-8 py-4 rounded-full font-semibold transition-all border border-white/20"
+   574→                >
+   575→                  {Icons.phone}
+   576→                  {data.hero.btnCall}
+   577→                </a>
+   578→              </div>
+   579→
+   580→              {/* Stats */}
+   581→              <div className="grid grid-cols-3 gap-6 max-w-lg">
+   582→                {[
+   583→                  { val: data.hero.stat1Val, label: data.hero.stat1Label },
+   584→                  { val: data.hero.stat2Val, label: data.hero.stat2Label },
+   585→                  { val: data.hero.stat3Val, label: data.hero.stat3Label },
+   586→                ].map((stat, i) => (
+   587→                  <div key={i} className="text-center">
+   588→                    <div className="text-3xl md:text-4xl font-bold gradient-text mb-1">{stat.val}</div>
+   589→                    <div className="text-white/60 text-xs sm:text-sm">{stat.label}</div>
+   590→                  </div>
+   591→                ))}
+   592→              </div>
+   593→            </div>
+   594→
+   595→            {/* Logo Display */}
+   596→            <div className="hidden lg:flex justify-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
+   597→              <div className="relative">
+   598→                <div className="absolute inset-0 bg-[#C9A84C]/10 rounded-3xl blur-2xl scale-110" />
+   599→                <div className="relative bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-12 animate-float">
+   600→                  <img src="/logo.png" alt="OIJIH Assurances" className="w-80 h-auto" />
+   601→                </div>
+   602→              </div>
+   603→            </div>
+   604→          </div>
+   605→        </div>
+   606→
+   607→        {/* Bottom wave */}
+   608→        <div className="absolute bottom-0 left-0 right-0">
+   609→          <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+   610→            <path d="M0 50L48 45.7C96 41.3 192 32.7 288 30.2C384 27.7 480 31.3 576 38.8C672 46.3 768 57.7 864 58.8C960 60 1056 51 1152 46.2C1248 41.3 1344 40.7 1392 40.3L1440 40V100H1392C1344 100 1248 100 1152 100C1056 100 960 100 864 100C768 100 672 100 576 100C480 100 384 100 288 100C192 100 96 100 48 100H0V50Z" fill="white"/>
+   611→          </svg>
+   612→        </div>
+   613→      </section>
+   614→
+   615→      {/* ──────── Services ──────── */}
+   616→      <section id="services" className="py-20 md:py-28 bg-white">
+   617→        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   618→          <div className={`reveal ${revealedSections.has('services') ? 'visible' : ''}`} id="services-reveal">
+   619→            <div className="text-center mb-16">
+   620→              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>
+   621→                {data.services.title}
+   622→              </h2>
+   623→              <div className="section-divider mx-auto mb-6" />
+   624→              <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.services.subtitle}</p>
+   625→            </div>
+   626→          </div>
+   627→
+   628→          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+   629→            {data.services.items.map((item, i) => (
+   630→              <div
+   631→                key={i}
+   632→                className={`reveal card-hover bg-white rounded-2xl border border-[#E5E7EB] p-6 md:p-8 group ${revealedSections.has('services') ? 'visible' : ''}`}
+   633→                style={{ animationDelay: `${i * 0.1}s` }}
+   634→              >
+   635→                <div className="icon-container mb-5">{serviceIcons[i]}</div>
+   636→                <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-xl font-bold text-[#0D1F5C] mb-3`}>
+   637→                  {item.title}
+   638→                </h3>
+   639→                <p className="text-[#6B7280] text-sm leading-relaxed mb-5">{item.desc}</p>
+   640→                <button
+   641→                  onClick={() => scrollTo('contact')}
+   642→                  className="inline-flex items-center gap-2 text-[#C9A84C] font-semibold text-sm hover:gap-3 transition-all"
+   643→                >
+   644→                  {item.cta}
+   645→                  <span className="rtl-flip">{Icons.arrowRight}</span>
+   646→                </button>
+   647→              </div>
+   648→            ))}
+   649→          </div>
+   650→        </div>
+   651→      </section>
+   652→
+   653→      {/* ──────── Why Us ──────── */}
+   654→      <section id="why" className="py-20 md:py-28 bg-[#F8F7F4]">
+   655→        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   656→          <div className={`reveal ${revealedSections.has('why') ? 'visible' : ''}`} id="why-reveal">
+   657→            <div className="text-center mb-16">
+   658→              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>
+   659→                {data.why.title}
+   660→              </h2>
+   661→              <div className="section-divider mx-auto mb-6" />
+   662→              <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.why.subtitle}</p>
+   663→            </div>
+   664→          </div>
+   665→
+   666→          <div className="grid md:grid-cols-3 gap-8">
+   667→            {data.why.items.map((item, i) => (
+   668→              <div
+   669→                key={i}
+   670→                className={`reveal card-hover bg-white rounded-2xl p-8 md:p-10 text-center shadow-sm ${revealedSections.has('why') ? 'visible' : ''}`}
+   671→                style={{ animationDelay: `${i * 0.15}s` }}
+   672→              >
+   673→                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[#0D1F5C]/5 text-[#C9A84C] mb-6 transition-all group-hover:bg-[#C9A84C]/10">
+   674→                  {whyIcons[i]}
+   675→                </div>
+   676→                <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-2xl font-bold text-[#0D1F5C] mb-4`}>
+   677→                  {item.title}
+   678→                </h3>
+   679→                <p className="text-[#6B7280] leading-relaxed">{item.desc}</p>
+   680→              </div>
+   681→            ))}
+   682→          </div>
+   683→        </div>
+   684→      </section>
+   685→
+   686→      {/* ──────── How It Works ──────── */}
+   687→      <section id="process" className="py-20 md:py-28 bg-white">
+   688→        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   689→          <div className={`reveal ${revealedSections.has('process') ? 'visible' : ''}`} id="process-reveal">
+   690→            <div className="text-center mb-16">
+   691→              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>
+   692→                {data.process.title}
+   693→              </h2>
+   694→              <div className="section-divider mx-auto mb-6" />
+   695→              <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.process.subtitle}</p>
+   696→            </div>
+   697→          </div>
+   698→
+   699→          <div className="grid md:grid-cols-3 gap-8 relative">
+   700→            {/* Connector lines (desktop only) */}
+   701→            <div className="hidden md:block absolute top-16 left-1/6 right-1/6 h-[2px] bg-gradient-to-r from-[#C9A84C]/30 via-[#C9A84C] to-[#C9A84C]/30" />
+   702→
+   703→            {data.process.steps.map((step, i) => (
+   704→              <div
+   705→                key={i}
+   706→                className={`reveal relative text-center ${revealedSections.has('process') ? 'visible' : ''}`}
+   707→                style={{ animationDelay: `${i * 0.2}s` }}
+   708→              >
+   709→                <div className="relative z-10 inline-flex items-center justify-center w-32 h-32 rounded-full bg-[#0D1F5C] text-white mb-8 mx-auto">
+   710→                  <div className="text-center">
+   711→                    <div className="text-3xl font-bold gradient-text">{`0${i + 1}`}</div>
+   712→                    <div className="mt-1 text-[#C9A84C]">
+   713→                      {Icons.check}
+   714→                    </div>
+   715→                  </div>
+   716→                </div>
+   717→                <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-xl font-bold text-[#0D1F5C] mb-3`}>
+   718→                  {step.title}
+   719→                </h3>
+   720→                <p className="text-[#6B7280] leading-relaxed max-w-sm mx-auto">{step.desc}</p>
+   721→              </div>
+   722→            ))}
+   723→          </div>
+   724→        </div>
+   725→      </section>
+   726→
+   727→      {/* ──────── Testimonials ──────── */}
+   728→      <section id="testimonials" className="py-20 md:py-28 bg-[#0D1F5C] relative overflow-hidden">
+   729→        <div className="absolute inset-0 hero-pattern opacity-50" />
+   730→        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   731→          <div className={`reveal ${revealedSections.has('testimonials') ? 'visible' : ''}`} id="testimonials-reveal">
+   732→            <div className="text-center mb-16">
+   733→              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4`}>
+   734→                {data.testimonials.title}
+   735→              </h2>
+   736→              <div className="section-divider mx-auto mb-6" />
+   737→              <p className="text-white/60 text-lg max-w-2xl mx-auto">{data.testimonials.subtitle}</p>
+   738→            </div>
+   739→          </div>
+   740→
+   741→          <div className="grid md:grid-cols-3 gap-8">
+   742→            {data.testimonials.items.map((item, i) => (
+   743→              <div
+   744→                key={i}
+   745→                className={`reveal testimonial-card bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 transition-all hover:bg-white/10 ${revealedSections.has('testimonials') ? 'visible' : ''}`}
+   746→                style={{ animationDelay: `${i * 0.15}s` }}
+   747→              >
+   748→                {/* Stars */}
+   749→                <div className="flex gap-1 text-[#C9A84C] mb-4">
+   750→                  {[...Array(5)].map((_, j) => (
+   751→                    <span key={j}>{Icons.star}</span>
+   752→                  ))}
+   753→                </div>
+   754→
+   755→                <p className="text-white/80 leading-relaxed mb-6 text-sm">{item.text}</p>
+   756→
+   757→                <div className="flex items-center gap-3">
+   758→                  <div className="w-12 h-12 rounded-full bg-[#C9A84C]/20 flex items-center justify-center text-[#C9A84C] font-bold text-lg">
+   759→                    {item.name.charAt(0)}
+   760→                  </div>
+   761→                  <div>
+   762→                    <div className="text-white font-semibold">{item.name}</div>
+   763→                    <div className="text-white/50 text-sm">{item.role}</div>
+   764→                  </div>
+   765→                </div>
+   766→              </div>
+   767→            ))}
+   768→          </div>
+   769→        </div>
+   770→      </section>
+   771→
+   772→      {/* ──────── Contact ──────── */}
+   773→      <section id="contact" className="py-20 md:py-28 bg-white">
+   774→        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   775→          <div className={`reveal ${revealedSections.has('contact') ? 'visible' : ''}`} id="contact-reveal">
+   776→            <div className="text-center mb-16">
+   777→              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>
+   778→                {data.contact.title}
+   779→              </h2>
+   780→              <div className="section-divider mx-auto mb-6" />
+   781→              <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.contact.subtitle}</p>
+   782→            </div>
+   783→          </div>
+   784→
+   785→          <div className="grid lg:grid-cols-5 gap-12">
+   786→            {/* Form */}
+   787→            <div className={`lg:col-span-3 reveal ${revealedSections.has('contact') ? 'visible' : ''}`}>
+   788→              <form onSubmit={handleSubmit} className="bg-[#F8F7F4] rounded-2xl p-6 md:p-10">
+   789→                <div className="grid sm:grid-cols-2 gap-5 mb-5">
+   790→                  <div>
+   791→                    <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.firstName}</label>
+   792→                    <input
+   793→                      type="text"
+   794→                      required
+   795→                      value={formData.firstName}
+   796→                      onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+   797→                      className="w-full px-4 py-3 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all"
+   798→                    />
+   799→                  </div>
+   800→                  <div>
+   801→                    <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.lastName}</label>
+   802→                    <input
+   803→                      type="text"
+   804→                      required
+   805→                      value={formData.lastName}
+   806→                      onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+   807→                      className="w-full px-4 py-3 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all"
+   808→                    />
+   809→                  </div>
+   810→                </div>
+   811→
+   812→                <div className="grid sm:grid-cols-2 gap-5 mb-5">
+   813→                  <div>
+   814→                    <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.phone}</label>
+   815→                    <input
+   816→                      type="tel"
+   817→                      required
+   818→                      value={formData.phone}
+   819→                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+   820→                      className="w-full px-4 py-3 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all"
+   821→                    />
+   822→                  </div>
+   823→                  <div>
+   824→                    <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.email}</label>
+   825→                    <input
+   826→                      type="email"
+   827→                      required
+   828→                      value={formData.email}
+   829→                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+   830→                      className="w-full px-4 py-3 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all"
+   831→                    />
+   832→                  </div>
+   833→                </div>
+   834→
+   835→                <div className="mb-5">
+   836→                  <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.insuranceType}</label>
+   837→                  <select
+   838→                    required
+   839→                    value={formData.insuranceType}
+   840→                    onChange={(e) => setFormData({ ...formData, insuranceType: e.target.value })}
+   841→                    className="w-full px-4 py-3 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all appearance-none"
+   842→                  >
+   843→                    <option value="">{data.contact.selectType}</option>
+   844→                    {insuranceTypes[lang].map((type, i) => (
+   845→                      <option key={i} value={type}>{type}</option>
+   846→                    ))}
+   847→                  </select>
+   848→                </div>
+   849→
+   850→                <div className="mb-6">
+   851→                  <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.message}</label>
+   852→                  <textarea
+   853→                    rows={4}
+   854→                    value={formData.message}
+   855→                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+   856→                    className="w-full px-4 py-3 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all resize-none"
+   857→                  />
+   858→                </div>
+   859→
+   860→                <button
+   861→                  type="submit"
+   862→                  disabled={formStatus === 'sending'}
+   863→                  className="w-full bg-[#0D1F5C] hover:bg-[#162572] text-white py-4 rounded-xl font-semibold transition-all hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+   864→                >
+   865→                  {formStatus === 'sending' ? (
+   866→                    <>
+   867→                      <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+   868→                      {data.contact.sending}
+   869→                    </>
+   870→                  ) : (
+   871→                    data.contact.send
+   872→                  )}
+   873→                </button>
+   874→
+   875→                {formStatus === 'success' && (
+   876→                  <div className="mt-4 p-4 bg-green-50 text-green-700 rounded-xl text-sm font-medium text-center">
+   877→                    {Icons.check} {data.contact.success}
+   878→                  </div>
+   879→                )}
+   880→                {formStatus === 'error' && (
+   881→                  <div className="mt-4 p-4 bg-red-50 text-red-700 rounded-xl text-sm font-medium text-center">
+   882→                    {data.contact.error}
+   883→                  </div>
+   884→                )}
+   885→              </form>
+   886→            </div>
+   887→
+   888→            {/* Contact Info */}
+   889→            <div className={`lg:col-span-2 reveal ${revealedSections.has('contact') ? 'visible' : ''}`} style={{ animationDelay: '0.2s' }}>
+   890→              <div className="space-y-6">
+   891→                {/* Phone Personnel */}
+   892→                <a href="tel:+212662409860" className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl hover:bg-[#0D1F5C]/5 transition-colors group">
+   893→                  <div className="w-12 h-12 rounded-full bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1F5C] transition-all">
+   894→                    {Icons.phone}
+   895→                  </div>
+   896→                  <div>
+   897→                    <div className="text-sm text-[#6B7280] mb-1">{lang === 'fr' ? 'Téléphone Personnel' : 'هاتف شخصي'}</div>
+   898→                    <div className="text-[#0D1F5C] font-semibold" dir="ltr">06 62 40 98 60</div>
+   899→                  </div>
+   900→                </a>
+   901→
+   902→                {/* Phone Agence */}
+   903→                <a href="tel:+212537838938" className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl hover:bg-[#0D1F5C]/5 transition-colors group">
+   904→                  <div className="w-12 h-12 rounded-full bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1F5C] transition-all">
+   905→                    {Icons.phone}
+   906→                  </div>
+   907→                  <div>
+   908→                    <div className="text-sm text-[#6B7280] mb-1">{lang === 'fr' ? 'Téléphone Agence' : 'هاتف الوكالة'}</div>
+   909→                    <div className="text-[#0D1F5C] font-semibold" dir="ltr">05 37 83 89 38</div>
+   910→                  </div>
+   911→                </a>
+   912→
+   913→                {/* Email */}
+   914→                <a href="mailto:oijih.assurance25@gmail.com" className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl hover:bg-[#0D1F5C]/5 transition-colors group">
+   915→                  <div className="w-12 h-12 rounded-full bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1F5C] transition-all">
+   916→                    {Icons.email}
+   917→                  </div>
+   918→                  <div>
+   919→                    <div className="text-sm text-[#6B7280] mb-1">{data.contact.email}</div>
+   920→                    <div className="text-[#0D1F5C] font-semibold text-sm">oijih.assurance25@gmail.com</div>
+   921→                  </div>
+   922→                </a>
+   923→
+   924→                {/* Address */}
+   925→                <div className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl">
+   926→                  <div className="w-12 h-12 rounded-full bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0">
+   927→                    {Icons.location}
+   928→                  </div>
+   929→                  <div>
+   930→                    <div className="text-sm text-[#6B7280] mb-1">{lang === 'fr' ? 'Adresse' : 'العنوان'}</div>
+   931→                    <div className="text-[#0D1F5C] font-semibold text-sm">
+   932→                      {lang === 'fr'
+   933→                        ? 'N°960, Lotissement Sidi Abdellah, Secteur Al Fath, Laayayda, Salé, Maroc'
+   934→                        : 'رقم 960، تجزئة سيدي عبد الله، قطاع الفتح، العيايدة، سلا، المغرب'}
+   935→                    </div>
+   936→                  </div>
+   937→                </div>
+   938→              </div>
+   939→            </div>
+   940→          </div>
+   941→        </div>
+   942→      </section>
+   943→
+   944→      {/* ──────── Google Maps ──────── */}
+   945→      <section id="map" className="py-20 md:py-28 bg-[#F8F7F4]">
+   946→        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   947→          <div className={`reveal ${revealedSections.has('map') ? 'visible' : ''}`} id="map-reveal">
+   948→            <div className="text-center mb-12">
+   949→              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>
+   950→                {data.map.title}
+   951→              </h2>
+   952→              <div className="section-divider mx-auto mb-6" />
+   953→              <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.map.subtitle}</p>
+   954→            </div>
+   955→          </div>
+   956→
+   957→          <div className={`reveal ${revealedSections.has('map') ? 'visible' : ''}`}>
+   958→            <div className="map-container">
+   959→              <iframe
+   960→                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3306.5!2d-6.7985!3d34.0531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDAzJzExLjIiTiA2wrA0Nyc1NC42Ilc!5e0!3m2!1sfr!2sma!4v1"
+   961→                width="100%"
+   962→                height="400"
+   963→                style={{ border: 0 }}
+   964→                allowFullScreen
+   965→                loading="lazy"
+   966→                referrerPolicy="no-referrer-when-downgrade"
+   967→                title="OIJIH Assurances Location"
+   968→                className="w-full"
+   969→              />
+   970→            </div>
+   971→
+   972→            <div className="flex flex-wrap gap-4 mt-6 justify-center">
+   973→              <a
+   974→                href="https://www.google.com/maps/search/?api=1&query=34.0531,-6.7985"
+   975→                target="_blank"
+   976→                rel="noopener noreferrer"
+   977→                className="inline-flex items-center gap-2 bg-[#0D1F5C] hover:bg-[#162572] text-white px-6 py-3 rounded-full font-semibold text-sm transition-all hover:shadow-lg"
+   978→              >
+   979→                {Icons.externalLink}
+   980→                {data.map.openMaps}
+   981→              </a>
+   982→              <a
+   983→                href="https://www.google.com/maps/dir/?api=1&destination=34.0531,-6.7985"
+   984→                target="_blank"
+   985→                rel="noopener noreferrer"
+   986→                className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-6 py-3 rounded-full font-semibold text-sm transition-all hover:shadow-lg"
+   987→              >
+   988→                {Icons.location}
+   989→                {data.map.directions}
+   990→              </a>
+   991→            </div>
+   992→          </div>
+   993→        </div>
+   994→      </section>
+   995→
+   996→      {/* ──────── Footer ──────── */}
+   997→      <footer className="bg-[#0D1F5C] pt-16 pb-8 text-white">
+   998→        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   999→          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+  1000→            {/* Logo & Slogan */}
+  1001→            <div className="lg:col-span-1">
+  1002→              <img src="/logo.png" alt="OIJIH Assurances" className="h-14 w-auto mb-4 brightness-0 invert" />
+  1003→              <p className="text-white/70 text-sm leading-relaxed mb-2">{data.footer.slogan}</p>
+  1004→              <p className="text-[#C9A84C] font-semibold text-sm">{data.footer.tagline}</p>
+  1005→            </div>
+  1006→
+  1007→            {/* Quick Links */}
+  1008→            <div>
+  1009→              <h4 className="font-semibold text-[#C9A84C] mb-4">{data.footer.quickLinks}</h4>
+  1010→              <ul className="space-y-3">
+  1011→                {[
+  1012→                  { key: 'accueil', target: 'hero' },
+  1013→                  { key: 'services', target: 'services' },
+  1014→                  { key: 'avantages', target: 'why' },
+  1015→                  { key: 'processus', target: 'process' },
+  1016→                  { key: 'contact', target: 'contact' },
+  1017→                ].map((item) => (
+  1018→                  <li key={item.key}>
+  1019→                    <button
+  1020→                      onClick={() => scrollTo(item.target)}
+  1021→                      className="footer-link text-white/60 hover:text-[#C9A84C] text-sm transition-all"
+  1022→                    >
+  1023→                      {data.nav[item.key as keyof typeof data.nav]}
+  1024→                    </button>
+  1025→                  </li>
+  1026→                ))}
+  1027→              </ul>
+  1028→            </div>
+  1029→
+  1030→            {/* Contact */}
+  1031→            <div>
+  1032→              <h4 className="font-semibold text-[#C9A84C] mb-4">{data.footer.contactUs}</h4>
+  1033→              <div className="space-y-3 text-sm">
+  1034→                <a href="tel:+212662409860" className="flex items-center gap-2 text-white/60 hover:text-[#C9A84C] transition-colors" dir="ltr">
+  1035→                  {Icons.phone} 06 62 40 98 60
+  1036→                </a>
+  1037→                <a href="tel:+212537838938" className="flex items-center gap-2 text-white/60 hover:text-[#C9A84C] transition-colors" dir="ltr">
+  1038→                  {Icons.phone} 05 37 83 89 38
+  1039→                </a>
+  1040→                <a href="mailto:oijih.assurance25@gmail.com" className="flex items-center gap-2 text-white/60 hover:text-[#C9A84C] transition-colors">
+  1041→                  {Icons.email} oijih.assurance25@gmail.com
+  1042→                </a>
+  1043→                <div className="flex items-start gap-2 text-white/60">
+  1044→                  {Icons.location}
+  1045→                  <span className="text-xs leading-relaxed">
+  1046→                    {lang === 'fr'
+  1047→                      ? 'N°960, Lot. Sidi Abdellah, Al Fath, Laayayda, Salé'
+  1048→                      : 'رقم 960، تجزئة سيدي عبد الله، الفتح، العيايدة، سلا'}
+  1049→                  </span>
+  1050→                </div>
+  1051→              </div>
+  1052→            </div>
+  1053→
+  1054→            {/* Social Media */}
+  1055→            <div>
+  1056→              <h4 className="font-semibold text-[#C9A84C] mb-4">{lang === 'fr' ? 'Suivez-nous' : 'تابعونا'}</h4>
+  1057→              <div className="flex gap-3">
+  1058→                <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#C9A84C] flex items-center justify-center text-white/70 hover:text-white transition-all">
+  1059→                  {Icons.facebook}
+  1060→                </a>
+  1061→                <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#C9A84C] flex items-center justify-center text-white/70 hover:text-white transition-all">
+  1062→                  {Icons.instagram}
+  1063→                </a>
+  1064→                <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#C9A84C] flex items-center justify-center text-white/70 hover:text-white transition-all">
+  1065→                  {Icons.linkedin}
+  1066→                </a>
+  1067→                <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#25D366] flex items-center justify-center text-white/70 hover:text-white transition-all">
+  1068→                  {Icons.whatsapp}
+  1069→                </a>
+  1070→              </div>
+  1071→
+  1072→              {/* Values */}
+  1073→              <div className="mt-6 flex flex-wrap gap-2">
+  1074→                {(lang === 'fr' ? ['Confiance', 'Proximité', 'Engagement'] : ['الثقة', 'القرب', 'الالتزام']).map((v, i) => (
+  1075→                  <span key={i} className="text-xs bg-white/10 text-[#C9A84C] px-3 py-1.5 rounded-full">
+  1076→                    {v}
+  1077→                  </span>
+  1078→                ))}
+  1079→              </div>
+  1080→            </div>
+  1081→          </div>
+  1082→
+  1083→          {/* Bottom Bar */}
+  1084→          <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+  1085→            <p className="text-white/40 text-sm">
+  1086→              &copy; {new Date().getFullYear()} OIJIH Assurances / تأمينات وجيه. {data.footer.rights}
+  1087→            </p>
+  1088→            <p className="text-white/30 text-xs">
+  1089→              {lang === 'fr' ? 'Courtier d\'assurance agréé à Salé, Maroc' : 'وكيل تأمين معتمد في سلا، المغرب'}
+  1090→            </p>
+  1091→          </div>
+  1092→        </div>
+  1093→      </footer>
+  1094→
+  1095→      {/* ──────── Floating WhatsApp Button ──────── */}
+  1096→      <a
+  1097→        href={whatsappLink}
+  1098→        target="_blank"
+  1099→        rel="noopener noreferrer"
+  1100→        className="whatsapp-btn fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-lg shadow-[#25D366]/30"
+  1101→        aria-label="WhatsApp"
+  1102→      >
+  1103→        {Icons.whatsapp}
+  1104→      </a>
+  1105→    </div>
+  1106→  );
+  1107→}
+  1108→

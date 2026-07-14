@@ -32,12 +32,12 @@ const t = {
       title: 'Nos Services',
       subtitle: 'Des solutions d\'assurance complètes pour chaque aspect de votre vie',
       items: [
-        { title: 'Assurance Auto', desc: 'Protégez votre véhicule avec une couverture complète. Accidents, vol, bris de glace — roulez en toute sérénité sur les routes du Maroc.', cta: 'Demander un devis' },
-        { title: 'Assurance Habitation', desc: 'Sécurisez votre foyer contre les risques d\'incendie, de vol et de catastrophes naturelles. Votre maison mérite la meilleure protection.', cta: 'Demander un devis' },
-        { title: 'Famille & Vie', desc: 'Assurez l\'avenir de vos proches avec nos solutions d\'assurance vie et familiale. Prévoyance et tranquillité d\'esprit pour vos enfants.', cta: 'Demander un devis' },
-        { title: 'Assurance Santé', desc: 'Accédez aux meilleurs soins avec une couverture santé adaptée. Hospitalisation, consultations et soins spécialisés pris en charge.', cta: 'Demander un devis' },
-        { title: 'Assurance Entreprise', desc: 'Protégez votre activité avec des solutions professionnelles sur mesure. Responsabilité civile, locaux, employés et biens d\'entreprise.', cta: 'Demander un devis' },
-        { title: 'Assurance Voyage', desc: 'Voyagez l\'esprit libre avec une assurance voyage complète. Annulation, bagages, frais médicaux à l\'étranger — couverture mondiale.', cta: 'Demander un devis' },
+        { title: 'Assurance Auto', desc: 'Protégez votre véhicule avec une couverture complète contre les accidents, le vol et le bris de glace. Roulez en toute sérénité sur les routes du Maroc avec une protection adaptée à vos besoins.', cta: 'Demander un devis' },
+        { title: 'Assurance Habitation', desc: 'Sécurisez votre foyer contre les risques d\'incendie, de vol, de dégât des eaux et de catastrophes naturelles. Votre maison mérite la meilleure protection pour votre tranquillité.', cta: 'Demander un devis' },
+        { title: 'Assurance Multirisque', desc: 'Une couverture globale qui combine plusieurs garanties en un seul contrat. Idéale pour les professionnels et les entreprises, elle protège vos locaux, biens et responsabilités.', cta: 'Demander un devis' },
+        { title: 'Assurance Santé', desc: 'Accédez aux meilleurs soins avec une couverture santé adaptée à votre budget. Hospitalisation, consultations, soins spécialisés et médicaments pris en charge.', cta: 'Demander un devis' },
+        { title: 'Assurance Entreprise', desc: 'Protégez votre activité avec des solutions professionnelles sur mesure. Responsabilité civile professionnelle, locaux, employés, biens d\'entreprise et flotte automobile.', cta: 'Demander un devis' },
+        { title: 'Assurance Voyage', desc: 'Voyagez l\'esprit libre avec une assurance voyage complète. Annulation, perte de bagages, frais médicaux à l\'étranger et rapatriement — couverture mondiale.', cta: 'Demander un devis' },
       ],
     },
     why: {
@@ -64,7 +64,7 @@ const t = {
       items: [
         { name: 'Mohammed B.', role: 'Entrepreneur à Salé', text: 'OIJIH Assurances m\'a trouvé la couverture parfaite pour mon entreprise à un tarif très compétitif. Leur réactivité et leur professionnalisme sont remarquables. Je les recommande sans hésitation à tous les entrepreneurs.' },
         { name: 'Fatima Z.', role: 'Propriétaire à Rabat', text: 'Suite à un dégât des eaux, OIJIH a été d\'une efficacité redoutable. En moins de 48h, mon dossier était traité et l\'indemnisation arrivée. Un service client exceptionnel qui vous rassure vraiment quand ça compte.' },
-        { name: 'Ahmed R.', role: 'Famille à Salé', text: 'Nous avons souscrit une assurance familiale complète et nous sommes ravis du service. L\'équipe est toujours disponible et à l\'écoute. Ils prennent le temps d\'expliquer chaque détail avec patience et clarté.' },
+        { name: 'Ahmed R.', role: 'Commerçant à Salé', text: 'Grâce à OIJIH, mon magasin est désormais couvert par une multirisque professionnelle complète. L\'équipe est toujours disponible et à l\'écoute. Ils prennent le temps d\'expliquer chaque détail avec patience et clarté.' },
       ],
     },
     contact: {
@@ -126,12 +126,12 @@ const t = {
       title: 'خدماتنا',
       subtitle: 'حلول تأمين شاملة لكل جانب من حياتكم',
       items: [
-        { title: 'تأمين السيارة', desc: 'احموا مركبتكم بتغطية شاملة. حوادث، سرقة، كسر زجاج — قودوا بطمأنينة على طرقات المغرب.', cta: 'طلب عرض' },
-        { title: 'تأمين السكن', desc: 'ؤوا منزلكم ضد مخاطر الحريق والسرقة والكوارث الطبيعية. منزلكم يستحق أفضل حماية.', cta: 'طلب عرض' },
-        { title: 'العائلة والحياة', desc: 'ؤوا مستقبل أحبائكم بحلول تأمين الحياة والعائلة. توقع وراحة بال لأبنائكم.', cta: 'طلب عرض' },
-        { title: 'تأمين الصحة', desc: 'صلوا إلى أفضل الرعاية بتغطية صحية مناسبة. الاستشفاء والاستشارات والرعاية المتخصصة مشمولة.', cta: 'طلب عرض' },
-        { title: 'تأمين المؤسسات', desc: 'ؤوا نشاطكم بحلول مهنية مصممة خصيصاً. المسؤولية المدنية والمحلات والموظفين وممتلكات المؤسسة.', cta: 'طلب عرض' },
-        { title: 'تأمين السفر', desc: 'سافروا مطمئنين بتأمين سفر شامل. الإلغاء والأمتعة والمصاريف الطبية بالخارج — تغطية عالمية.', cta: 'طلب عرض' },
+        { title: 'تأمين السيارة', desc: 'احموا مركبتكم بتغطية شاملة ضد الحوادث والسرقة وكسر الزجاج. قودوا بطمأنينة على طرقات المغرب بحماية تلائم احتياجاتكم.', cta: 'طلب عرض' },
+        { title: 'تأمين السكن', desc: 'ؤوا منزلكم ضد مخاطر الحريق والسرقة وتلف المياه والكوارث الطبيعية. منزلكم يستحق أفضل حماية لراحتكم.', cta: 'طلب عرض' },
+        { title: 'تأمين متعدد المخاطر', desc: 'تغطية شاملة تجمع عدة ضمانات في عقد واحد. مثالية للمهنيين والمؤسسات، تحمي محلاتكم وممتلكاتكم ومسؤولياتكم.', cta: 'طلب عرض' },
+        { title: 'تأمين الصحة', desc: 'صلوا إلى أفضل الرعاية بتغطية صحية تناسب ميزانيتكم. الاستشفاء والاستشارات والرعاية المتخصصة والأدوية مشمولة.', cta: 'طلب عرض' },
+        { title: 'تأمين المؤسسات', desc: 'ؤوا نشاطكم بحلول مهنية مصممة خصيصاً. المسؤولية المدنية المهنية والمحلات والموظفين وممتلكات المؤسسة وأسطول السيارات.', cta: 'طلب عرض' },
+        { title: 'تأمين السفر', desc: 'سافروا مطمئنين بتأمين سفر شامل. الإلغاء وفقدان الأمتعة والمصاريف الطبية بالخارج والإعادة — تغطية عالمية.', cta: 'طلب عرض' },
       ],
     },
     why: {
@@ -158,7 +158,7 @@ const t = {
       items: [
         { name: 'محمد ب.', role: 'مقاول بسلا', text: 'وجدت لي تأمينات وجيه التغطية المثالية لمؤسستي بسعر تنافسي جداً. تفاعلهم واحترافيتهم ملحوظان. أوصي بهم دون تردد لكل المقاولين.' },
         { name: 'فاطمة ز.', role: 'مالكة بالرباط', text: 'بعد حادث مياه، كانت تأمينات وجيه ذات فعالية مذهلة. في أقل من 48 ساعة، تمت معالجة ملفي ووصل التعويض. خدمة عملاء استثنائية تطمئنكم فعلاً.' },
-        { name: 'أحمد ر.', role: 'عائلة بسلا', text: 'اشتركنا في تأمين عائلي شامل ونحن سعداء بالخدمة. الفريق دائماً متاح ومصغٍ. يأخذون الوقت لشرح كل تفصيل بصبر ووضوح.' },
+        { name: 'أحمد ر.', role: 'تاجر بسلا', text: 'بفضل تأمينات وجيه، محلكي مغطى الآن بتأمين متعدد المخاطر المهنية الشامل. الفريق دائماً متاح ومصغٍ. يأخذون الوقت لشرح كل تفصيل بصبر ووضوح.' },
       ],
     },
     contact: {
@@ -211,12 +211,10 @@ const Icons = {
       <polyline points="9 22 9 12 15 12 15 22"/>
     </svg>
   ),
-  family: (
+  multirisque: (
     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-      <circle cx="9" cy="7" r="4"/>
-      <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      <path d="M9 12h6"/><path d="M12 9v6"/>
     </svg>
   ),
   health: (
@@ -324,15 +322,59 @@ const Icons = {
   ),
 };
 
-const serviceIcons = [Icons.car, Icons.home, Icons.family, Icons.health, Icons.business, Icons.travel];
+const serviceIcons = [Icons.car, Icons.home, Icons.multirisque, Icons.health, Icons.business, Icons.travel];
 const whyIcons = [Icons.trust, Icons.proximity, Icons.commitment];
 
 /* ────────────────────────────── Insurance Types ────────────────────────────── */
 
 const insuranceTypes = {
-  fr: ['Assurance Auto', 'Assurance Habitation', 'Famille & Vie', 'Assurance Santé', 'Assurance Entreprise', 'Assurance Voyage'],
-  ar: ['تأمين السيارة', 'تأمين السكن', 'العائلة والحياة', 'تأمين الصحة', 'تأمين المؤسسات', 'تأمين السفر'],
+  fr: ['Assurance Auto', 'Assurance Habitation', 'Assurance Multirisque', 'Assurance Santé', 'Assurance Entreprise', 'Assurance Voyage'],
+  ar: ['تأمين السيارة', 'تأمين السكن', 'تأمين متعدد المخاطر', 'تأمين الصحة', 'تأمين المؤسسات', 'تأمين السفر'],
 };
+
+/* ────────────────────────────── Animated Counter Component ────────────────────────────── */
+
+function AnimatedCounter({ end, suffix, label }: { end: number; suffix: string; label: string }) {
+  const [count, setCount] = useState(0);
+  const [started, setStarted] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started) {
+          setStarted(true);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [started]);
+
+  useEffect(() => {
+    if (!started) return;
+    let startTime: number;
+    const duration = 2000;
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * end));
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+  }, [started, end]);
+
+  return (
+    <div ref={ref} className="text-center">
+      <div className="text-3xl md:text-4xl font-bold gradient-text mb-1">{count}{suffix}</div>
+      <div className="text-white/50 text-xs sm:text-sm">{label}</div>
+    </div>
+  );
+}
 
 /* ────────────────────────────── Main Component ────────────────────────────── */
 
@@ -340,6 +382,7 @@ export default function Home() {
   const [lang, setLang] = useState<'fr' | 'ar'>('fr');
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -354,17 +397,31 @@ export default function Home() {
   const isRTL = lang === 'ar';
   const data = t[lang];
 
-  // Handle scroll
+  // Handle scroll for navbar + active section
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+
+      const sections = ['hero', 'services', 'why', 'process', 'testimonials', 'contact'];
+      for (const id of sections.reverse()) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= 150) {
+          setActiveSection(id);
+          break;
+        }
+      }
+    };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Handle RTL/LTR
+  // Handle RTL/LTR + page title
   useEffect(() => {
     document.documentElement.lang = lang;
     document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
+    document.title = lang === 'fr'
+      ? 'OIJIH Assurances – Courtier Assurance à Salé, Maroc | Devis Gratuit'
+      : 'تأمينات وجيه – وكيل تأمين في سلا، المغرب | عرض مجاني';
   }, [lang, isRTL]);
 
   // Intersection Observer for reveal animations
@@ -398,9 +455,7 @@ export default function Home() {
     setFormStatus('sending');
 
     try {
-      // Google Apps Script Web App URL - Replace with your deployment URL
       const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
-
       const payload = {
         firstName: formData.firstName,
         lastName: formData.lastName,
@@ -431,33 +486,44 @@ export default function Home() {
   // WhatsApp link
   const whatsappLink = `https://wa.me/212660385429?text=${encodeURIComponent(data.whatsapp.message)}`;
 
+  const navItems = [
+    { key: 'accueil', target: 'hero' },
+    { key: 'services', target: 'services' },
+    { key: 'avantages', target: 'why' },
+    { key: 'processus', target: 'process' },
+    { key: 'temoignages', target: 'testimonials' },
+    { key: 'contact', target: 'contact' },
+  ];
+
   return (
     <div className={`min-h-screen flex flex-col ${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-inter)]'}`}>
       {/* ──────── Navbar ──────── */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'nav-glass-scrolled py-2' : 'nav-glass py-3 md:py-4'}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'nav-glass-scrolled py-2 shadow-sm' : 'nav-glass py-3 md:py-4'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <button onClick={() => scrollTo('hero')} className="flex items-center gap-2 group">
-              <img src="/logo.png" alt="OIJIH Assurances" className="h-10 md:h-12 w-auto transition-transform group-hover:scale-105" />
+            <button onClick={() => scrollTo('hero')} className="flex items-center gap-3 group">
+              <div className="bg-white rounded-lg p-1.5 shadow-sm transition-transform group-hover:scale-105">
+                <img src="/logo.png" alt="OIJIH Assurances" className="h-8 md:h-10 w-auto" />
+              </div>
             </button>
 
             {/* Desktop Nav Links */}
-            <div className="hidden lg:flex items-center gap-8">
-              {[
-                { key: 'accueil', target: 'hero' },
-                { key: 'services', target: 'services' },
-                { key: 'avantages', target: 'why' },
-                { key: 'processus', target: 'process' },
-                { key: 'temoignages', target: 'testimonials' },
-                { key: 'contact', target: 'contact' },
-              ].map((item) => (
+            <div className="hidden lg:flex items-center gap-1">
+              {navItems.map((item) => (
                 <button
                   key={item.key}
                   onClick={() => scrollTo(item.target)}
-                  className="text-sm font-medium text-[#0D1F5C] hover:text-[#C9A84C] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-[#C9A84C] after:transition-all hover:after:w-full"
+                  className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-full ${
+                    activeSection === item.target
+                      ? 'text-[#C9A84C]'
+                      : 'text-[#0D1F5C] hover:text-[#C9A84C]'
+                  }`}
                 >
                   {data.nav[item.key as keyof typeof data.nav]}
+                  {activeSection === item.target && (
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-[#C9A84C] rounded-full" />
+                  )}
                 </button>
               ))}
             </div>
@@ -483,7 +549,7 @@ export default function Home() {
               {/* Desktop CTA */}
               <button
                 onClick={() => scrollTo('contact')}
-                className="hidden md:inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:shadow-lg hover:shadow-[#C9A84C]/20"
+                className="hidden md:inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all hover:shadow-lg hover:shadow-[#C9A84C]/25 hover:-translate-y-0.5 active:translate-y-0"
               >
                 {data.nav.cta}
               </button>
@@ -491,7 +557,7 @@ export default function Home() {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 text-[#0D1F5C]"
+                className="lg:hidden p-2 text-[#0D1F5C] hover:text-[#C9A84C] transition-colors"
               >
                 {mobileMenuOpen ? Icons.close : Icons.menu}
               </button>
@@ -501,30 +567,27 @@ export default function Home() {
 
         {/* Mobile Menu */}
         <div
-          className={`lg:hidden absolute top-full left-0 right-0 bg-white shadow-xl transition-all duration-300 ${
+          className={`lg:hidden absolute top-full left-0 right-0 bg-white shadow-2xl transition-all duration-300 ${
             mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
           }`}
         >
-          <div className="px-4 py-6 space-y-4">
-            {[
-              { key: 'accueil', target: 'hero' },
-              { key: 'services', target: 'services' },
-              { key: 'avantages', target: 'why' },
-              { key: 'processus', target: 'process' },
-              { key: 'temoignages', target: 'testimonials' },
-              { key: 'contact', target: 'contact' },
-            ].map((item) => (
+          <div className="px-4 py-6 space-y-2">
+            {navItems.map((item) => (
               <button
                 key={item.key}
                 onClick={() => scrollTo(item.target)}
-                className="block w-full text-left rtl:text-right py-2 text-[#0D1F5C] hover:text-[#C9A84C] font-medium transition-colors"
+                className={`block w-full text-left rtl:text-right py-3 px-4 rounded-xl font-medium transition-all ${
+                  activeSection === item.target
+                    ? 'text-[#C9A84C] bg-[#C9A84C]/5'
+                    : 'text-[#0D1F5C] hover:text-[#C9A84C] hover:bg-[#C9A84C]/5'
+                }`}
               >
                 {data.nav[item.key as keyof typeof data.nav]}
               </button>
             ))}
             <button
               onClick={() => scrollTo('contact')}
-              className="w-full bg-[#C9A84C] hover:bg-[#B08F35] text-white px-5 py-3 rounded-full text-sm font-semibold transition-all"
+              className="w-full bg-[#C9A84C] hover:bg-[#B08F35] text-white px-5 py-3.5 rounded-xl text-sm font-semibold transition-all mt-2"
             >
               {data.nav.cta}
             </button>
@@ -537,68 +600,66 @@ export default function Home() {
         {/* Background */}
         <div className="absolute inset-0 bg-[#0D1F5C] hero-gradient hero-pattern" />
 
-        {/* Decorative elements */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-[#C9A84C]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+        {/* Decorative geometric elements */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-[#C9A84C]/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-white/[0.03] rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-white/[0.03] rounded-full" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Text Content */}
             <div className="animate-fade-in-up">
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-5 py-2.5 rounded-full mb-8 border border-white/10">
                 <span className="w-2 h-2 bg-[#C9A84C] rounded-full animate-pulse" />
                 <span className="text-white/80 text-sm font-medium">{lang === 'fr' ? 'L\'assurance de votre sécurité' : 'ضمانك وأمانك'}</span>
               </div>
 
-              <h1 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6`}>
+              <h1 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-6`}>
                 {data.hero.headline1}
                 <br />
                 <span className="gradient-text">{data.hero.headline2}</span>
               </h1>
 
-              <p className="text-white/70 text-lg md:text-xl max-w-xl mb-8 leading-relaxed">
+              <p className="text-white/60 text-lg md:text-xl max-w-xl mb-10 leading-relaxed">
                 {data.hero.subtext}
               </p>
 
-              <div className="flex flex-wrap gap-4 mb-12">
+              <div className="flex flex-wrap gap-4 mb-14">
                 <button
                   onClick={() => scrollTo('contact')}
-                  className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-8 py-4 rounded-full font-semibold transition-all hover:shadow-xl hover:shadow-[#C9A84C]/25 hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-8 py-4 rounded-full font-semibold transition-all hover:shadow-2xl hover:shadow-[#C9A84C]/30 hover:-translate-y-1 active:translate-y-0"
                 >
                   {data.hero.btnDevis}
                   <span className="rtl-flip">{Icons.arrowRight}</span>
                 </button>
                 <a
                   href="tel:+212537838938"
-                  className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-8 py-4 rounded-full font-semibold transition-all border border-white/20"
+                  className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-8 py-4 rounded-full font-semibold transition-all border border-white/20 hover:border-white/30"
                 >
                   {Icons.phone}
                   {data.hero.btnCall}
                 </a>
               </div>
 
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-6 max-w-lg">
-                {[
-                  { val: data.hero.stat1Val, label: data.hero.stat1Label },
-                  { val: data.hero.stat2Val, label: data.hero.stat2Label },
-                  { val: data.hero.stat3Val, label: data.hero.stat3Label },
-                ].map((stat, i) => (
-                  <div key={i} className="text-center">
-                    <div className="text-3xl md:text-4xl font-bold gradient-text mb-1">{stat.val}</div>
-                    <div className="text-white/60 text-xs sm:text-sm">{stat.label}</div>
-                  </div>
-                ))}
+              {/* Stats with animated counters */}
+              <div className="grid grid-cols-3 gap-8 max-w-lg">
+                <AnimatedCounter end={500} suffix="+" label={data.hero.stat1Label} />
+                <AnimatedCounter end={10} suffix="+" label={data.hero.stat2Label} />
+                <AnimatedCounter end={24} suffix="h" label={data.hero.stat3Label} />
               </div>
             </div>
 
-            {/* Logo Display */}
+            {/* Logo Display - Premium */}
             <div className="hidden lg:flex justify-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
               <div className="relative">
-                <div className="absolute inset-0 bg-[#C9A84C]/10 rounded-3xl blur-2xl scale-110" />
-                <div className="relative bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-12 animate-float">
-                  <img src="/logo.png" alt="OIJIH Assurances" className="w-80 h-auto" />
+                <div className="absolute inset-0 bg-[#C9A84C]/10 rounded-[2rem] blur-2xl scale-110" />
+                <div className="relative bg-white rounded-[2rem] p-10 animate-float shadow-2xl shadow-black/20">
+                  <img src="/logo.png" alt="OIJIH Assurances" className="w-72 h-auto drop-shadow-lg" />
                 </div>
+                {/* Decorative dots */}
+                <div className="absolute -top-4 -right-4 w-8 h-8 bg-[#C9A84C] rounded-full opacity-60 animate-pulse" />
+                <div className="absolute -bottom-2 -left-6 w-6 h-6 bg-[#C9A84C]/40 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
               </div>
             </div>
           </div>
@@ -606,8 +667,8 @@ export default function Home() {
 
         {/* Bottom wave */}
         <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 50L48 45.7C96 41.3 192 32.7 288 30.2C384 27.7 480 31.3 576 38.8C672 46.3 768 57.7 864 58.8C960 60 1056 51 1152 46.2C1248 41.3 1344 40.7 1392 40.3L1440 40V100H1392C1344 100 1248 100 1152 100C1056 100 960 100 864 100C768 100 672 100 576 100C480 100 384 100 288 100C192 100 96 100 48 100H0V50Z" fill="white"/>
+          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+            <path d="M0 60L60 52C120 44 240 28 360 32C480 36 600 60 720 68C840 76 960 68 1080 56C1200 44 1320 28 1380 20L1440 12V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0V60Z" fill="white"/>
           </svg>
         </div>
       </section>
@@ -617,6 +678,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`reveal ${revealedSections.has('services') ? 'visible' : ''}`} id="services-reveal">
             <div className="text-center mb-16">
+              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Nos Expertises' : 'خبراتنا'}</span>
               <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>
                 {data.services.title}
               </h2>
@@ -629,20 +691,20 @@ export default function Home() {
             {data.services.items.map((item, i) => (
               <div
                 key={i}
-                className={`reveal card-hover bg-white rounded-2xl border border-[#E5E7EB] p-6 md:p-8 group ${revealedSections.has('services') ? 'visible' : ''}`}
-                style={{ animationDelay: `${i * 0.1}s` }}
+                className={`reveal card-hover bg-white rounded-2xl border border-[#E5E7EB] p-7 md:p-8 group ${revealedSections.has('services') ? 'visible' : ''}`}
+                style={{ transitionDelay: `${i * 80}ms` }}
               >
-                <div className="icon-container mb-5">{serviceIcons[i]}</div>
+                <div className="icon-container mb-6">{serviceIcons[i]}</div>
                 <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-xl font-bold text-[#0D1F5C] mb-3`}>
                   {item.title}
                 </h3>
-                <p className="text-[#6B7280] text-sm leading-relaxed mb-5">{item.desc}</p>
+                <p className="text-[#6B7280] text-sm leading-relaxed mb-6">{item.desc}</p>
                 <button
                   onClick={() => scrollTo('contact')}
-                  className="inline-flex items-center gap-2 text-[#C9A84C] font-semibold text-sm hover:gap-3 transition-all"
+                  className="inline-flex items-center gap-2 text-[#C9A84C] font-semibold text-sm group-hover:gap-3 transition-all"
                 >
                   {item.cta}
-                  <span className="rtl-flip">{Icons.arrowRight}</span>
+                  <span className="rtl-flip transition-transform group-hover:translate-x-1">{Icons.arrowRight}</span>
                 </button>
               </div>
             ))}
@@ -655,6 +717,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`reveal ${revealedSections.has('why') ? 'visible' : ''}`} id="why-reveal">
             <div className="text-center mb-16">
+              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Nos Valeurs' : 'قيمنا'}</span>
               <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>
                 {data.why.title}
               </h2>
@@ -667,10 +730,10 @@ export default function Home() {
             {data.why.items.map((item, i) => (
               <div
                 key={i}
-                className={`reveal card-hover bg-white rounded-2xl p-8 md:p-10 text-center shadow-sm ${revealedSections.has('why') ? 'visible' : ''}`}
-                style={{ animationDelay: `${i * 0.15}s` }}
+                className={`reveal card-hover bg-white rounded-2xl p-8 md:p-10 text-center shadow-sm border border-transparent hover:border-[#C9A84C]/20 ${revealedSections.has('why') ? 'visible' : ''}`}
+                style={{ transitionDelay: `${i * 120}ms` }}
               >
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[#0D1F5C]/5 text-[#C9A84C] mb-6 transition-all group-hover:bg-[#C9A84C]/10">
+                <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-[#0D1F5C]/[0.03] text-[#C9A84C] mb-6 transition-all group-hover:bg-[#C9A84C]/10 group-hover:scale-110">
                   {whyIcons[i]}
                 </div>
                 <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-2xl font-bold text-[#0D1F5C] mb-4`}>
@@ -688,6 +751,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`reveal ${revealedSections.has('process') ? 'visible' : ''}`} id="process-reveal">
             <div className="text-center mb-16">
+              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Étapes Simples' : 'خطوات بسيطة'}</span>
               <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>
                 {data.process.title}
               </h2>
@@ -697,21 +761,21 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 relative">
-            {/* Connector lines (desktop only) */}
-            <div className="hidden md:block absolute top-16 left-1/6 right-1/6 h-[2px] bg-gradient-to-r from-[#C9A84C]/30 via-[#C9A84C] to-[#C9A84C]/30" />
+            {/* Connector line (desktop only) */}
+            <div className="hidden md:block absolute top-16 left-[20%] right-[20%] h-[2px]">
+              <div className="w-full h-full bg-gradient-to-r from-[#C9A84C]/20 via-[#C9A84C] to-[#C9A84C]/20" style={{ backgroundSize: '200% 100%', animation: 'shimmer 3s ease-in-out infinite' }} />
+            </div>
 
             {data.process.steps.map((step, i) => (
               <div
                 key={i}
                 className={`reveal relative text-center ${revealedSections.has('process') ? 'visible' : ''}`}
-                style={{ animationDelay: `${i * 0.2}s` }}
+                style={{ transitionDelay: `${i * 150}ms` }}
               >
-                <div className="relative z-10 inline-flex items-center justify-center w-32 h-32 rounded-full bg-[#0D1F5C] text-white mb-8 mx-auto">
+                <div className="relative z-10 inline-flex items-center justify-center w-32 h-32 rounded-full bg-gradient-to-br from-[#0D1F5C] to-[#162572] text-white mb-8 mx-auto shadow-xl shadow-[#0D1F5C]/20">
                   <div className="text-center">
                     <div className="text-3xl font-bold gradient-text">{`0${i + 1}`}</div>
-                    <div className="mt-1 text-[#C9A84C]">
-                      {Icons.check}
-                    </div>
+                    <div className="mt-1 text-[#C9A84C]">{Icons.check}</div>
                   </div>
                 </div>
                 <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-xl font-bold text-[#0D1F5C] mb-3`}>
@@ -727,14 +791,17 @@ export default function Home() {
       {/* ──────── Testimonials ──────── */}
       <section id="testimonials" className="py-20 md:py-28 bg-[#0D1F5C] relative overflow-hidden">
         <div className="absolute inset-0 hero-pattern opacity-50" />
+        <div className="absolute top-0 left-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`reveal ${revealedSections.has('testimonials') ? 'visible' : ''}`} id="testimonials-reveal">
             <div className="text-center mb-16">
+              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Témoignages' : 'شهادات'}</span>
               <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4`}>
                 {data.testimonials.title}
               </h2>
               <div className="section-divider mx-auto mb-6" />
-              <p className="text-white/60 text-lg max-w-2xl mx-auto">{data.testimonials.subtitle}</p>
+              <p className="text-white/50 text-lg max-w-2xl mx-auto">{data.testimonials.subtitle}</p>
             </div>
           </div>
 
@@ -742,25 +809,25 @@ export default function Home() {
             {data.testimonials.items.map((item, i) => (
               <div
                 key={i}
-                className={`reveal testimonial-card bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 transition-all hover:bg-white/10 ${revealedSections.has('testimonials') ? 'visible' : ''}`}
-                style={{ animationDelay: `${i * 0.15}s` }}
+                className={`reveal testimonial-card bg-white/[0.06] backdrop-blur-sm border border-white/10 rounded-2xl p-8 transition-all duration-300 hover:bg-white/[0.1] hover:border-white/20 hover:-translate-y-1 ${revealedSections.has('testimonials') ? 'visible' : ''}`}
+                style={{ transitionDelay: `${i * 120}ms` }}
               >
                 {/* Stars */}
-                <div className="flex gap-1 text-[#C9A84C] mb-4">
+                <div className="flex gap-1 text-[#C9A84C] mb-5">
                   {[...Array(5)].map((_, j) => (
                     <span key={j}>{Icons.star}</span>
                   ))}
                 </div>
 
-                <p className="text-white/80 leading-relaxed mb-6 text-sm">{item.text}</p>
+                <p className="text-white/75 leading-relaxed mb-8 text-sm">{item.text}</p>
 
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-[#C9A84C]/20 flex items-center justify-center text-[#C9A84C] font-bold text-lg">
+                <div className="flex items-center gap-3 pt-5 border-t border-white/10">
+                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#C9A84C] to-[#B08F35] flex items-center justify-center text-white font-bold text-sm shadow-lg">
                     {item.name.charAt(0)}
                   </div>
                   <div>
-                    <div className="text-white font-semibold">{item.name}</div>
-                    <div className="text-white/50 text-sm">{item.role}</div>
+                    <div className="text-white font-semibold text-sm">{item.name}</div>
+                    <div className="text-white/40 text-xs">{item.role}</div>
                   </div>
                 </div>
               </div>
@@ -774,6 +841,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`reveal ${revealedSections.has('contact') ? 'visible' : ''}`} id="contact-reveal">
             <div className="text-center mb-16">
+              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Écrivez-nous' : 'اكتبوا لنا'}</span>
               <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>
                 {data.contact.title}
               </h2>
@@ -785,7 +853,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-5 gap-12">
             {/* Form */}
             <div className={`lg:col-span-3 reveal ${revealedSections.has('contact') ? 'visible' : ''}`}>
-              <form onSubmit={handleSubmit} className="bg-[#F8F7F4] rounded-2xl p-6 md:p-10">
+              <form onSubmit={handleSubmit} className="bg-[#F8F7F4] rounded-2xl p-6 md:p-10 border border-[#E5E7EB]">
                 <div className="grid sm:grid-cols-2 gap-5 mb-5">
                   <div>
                     <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.firstName}</label>
@@ -794,7 +862,8 @@ export default function Home() {
                       required
                       value={formData.firstName}
                       onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all"
+                      className="w-full px-4 py-3.5 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all placeholder:text-[#9CA3AF]"
+                      placeholder={lang === 'fr' ? 'Votre prénom' : 'اسمكم'}
                     />
                   </div>
                   <div>
@@ -804,7 +873,8 @@ export default function Home() {
                       required
                       value={formData.lastName}
                       onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all"
+                      className="w-full px-4 py-3.5 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all placeholder:text-[#9CA3AF]"
+                      placeholder={lang === 'fr' ? 'Votre nom' : 'نسبكم'}
                     />
                   </div>
                 </div>
@@ -817,7 +887,9 @@ export default function Home() {
                       required
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all"
+                      className="w-full px-4 py-3.5 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all placeholder:text-[#9CA3AF]"
+                      placeholder="06 XX XX XX XX"
+                      dir="ltr"
                     />
                   </div>
                   <div>
@@ -827,7 +899,9 @@ export default function Home() {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all"
+                      className="w-full px-4 py-3.5 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all placeholder:text-[#9CA3AF]"
+                      placeholder="email@exemple.com"
+                      dir="ltr"
                     />
                   </div>
                 </div>
@@ -838,7 +912,7 @@ export default function Home() {
                     required
                     value={formData.insuranceType}
                     onChange={(e) => setFormData({ ...formData, insuranceType: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all appearance-none"
+                    className="w-full px-4 py-3.5 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%230D1F5C%22%20stroke-width%3D%222%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-[length:12px] bg-[position:right_1rem_center] bg-no-repeat"
                   >
                     <option value="">{data.contact.selectType}</option>
                     {insuranceTypes[lang].map((type, i) => (
@@ -853,14 +927,15 @@ export default function Home() {
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all resize-none"
+                    className="w-full px-4 py-3.5 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all resize-none placeholder:text-[#9CA3AF]"
+                    placeholder={lang === 'fr' ? 'Décrivez votre besoin...' : 'صفوا حاجتكم...'}
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={formStatus === 'sending'}
-                  className="w-full bg-[#0D1F5C] hover:bg-[#162572] text-white py-4 rounded-xl font-semibold transition-all hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full bg-[#0D1F5C] hover:bg-[#162572] text-white py-4 rounded-xl font-semibold transition-all hover:shadow-xl hover:shadow-[#0D1F5C]/20 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-base"
                 >
                   {formStatus === 'sending' ? (
                     <>
@@ -868,12 +943,15 @@ export default function Home() {
                       {data.contact.sending}
                     </>
                   ) : (
-                    data.contact.send
+                    <>
+                      {data.contact.send}
+                      <span className="rtl-flip">{Icons.arrowRight}</span>
+                    </>
                   )}
                 </button>
 
                 {formStatus === 'success' && (
-                  <div className="mt-4 p-4 bg-green-50 text-green-700 rounded-xl text-sm font-medium text-center">
+                  <div className="mt-4 p-4 bg-emerald-50 text-emerald-700 rounded-xl text-sm font-medium text-center flex items-center justify-center gap-2">
                     {Icons.check} {data.contact.success}
                   </div>
                 )}
@@ -886,11 +964,11 @@ export default function Home() {
             </div>
 
             {/* Contact Info */}
-            <div className={`lg:col-span-2 reveal ${revealedSections.has('contact') ? 'visible' : ''}`} style={{ animationDelay: '0.2s' }}>
-              <div className="space-y-6">
+            <div className={`lg:col-span-2 reveal ${revealedSections.has('contact') ? 'visible' : ''}`} style={{ transitionDelay: '200ms' }}>
+              <div className="space-y-5">
                 {/* Phone Personnel */}
-                <a href="tel:+212662409860" className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl hover:bg-[#0D1F5C]/5 transition-colors group">
-                  <div className="w-12 h-12 rounded-full bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1F5C] transition-all">
+                <a href="tel:+212662409860" className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl hover:bg-[#0D1F5C]/[0.03] transition-all group border border-transparent hover:border-[#C9A84C]/20">
+                  <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1F5C] transition-all shadow-sm">
                     {Icons.phone}
                   </div>
                   <div>
@@ -900,8 +978,8 @@ export default function Home() {
                 </a>
 
                 {/* Phone Agence */}
-                <a href="tel:+212537838938" className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl hover:bg-[#0D1F5C]/5 transition-colors group">
-                  <div className="w-12 h-12 rounded-full bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1F5C] transition-all">
+                <a href="tel:+212537838938" className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl hover:bg-[#0D1F5C]/[0.03] transition-all group border border-transparent hover:border-[#C9A84C]/20">
+                  <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1F5C] transition-all shadow-sm">
                     {Icons.phone}
                   </div>
                   <div>
@@ -911,30 +989,41 @@ export default function Home() {
                 </a>
 
                 {/* Email */}
-                <a href="mailto:oijih.assurance25@gmail.com" className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl hover:bg-[#0D1F5C]/5 transition-colors group">
-                  <div className="w-12 h-12 rounded-full bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1F5C] transition-all">
+                <a href="mailto:oijih.assurance25@gmail.com" className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl hover:bg-[#0D1F5C]/[0.03] transition-all group border border-transparent hover:border-[#C9A84C]/20">
+                  <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1F5C] transition-all shadow-sm">
                     {Icons.email}
                   </div>
                   <div>
                     <div className="text-sm text-[#6B7280] mb-1">{data.contact.email}</div>
-                    <div className="text-[#0D1F5C] font-semibold text-sm">oijih.assurance25@gmail.com</div>
+                    <div className="text-[#0D1F5C] font-semibold text-sm" dir="ltr">oijih.assurance25@gmail.com</div>
                   </div>
                 </a>
 
                 {/* Address */}
-                <div className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl">
-                  <div className="w-12 h-12 rounded-full bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0">
+                <div className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl border border-transparent hover:border-[#C9A84C]/20 transition-all">
+                  <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 shadow-sm">
                     {Icons.location}
                   </div>
                   <div>
                     <div className="text-sm text-[#6B7280] mb-1">{lang === 'fr' ? 'Adresse' : 'العنوان'}</div>
-                    <div className="text-[#0D1F5C] font-semibold text-sm">
+                    <div className="text-[#0D1F5C] font-semibold text-sm leading-relaxed">
                       {lang === 'fr'
                         ? 'N°960, Lotissement Sidi Abdellah, Secteur Al Fath, Laayayda, Salé, Maroc'
                         : 'رقم 960، تجزئة سيدي عبد الله، قطاع الفتح، العيايدة، سلا، المغرب'}
                     </div>
                   </div>
                 </div>
+
+                {/* WhatsApp CTA */}
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-3 p-4 bg-[#25D366]/10 rounded-xl text-[#25D366] font-semibold hover:bg-[#25D366]/20 transition-all border border-[#25D366]/20"
+                >
+                  {Icons.whatsapp}
+                  {lang === 'fr' ? 'Écrivez-nous sur WhatsApp' : 'راسلونا على واتساب'}
+                </a>
               </div>
             </div>
           </div>
@@ -946,6 +1035,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`reveal ${revealedSections.has('map') ? 'visible' : ''}`} id="map-reveal">
             <div className="text-center mb-12">
+              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Localisation' : 'الموقع'}</span>
               <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>
                 {data.map.title}
               </h2>
@@ -969,12 +1059,12 @@ export default function Home() {
               />
             </div>
 
-            <div className="flex flex-wrap gap-4 mt-6 justify-center">
+            <div className="flex flex-wrap gap-4 mt-8 justify-center">
               <a
                 href="https://www.google.com/maps/search/?api=1&query=34.0531,-6.7985"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#0D1F5C] hover:bg-[#162572] text-white px-6 py-3 rounded-full font-semibold text-sm transition-all hover:shadow-lg"
+                className="inline-flex items-center gap-2 bg-[#0D1F5C] hover:bg-[#162572] text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all hover:shadow-xl hover:shadow-[#0D1F5C]/20 hover:-translate-y-0.5"
               >
                 {Icons.externalLink}
                 {data.map.openMaps}
@@ -983,7 +1073,7 @@ export default function Home() {
                 href="https://www.google.com/maps/dir/?api=1&destination=34.0531,-6.7985"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-6 py-3 rounded-full font-semibold text-sm transition-all hover:shadow-lg"
+                className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all hover:shadow-xl hover:shadow-[#C9A84C]/20 hover:-translate-y-0.5"
               >
                 {Icons.location}
                 {data.map.directions}
@@ -999,26 +1089,22 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
             {/* Logo & Slogan */}
             <div className="lg:col-span-1">
-              <img src="/logo.png" alt="OIJIH Assurances" className="h-14 w-auto mb-4 brightness-0 invert" />
-              <p className="text-white/70 text-sm leading-relaxed mb-2">{data.footer.slogan}</p>
+              <div className="bg-white rounded-xl p-2 inline-block mb-5 shadow-lg">
+                <img src="/logo.png" alt="OIJIH Assurances" className="h-12 w-auto" />
+              </div>
+              <p className="text-white/60 text-sm leading-relaxed mb-2">{data.footer.slogan}</p>
               <p className="text-[#C9A84C] font-semibold text-sm">{data.footer.tagline}</p>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h4 className="font-semibold text-[#C9A84C] mb-4">{data.footer.quickLinks}</h4>
+              <h4 className="font-semibold text-[#C9A84C] mb-5 text-sm tracking-wider uppercase">{data.footer.quickLinks}</h4>
               <ul className="space-y-3">
-                {[
-                  { key: 'accueil', target: 'hero' },
-                  { key: 'services', target: 'services' },
-                  { key: 'avantages', target: 'why' },
-                  { key: 'processus', target: 'process' },
-                  { key: 'contact', target: 'contact' },
-                ].map((item) => (
+                {navItems.slice(0, 5).map((item) => (
                   <li key={item.key}>
                     <button
                       onClick={() => scrollTo(item.target)}
-                      className="footer-link text-white/60 hover:text-[#C9A84C] text-sm transition-all"
+                      className="footer-link text-white/50 hover:text-[#C9A84C] text-sm transition-all"
                     >
                       {data.nav[item.key as keyof typeof data.nav]}
                     </button>
@@ -1029,19 +1115,19 @@ export default function Home() {
 
             {/* Contact */}
             <div>
-              <h4 className="font-semibold text-[#C9A84C] mb-4">{data.footer.contactUs}</h4>
+              <h4 className="font-semibold text-[#C9A84C] mb-5 text-sm tracking-wider uppercase">{data.footer.contactUs}</h4>
               <div className="space-y-3 text-sm">
-                <a href="tel:+212662409860" className="flex items-center gap-2 text-white/60 hover:text-[#C9A84C] transition-colors" dir="ltr">
-                  {Icons.phone} 06 62 40 98 60
+                <a href="tel:+212662409860" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors" dir="ltr">
+                  <span className="text-[#C9A84C]">{Icons.phone}</span> 06 62 40 98 60
                 </a>
-                <a href="tel:+212537838938" className="flex items-center gap-2 text-white/60 hover:text-[#C9A84C] transition-colors" dir="ltr">
-                  {Icons.phone} 05 37 83 89 38
+                <a href="tel:+212537838938" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors" dir="ltr">
+                  <span className="text-[#C9A84C]">{Icons.phone}</span> 05 37 83 89 38
                 </a>
-                <a href="mailto:oijih.assurance25@gmail.com" className="flex items-center gap-2 text-white/60 hover:text-[#C9A84C] transition-colors">
-                  {Icons.email} oijih.assurance25@gmail.com
+                <a href="mailto:oijih.assurance25@gmail.com" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors" dir="ltr">
+                  <span className="text-[#C9A84C]">{Icons.email}</span> oijih.assurance25@gmail.com
                 </a>
-                <div className="flex items-start gap-2 text-white/60">
-                  {Icons.location}
+                <div className="flex items-start gap-3 text-white/50 pt-1">
+                  <span className="text-[#C9A84C] mt-0.5">{Icons.location}</span>
                   <span className="text-xs leading-relaxed">
                     {lang === 'fr'
                       ? 'N°960, Lot. Sidi Abdellah, Al Fath, Laayayda, Salé'
@@ -1053,18 +1139,18 @@ export default function Home() {
 
             {/* Social Media */}
             <div>
-              <h4 className="font-semibold text-[#C9A84C] mb-4">{lang === 'fr' ? 'Suivez-nous' : 'تابعونا'}</h4>
+              <h4 className="font-semibold text-[#C9A84C] mb-5 text-sm tracking-wider uppercase">{lang === 'fr' ? 'Suivez-nous' : 'تابعونا'}</h4>
               <div className="flex gap-3">
-                <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#C9A84C] flex items-center justify-center text-white/70 hover:text-white transition-all">
+                <a href="#" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#C9A84C] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#C9A84C]">
                   {Icons.facebook}
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#C9A84C] flex items-center justify-center text-white/70 hover:text-white transition-all">
+                <a href="#" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#C9A84C] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#C9A84C]">
                   {Icons.instagram}
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#C9A84C] flex items-center justify-center text-white/70 hover:text-white transition-all">
+                <a href="#" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#C9A84C] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#C9A84C]">
                   {Icons.linkedin}
                 </a>
-                <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#25D366] flex items-center justify-center text-white/70 hover:text-white transition-all">
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#25D366] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#25D366]">
                   {Icons.whatsapp}
                 </a>
               </div>
@@ -1072,7 +1158,7 @@ export default function Home() {
               {/* Values */}
               <div className="mt-6 flex flex-wrap gap-2">
                 {(lang === 'fr' ? ['Confiance', 'Proximité', 'Engagement'] : ['الثقة', 'القرب', 'الالتزام']).map((v, i) => (
-                  <span key={i} className="text-xs bg-white/10 text-[#C9A84C] px-3 py-1.5 rounded-full">
+                  <span key={i} className="text-xs bg-white/[0.06] text-[#C9A84C] px-3 py-1.5 rounded-full border border-white/[0.06]">
                     {v}
                   </span>
                 ))}
@@ -1082,10 +1168,10 @@ export default function Home() {
 
           {/* Bottom Bar */}
           <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-white/40 text-sm">
+            <p className="text-white/30 text-sm">
               &copy; {new Date().getFullYear()} OIJIH Assurances / تأمينات وجيه. {data.footer.rights}
             </p>
-            <p className="text-white/30 text-xs">
+            <p className="text-white/20 text-xs">
               {lang === 'fr' ? 'Courtier d\'assurance agréé à Salé, Maroc' : 'وكيل تأمين معتمد في سلا، المغرب'}
             </p>
           </div>
@@ -1097,7 +1183,8 @@ export default function Home() {
         href={whatsappLink}
         target="_blank"
         rel="noopener noreferrer"
-        className="whatsapp-btn fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-lg shadow-[#25D366]/30"
+        className="whatsapp-btn fixed bottom-6 z-50 w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-2xl shadow-[#25D366]/30 hover:scale-110 transition-transform"
+        style={{ [isRTL ? 'left' : 'right']: '1.5rem' }}
         aria-label="WhatsApp"
       >
         {Icons.whatsapp}
