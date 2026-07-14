@@ -315,6 +315,11 @@ const Icons = {
       <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v2h20v-2c0-3.3-6.7-5-10-5z"/>
     </svg>
   ),
+  arrowUp: (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="m18 15-6-6-6 6"/>
+    </svg>
+  ),
   menu: (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
@@ -351,14 +356,12 @@ const serviceIcons = [Icons.car, Icons.home, Icons.multirisque, Icons.health, Ic
 const whyIcons = [Icons.trust, Icons.proximity, Icons.commitment];
 const processStepIcons = [Icons.phoneCall, Icons.searchDoc, Icons.shieldCheck];
 
-/* ────────────────────────────── Insurance Types ────────────────────────────── */
-
 const insuranceTypes = {
   fr: ['Assurance Auto', 'Assurance Habitation', 'Assurance Multirisque', 'Assurance Santé', 'Assurance Entreprise', 'Assurance Voyage'],
   ar: ['تأمين السيارة', 'تأمين السكن', 'تأمين متعدد المخاطر', 'تأمين الصحة', 'تأمين المؤسسات', 'تأمين السفر'],
 };
 
-/* ────────────────────────────── Animated Counter Component ────────────────────────────── */
+/* ────────────────────────────── Animated Counter ────────────────────────────── */
 
 function AnimatedCounter({ end, suffix, label }: { end: number; suffix: string; label: string }) {
   const [count, setCount] = useState(0);
@@ -369,11 +372,7 @@ function AnimatedCounter({ end, suffix, label }: { end: number; suffix: string; 
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started) {
-          setStarted(true);
-        }
-      },
+      ([entry]) => { if (entry.isIntersecting && !started) setStarted(true); },
       { threshold: 0.5 }
     );
     observer.observe(el);
@@ -395,9 +394,21 @@ function AnimatedCounter({ end, suffix, label }: { end: number; suffix: string; 
   }, [started, end]);
 
   return (
-    <div ref={ref} className="text-center">
+    <div ref={ref} className="hero-stat-card px-5 py-4 text-center">
       <div className="text-3xl md:text-4xl font-bold gradient-text mb-1">{count}{suffix}</div>
-      <div className="text-white/50 text-xs sm:text-sm">{label}</div>
+      <div className="text-white/60 text-xs sm:text-sm font-medium">{label}</div>
+    </div>
+  );
+}
+
+/* ────────────────────────────── Wave SVG Components ────────────────────────────── */
+
+function WaveDivider({ color, flip }: { color: string; flip?: boolean }) {
+  return (
+    <div className={`absolute ${flip ? 'top-0 rotate-180' : 'bottom-0'} left-0 right-0 line-height-0 overflow-hidden pointer-events-none`} style={{ zIndex: 1 }}>
+      <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full" preserveAspectRatio="none" style={{ display: 'block' }}>
+        <path d="M0 40L48 36C96 32 192 24 288 28C384 32 480 48 576 56C672 64 768 64 864 56C960 48 1056 32 1152 28C1248 24 1344 32 1392 36L1440 40V100H1392C1344 100 1248 100 1152 100C1056 100 960 100 864 100C768 100 672 100 576 100C480 100 384 100 288 100C192 100 96 100 48 100H0V40Z" fill={color}/>
+      </svg>
     </div>
   );
 }
@@ -409,13 +420,10 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    phone: '',
-    email: '',
-    insuranceType: '',
-    message: '',
+    firstName: '', lastName: '', phone: '', email: '', insuranceType: '', message: '',
   });
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [revealedSections, setRevealedSections] = useState<Set<string>>(new Set());
@@ -423,13 +431,17 @@ export default function Home() {
   const isRTL = lang === 'ar';
   const data = t[lang];
 
-  // Handle scroll for navbar + active section
+  // Scroll handling — progress bar, navbar, active section, back-to-top
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
+      setScrolled(scrollTop > 20);
+      setShowBackToTop(scrollTop > 600);
 
       const sections = ['hero', 'services', 'why', 'process', 'testimonials', 'contact'];
-      for (const id of sections.reverse()) {
+      for (const id of [...sections].reverse()) {
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top <= 150) {
           setActiveSection(id);
@@ -441,7 +453,7 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Handle RTL/LTR + page title
+  // RTL/LTR + page title
   useEffect(() => {
     document.documentElement.lang = lang;
     document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
@@ -460,46 +472,29 @@ export default function Home() {
           }
         });
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
     );
-
     const sections = document.querySelectorAll('.reveal');
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
   }, [lang]);
 
-  // Smooth scroll to section
   const scrollTo = useCallback((id: string) => {
     setMobileMenuOpen(false);
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
-  // Form handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('sending');
-
     try {
       const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
-      const payload = {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        phone: formData.phone,
-        email: formData.email,
-        insuranceType: formData.insuranceType,
-        message: formData.message,
-        language: lang,
-        date: new Date().toISOString(),
-      };
-
       await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
+        method: 'POST', mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ ...formData, language: lang, date: new Date().toISOString() }),
       });
-
       setFormStatus('success');
       setFormData({ firstName: '', lastName: '', phone: '', email: '', insuranceType: '', message: '' });
       setTimeout(() => setFormStatus('idle'), 5000);
@@ -509,7 +504,6 @@ export default function Home() {
     }
   };
 
-  // WhatsApp link
   const whatsappLink = `https://wa.me/212660385429?text=${encodeURIComponent(data.whatsapp.message)}`;
 
   const navItems = [
@@ -522,16 +516,17 @@ export default function Home() {
   ];
 
   return (
-    <div className={`min-h-screen flex flex-col ${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-inter)]'}`}>
-      {/* ──────── Navbar ──────── */}
+    <div className={`page-load min-h-screen flex flex-col ${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-inter)]'}`}>
+
+      {/* ══════ Scroll Progress Bar ══════ */}
+      <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
+
+      {/* ══════ Navbar ══════ */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'bg-white/95 backdrop-blur-xl py-2 shadow-sm'
-          : 'bg-transparent py-3 md:py-4'
+        scrolled ? 'bg-white/95 backdrop-blur-xl py-2 shadow-sm' : 'bg-transparent py-3 md:py-4'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            {/* Logo — transparent, no box */}
             <button onClick={() => scrollTo('hero')} className="flex items-center group">
               <img
                 src={scrolled ? '/logo.png' : '/logo-white.png'}
@@ -540,13 +535,12 @@ export default function Home() {
               />
             </button>
 
-            {/* Desktop Nav Links */}
             <div className="hidden lg:flex items-center gap-1">
               {navItems.map((item) => (
                 <button
                   key={item.key}
                   onClick={() => scrollTo(item.target)}
-                  className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-full ${
+                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${
                     activeSection === item.target
                       ? 'text-[#C9A84C]'
                       : scrolled
@@ -556,43 +550,21 @@ export default function Home() {
                 >
                   {data.nav[item.key as keyof typeof data.nav]}
                   {activeSection === item.target && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-[#C9A84C] rounded-full" />
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-[#C9A84C] rounded-full" />
                   )}
                 </button>
               ))}
             </div>
 
-            {/* Right side: Language + CTA */}
             <div className="flex items-center gap-3">
-              {/* Language Switcher — proper button with border */}
               <div className={`lang-switch ${!scrolled ? 'border-white/30 hover:border-white/50' : 'border-[#0D1F5C]/20 hover:border-[#C9A84C]'}`}>
-                <button
-                  onClick={() => setLang('fr')}
-                  className={`lang-btn ${lang === 'fr' ? 'lang-btn-active' : ''} ${!scrolled && lang !== 'fr' ? 'text-white/70' : ''}`}
-                >
-                  FR
-                </button>
-                <button
-                  onClick={() => setLang('ar')}
-                  className={`lang-btn ${lang === 'ar' ? 'lang-btn-active' : ''} ${!scrolled && lang !== 'ar' ? 'text-white/70' : ''}`}
-                >
-                  AR
-                </button>
+                <button onClick={() => setLang('fr')} className={`lang-btn ${lang === 'fr' ? 'lang-btn-active' : ''} ${!scrolled && lang !== 'fr' ? 'text-white/70' : ''}`}>FR</button>
+                <button onClick={() => setLang('ar')} className={`lang-btn ${lang === 'ar' ? 'lang-btn-active' : ''} ${!scrolled && lang !== 'ar' ? 'text-white/70' : ''}`}>AR</button>
               </div>
-
-              {/* Desktop CTA */}
-              <button
-                onClick={() => scrollTo('contact')}
-                className="hidden md:inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all hover:shadow-lg hover:shadow-[#C9A84C]/25 hover:-translate-y-0.5 active:translate-y-0"
-              >
+              <button onClick={() => scrollTo('contact')} className="hidden md:inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all hover:shadow-lg hover:shadow-[#C9A84C]/25 hover:-translate-y-0.5 active:translate-y-0">
                 {data.nav.cta}
               </button>
-
-              {/* Mobile Menu Button */}
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`lg:hidden p-2 transition-colors ${scrolled ? 'text-[#0D1F5C] hover:text-[#C9A84C]' : 'text-white hover:text-[#C9A84C]'}`}
-              >
+              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className={`lg:hidden p-2 transition-colors ${scrolled ? 'text-[#0D1F5C] hover:text-[#C9A84C]' : 'text-white hover:text-[#C9A84C]'}`}>
                 {mobileMenuOpen ? Icons.close : Icons.menu}
               </button>
             </div>
@@ -600,49 +572,38 @@ export default function Home() {
         </div>
 
         {/* Mobile Menu */}
-        <div
-          className={`lg:hidden absolute top-full left-0 right-0 bg-white shadow-2xl transition-all duration-300 ${
-            mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
-          }`}
-        >
+        <div className={`lg:hidden absolute top-full left-0 right-0 bg-white shadow-2xl transition-all duration-300 ${mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}`}>
           <div className="px-4 py-6 space-y-2">
             {navItems.map((item) => (
-              <button
-                key={item.key}
-                onClick={() => scrollTo(item.target)}
-                className={`block w-full text-left rtl:text-right py-3 px-4 rounded-xl font-medium transition-all ${
-                  activeSection === item.target
-                    ? 'text-[#C9A84C] bg-[#C9A84C]/5'
-                    : 'text-[#0D1F5C] hover:text-[#C9A84C] hover:bg-[#C9A84C]/5'
-                }`}
-              >
+              <button key={item.key} onClick={() => scrollTo(item.target)} className={`block w-full text-left rtl:text-right py-3 px-4 rounded-xl font-medium transition-all ${activeSection === item.target ? 'text-[#C9A84C] bg-[#C9A84C]/5' : 'text-[#0D1F5C] hover:text-[#C9A84C] hover:bg-[#C9A84C]/5'}`}>
                 {data.nav[item.key as keyof typeof data.nav]}
               </button>
             ))}
-            <button
-              onClick={() => scrollTo('contact')}
-              className="w-full bg-[#C9A84C] hover:bg-[#B08F35] text-white px-5 py-3.5 rounded-xl text-sm font-semibold transition-all mt-2"
-            >
-              {data.nav.cta}
-            </button>
+            <button onClick={() => scrollTo('contact')} className="w-full bg-[#C9A84C] hover:bg-[#B08F35] text-white px-5 py-3.5 rounded-xl text-sm font-semibold transition-all mt-2">{data.nav.cta}</button>
           </div>
         </div>
       </nav>
 
-      {/* ──────── Hero ──────── */}
+      {/* ══════ Hero ══════ */}
       <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-[#0D1F5C] hero-gradient hero-pattern" />
+        <div className="absolute inset-0 bg-[#0D1F5C] hero-gradient" />
+        <div className="absolute inset-0 hero-pattern" />
+        <div className="absolute inset-0 hero-particles" />
 
-        {/* Decorative geometric elements */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-[#C9A84C]/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        {/* Floating decorative orbs */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-[#C9A84C]/5 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl animate-float-slow" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-white/[0.03] rounded-full" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-white/[0.03] rounded-full" />
 
+        {/* Sparkle decorations */}
+        <div className="sparkle" style={{ top: '15%', left: '10%', animationDelay: '0s' }} />
+        <div className="sparkle" style={{ top: '25%', right: '15%', animationDelay: '1s' }} />
+        <div className="sparkle" style={{ bottom: '30%', left: '20%', animationDelay: '2s' }} />
+        <div className="sparkle" style={{ top: '40%', right: '25%', animationDelay: '0.5s' }} />
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Text Content */}
             <div className="animate-fade-in-up">
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-5 py-2.5 rounded-full mb-8 border border-white/10">
                 <span className="w-2 h-2 bg-[#C9A84C] rounded-full animate-pulse" />
@@ -650,72 +611,54 @@ export default function Home() {
               </div>
 
               <h1 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-6`}>
-                {data.hero.headline1}
+                <span className="animate-word-reveal inline-block" style={{ animationDelay: '0.2s' }}>{data.hero.headline1}</span>
                 <br />
-                <span className="gradient-text">{data.hero.headline2}</span>
+                <span className="gradient-text animate-word-reveal inline-block" style={{ animationDelay: '0.5s' }}>{data.hero.headline2}</span>
               </h1>
 
-              <p className="text-white/60 text-lg md:text-xl max-w-xl mb-10 leading-relaxed">
+              <p className="text-white/60 text-lg md:text-xl max-w-xl mb-10 leading-relaxed animate-fade-in" style={{ animationDelay: '0.7s' }}>
                 {data.hero.subtext}
               </p>
 
-              <div className="flex flex-wrap gap-4 mb-14">
-                <button
-                  onClick={() => scrollTo('contact')}
-                  className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-8 py-4 rounded-full font-semibold transition-all hover:shadow-2xl hover:shadow-[#C9A84C]/30 hover:-translate-y-1 active:translate-y-0"
-                >
+              <div className="flex flex-wrap gap-4 mb-14 animate-fade-in" style={{ animationDelay: '0.9s' }}>
+                <button onClick={() => scrollTo('contact')} className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-8 py-4 rounded-full font-semibold transition-all hover:shadow-2xl hover:shadow-[#C9A84C]/30 hover:-translate-y-1 active:translate-y-0">
                   {data.hero.btnDevis}
                   <span className="rtl-flip">{Icons.arrowRight}</span>
                 </button>
-                <a
-                  href="tel:+212537838938"
-                  className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-8 py-4 rounded-full font-semibold transition-all border border-white/20 hover:border-white/30"
-                >
+                <a href="tel:+212537838938" className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-8 py-4 rounded-full font-semibold transition-all border border-white/20 hover:border-white/30">
                   {Icons.phone}
                   {data.hero.btnCall}
                 </a>
               </div>
 
-              {/* Stats with animated counters */}
-              <div className="grid grid-cols-3 gap-8 max-w-lg">
+              {/* Stats — glassmorphism cards */}
+              <div className="grid grid-cols-3 gap-4 max-w-lg animate-fade-in" style={{ animationDelay: '1.1s' }}>
                 <AnimatedCounter end={500} suffix="+" label={data.hero.stat1Label} />
                 <AnimatedCounter end={10} suffix="+" label={data.hero.stat2Label} />
                 <AnimatedCounter end={24} suffix="h" label={data.hero.stat3Label} />
               </div>
             </div>
 
-            {/* Logo Display - Navy background version, no white card */}
+            {/* Hero Logo */}
             <div className="hidden lg:flex justify-center items-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
               <div className="relative">
-                <img
-                  src="/logo-navy.png"
-                  alt="OIJIH Assurances"
-                  className="w-[340px] md:w-[420px] h-auto drop-shadow-[0_20px_60px_rgba(0,0,0,0.4)] animate-float rounded-2xl"
-                />
-                {/* Subtle gold glow behind logo */}
+                <img src="/logo-navy.png" alt="OIJIH Assurances" className="w-[340px] md:w-[420px] h-auto drop-shadow-[0_20px_60px_rgba(0,0,0,0.4)] animate-float rounded-2xl" />
                 <div className="absolute inset-0 bg-[#C9A84C]/8 rounded-2xl blur-3xl scale-110 -z-10" />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom wave */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-            <path d="M0 60L60 52C120 44 240 28 360 32C480 36 600 60 720 68C840 76 960 68 1080 56C1200 44 1320 28 1380 20L1440 12V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0V60Z" fill="white"/>
-          </svg>
-        </div>
+        <WaveDivider color="#F8F7F4" />
       </section>
 
-      {/* ──────── Services ──────── */}
-      <section id="services" className="py-20 md:py-28 bg-[#F8F7F4]">
+      {/* ══════ Services ══════ */}
+      <section id="services" className="py-20 md:py-28 bg-[#F8F7F4] relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`reveal ${revealedSections.has('services') ? 'visible' : ''}`} id="services-reveal">
             <div className="text-center mb-16">
               <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Nos Expertises' : 'خبراتنا'}</span>
-              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>
-                {data.services.title}
-              </h2>
+              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>{data.services.title}</h2>
               <div className="section-divider mx-auto mb-6" />
               <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.services.subtitle}</p>
             </div>
@@ -723,20 +666,11 @@ export default function Home() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {data.services.items.map((item, i) => (
-              <div
-                key={i}
-                className={`reveal card-hover bg-white rounded-2xl border border-[#E5E7EB] p-7 md:p-8 group ${revealedSections.has('services') ? 'visible' : ''}`}
-                style={{ transitionDelay: `${i * 80}ms` }}
-              >
+              <div key={i} className={`reveal glass-card gradient-border rounded-2xl p-7 md:p-8 group ${revealedSections.has('services') ? 'visible' : ''}`} style={{ transitionDelay: `${i * 80}ms` }}>
                 <div className="icon-container mb-6">{serviceIcons[i]}</div>
-                <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-xl font-bold text-[#0D1F5C] mb-3`}>
-                  {item.title}
-                </h3>
+                <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-xl font-bold text-[#0D1F5C] mb-3`}>{item.title}</h3>
                 <p className="text-[#6B7280] text-sm leading-relaxed mb-6">{item.desc}</p>
-                <button
-                  onClick={() => scrollTo('contact')}
-                  className="inline-flex items-center gap-2 text-[#C9A84C] font-semibold text-sm group-hover:gap-3 transition-all"
-                >
+                <button onClick={() => scrollTo('contact')} className="inline-flex items-center gap-2 text-[#C9A84C] font-semibold text-sm group-hover:gap-3 transition-all">
                   {item.cta}
                   <span className="rtl-flip transition-transform group-hover:translate-x-1">{Icons.arrowRight}</span>
                 </button>
@@ -746,15 +680,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ──────── Why Us ──────── */}
-      <section id="why" className="py-20 md:py-28 bg-[#F8F7F4]">
+      {/* ══════ Why Us ══════ */}
+      <section id="why" className="py-20 md:py-28 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`reveal ${revealedSections.has('why') ? 'visible' : ''}`} id="why-reveal">
             <div className="text-center mb-16">
               <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Nos Valeurs' : 'قيمنا'}</span>
-              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>
-                {data.why.title}
-              </h2>
+              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>{data.why.title}</h2>
               <div className="section-divider mx-auto mb-6" />
               <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.why.subtitle}</p>
             </div>
@@ -762,17 +694,11 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {data.why.items.map((item, i) => (
-              <div
-                key={i}
-                className={`reveal card-hover bg-white rounded-2xl p-8 md:p-10 text-center shadow-sm border border-transparent hover:border-[#C9A84C]/20 ${revealedSections.has('why') ? 'visible' : ''}`}
-                style={{ transitionDelay: `${i * 120}ms` }}
-              >
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-[#0D1F5C]/[0.03] text-[#C9A84C] mb-6 transition-all group-hover:bg-[#C9A84C]/10 group-hover:scale-110">
+              <div key={i} className={`reveal tilt-card bg-white rounded-2xl p-8 md:p-10 text-center shadow-lg shadow-[#0D1F5C]/5 border border-[#E5E7EB]/50 hover:border-[#C9A84C]/30 ${revealedSections.has('why') ? 'visible' : ''}`} style={{ transitionDelay: `${i * 120}ms` }}>
+                <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-[#0D1F5C]/[0.04] text-[#C9A84C] mb-6 transition-all group-hover:bg-[#C9A84C]/10 group-hover:scale-110">
                   {whyIcons[i]}
                 </div>
-                <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-2xl font-bold text-[#0D1F5C] mb-4`}>
-                  {item.title}
-                </h3>
+                <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-2xl font-bold text-[#0D1F5C] mb-4`}>{item.title}</h3>
                 <p className="text-[#6B7280] leading-relaxed">{item.desc}</p>
               </div>
             ))}
@@ -780,49 +706,37 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ──────── How It Works ──────── */}
-      <section id="process" className="py-20 md:py-28 bg-[#0D1F5C] relative overflow-hidden">
-        {/* Decorative elements */}
+      {/* ══════ Process ══════ */}
+      <section id="process" className="py-24 md:py-32 bg-[#0D1F5C] relative overflow-hidden">
         <div className="absolute inset-0 hero-pattern opacity-30" />
         <div className="absolute top-0 left-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`reveal ${revealedSections.has('process') ? 'visible' : ''}`} id="process-reveal">
             <div className="text-center mb-16">
               <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Étapes Simples' : 'خطوات بسيطة'}</span>
-              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4`}>
-                {data.process.title}
-              </h2>
+              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4`}>{data.process.title}</h2>
               <div className="section-divider mx-auto mb-6" />
               <p className="text-white/50 text-lg max-w-2xl mx-auto">{data.process.subtitle}</p>
             </div>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 relative">
-            {/* Connector line (desktop only) */}
+            {/* Animated connector line */}
             <div className="hidden md:block absolute top-[88px] left-[20%] right-[20%] h-[2px]">
-              <div className="w-full h-full bg-gradient-to-r from-[#C9A84C]/30 via-[#C9A84C] to-[#C9A84C]/30" />
+              <div className={`h-full bg-gradient-to-r from-[#C9A84C]/30 via-[#C9A84C] to-[#C9A84C]/30 ${revealedSections.has('process') ? 'animate-draw-line' : ''}`} />
             </div>
 
             {data.process.steps.map((step, i) => (
-              <div
-                key={i}
-                className={`reveal relative text-center ${revealedSections.has('process') ? 'visible' : ''}`}
-                style={{ transitionDelay: `${i * 150}ms` }}
-              >
-                {/* Step number — bigger circle with gold border, no checkmark */}
-                <div className="relative z-10 inline-flex items-center justify-center w-36 h-36 md:w-40 md:h-40 rounded-full border-4 border-[#C9A84C] bg-[#0D1F5C] text-white mb-6 mx-auto shadow-2xl shadow-[#C9A84C]/15">
+              <div key={i} className={`reveal relative text-center ${revealedSections.has('process') ? 'visible' : ''}`} style={{ transitionDelay: `${i * 150}ms` }}>
+                <div className="relative z-10 inline-flex items-center justify-center w-36 h-36 md:w-40 md:h-40 rounded-full border-4 border-[#C9A84C] bg-[#0D1F5C] text-white mb-6 mx-auto shadow-2xl shadow-[#C9A84C]/15 step-pulse" style={{ animationDelay: `${i * 0.5}s` }}>
                   <span className="text-4xl md:text-5xl font-bold text-[#C9A84C]">{`0${i + 1}`}</span>
                 </div>
-                {/* Step icon */}
                 <div className="flex justify-center mb-5">
-                  <div className="w-14 h-14 rounded-xl bg-[#C9A84C]/10 border border-[#C9A84C]/20 text-[#C9A84C] flex items-center justify-center">
-                    {processStepIcons[i]}
-                  </div>
+                  <div className="w-14 h-14 rounded-xl bg-[#C9A84C]/10 border border-[#C9A84C]/20 text-[#C9A84C] flex items-center justify-center">{processStepIcons[i]}</div>
                 </div>
-                <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-xl font-bold text-white mb-3`}>
-                  {step.title}
-                </h3>
+                <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-xl font-bold text-white mb-3`}>{step.title}</h3>
                 <p className="text-white/60 leading-relaxed max-w-sm mx-auto">{step.desc}</p>
               </div>
             ))}
@@ -830,7 +744,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ──────── Testimonials ──────── */}
+      {/* ══════ Testimonials ══════ */}
       <section id="testimonials" className="py-20 md:py-28 bg-[#0D1F5C] relative overflow-hidden">
         <div className="absolute inset-0 hero-pattern opacity-50" />
         <div className="absolute top-0 left-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
@@ -838,9 +752,7 @@ export default function Home() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`reveal ${revealedSections.has('testimonials') ? 'visible' : ''}`} id="testimonials-reveal">
             <div className="text-center mb-16">
-              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4`}>
-                {data.testimonials.title}
-              </h2>
+              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4`}>{data.testimonials.title}</h2>
               <div className="section-divider mx-auto mb-6" />
               <p className="text-white/50 text-lg max-w-2xl mx-auto">{data.testimonials.subtitle}</p>
             </div>
@@ -848,25 +760,13 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {data.testimonials.items.map((item, i) => (
-              <div
-                key={i}
-                className={`reveal testimonial-card bg-white/15 backdrop-blur-md border border-white/20 rounded-2xl p-8 transition-all duration-300 hover:bg-white/20 hover:border-white/30 hover:-translate-y-1 ${revealedSections.has('testimonials') ? 'visible' : ''}`}
-                style={{ transitionDelay: `${i * 120}ms` }}
-              >
-                {/* Stars */}
+              <div key={i} className={`reveal testimonial-card glass-card-dark rounded-2xl p-8 ${revealedSections.has('testimonials') ? 'visible' : ''}`} style={{ transitionDelay: `${i * 120}ms` }}>
                 <div className="flex gap-1 text-[#C9A84C] mb-5">
-                  {[...Array(5)].map((_, j) => (
-                    <span key={j}>{Icons.star}</span>
-                  ))}
+                  {[...Array(5)].map((_, j) => (<span key={j}>{Icons.star}</span>))}
                 </div>
-
                 <p className="text-white/80 leading-relaxed mb-8 text-sm">{item.text}</p>
-
                 <div className="flex items-center gap-3 pt-5 border-t border-white/15">
-                  {/* Photo placeholder circle with person icon */}
-                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#C9A84C] to-[#B08F35] flex items-center justify-center text-white shadow-lg overflow-hidden">
-                    {Icons.person}
-                  </div>
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#C9A84C] to-[#B08F35] flex items-center justify-center text-white shadow-lg overflow-hidden">{Icons.person}</div>
                   <div>
                     <div className="text-white font-semibold text-sm">{item.name}</div>
                     <div className="text-white/50 text-xs">{item.role}</div>
@@ -878,191 +778,89 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ──────── Contact ──────── */}
-      <section id="contact" className="py-20 md:py-28 bg-[#F8F7F4]">
+      {/* ══════ Contact ══════ */}
+      <section id="contact" className="py-20 md:py-28 bg-[#F8F7F4] relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`reveal ${revealedSections.has('contact') ? 'visible' : ''}`} id="contact-reveal">
             <div className="text-center mb-16">
               <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Écrivez-nous' : 'اكتبوا لنا'}</span>
-              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>
-                {data.contact.title}
-              </h2>
+              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>{data.contact.title}</h2>
               <div className="section-divider mx-auto mb-6" />
               <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.contact.subtitle}</p>
             </div>
           </div>
 
           <div className="grid lg:grid-cols-5 gap-12">
-            {/* Form */}
             <div className={`lg:col-span-3 reveal ${revealedSections.has('contact') ? 'visible' : ''}`}>
-              <form onSubmit={handleSubmit} className="bg-[#F8F7F4] rounded-2xl p-6 md:p-10 border border-[#E5E7EB]">
+              <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-6 md:p-10 shadow-xl shadow-[#0D1F5C]/5 border border-[#E5E7EB]/50">
                 <div className="grid sm:grid-cols-2 gap-5 mb-5">
-                  <div>
-                    <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.firstName}</label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.firstName}
-                      onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all placeholder:text-[#9CA3AF]"
-                      placeholder={lang === 'fr' ? 'Votre prénom' : 'اسمكم'}
-                    />
+                  <div className="form-field">
+                    <input type="text" required value={formData.firstName} onChange={(e) => setFormData({ ...formData, firstName: e.target.value })} placeholder=" " dir="auto" />
+                    <label>{data.contact.firstName}</label>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.lastName}</label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.lastName}
-                      onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all placeholder:text-[#9CA3AF]"
-                      placeholder={lang === 'fr' ? 'Votre nom' : 'نسبكم'}
-                    />
+                  <div className="form-field">
+                    <input type="text" required value={formData.lastName} onChange={(e) => setFormData({ ...formData, lastName: e.target.value })} placeholder=" " dir="auto" />
+                    <label>{data.contact.lastName}</label>
                   </div>
                 </div>
-
                 <div className="grid sm:grid-cols-2 gap-5 mb-5">
-                  <div>
-                    <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.phone}</label>
-                    <input
-                      type="tel"
-                      required
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all placeholder:text-[#9CA3AF]"
-                      placeholder="06 XX XX XX XX"
-                      dir="ltr"
-                    />
+                  <div className="form-field">
+                    <input type="tel" required value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} placeholder=" " dir="ltr" />
+                    <label>{data.contact.phone}</label>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.email}</label>
-                    <input
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3.5 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all placeholder:text-[#9CA3AF]"
-                      placeholder="email@exemple.com"
-                      dir="ltr"
-                    />
+                  <div className="form-field">
+                    <input type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder=" " dir="ltr" />
+                    <label>{data.contact.email}</label>
                   </div>
                 </div>
-
-                <div className="mb-5">
-                  <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.insuranceType}</label>
-                  <select
-                    required
-                    value={formData.insuranceType}
-                    onChange={(e) => setFormData({ ...formData, insuranceType: e.target.value })}
-                    className="w-full px-4 py-3.5 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%230D1F5C%22%20stroke-width%3D%222%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-[length:12px] bg-[position:right_1rem_center] bg-no-repeat"
-                  >
+                <div className="form-field mb-5">
+                  <select required value={formData.insuranceType} onChange={(e) => setFormData({ ...formData, insuranceType: e.target.value })} className={formData.insuranceType ? 'has-value' : ''}>
                     <option value="">{data.contact.selectType}</option>
-                    {insuranceTypes[lang].map((type, i) => (
-                      <option key={i} value={type}>{type}</option>
-                    ))}
+                    {insuranceTypes[lang].map((type, i) => (<option key={i} value={type}>{type}</option>))}
                   </select>
+                  <label>{data.contact.insuranceType}</label>
                 </div>
-
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.message}</label>
-                  <textarea
-                    rows={4}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3.5 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all resize-none placeholder:text-[#9CA3AF]"
-                    placeholder={lang === 'fr' ? 'Décrivez votre besoin...' : 'صفوا حاجتكم...'}
-                  />
+                <div className="form-field mb-6">
+                  <textarea rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} placeholder=" " />
+                  <label>{data.contact.message}</label>
                 </div>
-
-                <button
-                  type="submit"
-                  disabled={formStatus === 'sending'}
-                  className="w-full bg-[#0D1F5C] hover:bg-[#162572] text-white py-4 rounded-xl font-semibold transition-all hover:shadow-xl hover:shadow-[#0D1F5C]/20 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-base"
-                >
+                <button type="submit" disabled={formStatus === 'sending'} className="w-full bg-[#0D1F5C] hover:bg-[#162572] text-white py-4 rounded-xl font-semibold transition-all hover:shadow-xl hover:shadow-[#0D1F5C]/20 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-base">
                   {formStatus === 'sending' ? (
-                    <>
-                      <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
-                      {data.contact.sending}
-                    </>
-                  ) : (
-                    <>
-                      {data.contact.send}
-                      <span className="rtl-flip">{Icons.arrowRight}</span>
-                    </>
-                  )}
+                    <><svg className="animate-spin h-5 w-5" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>{data.contact.sending}</>
+                  ) : (<>{data.contact.send}<span className="rtl-flip">{Icons.arrowRight}</span></>)}
                 </button>
-
-                {formStatus === 'success' && (
-                  <div className="mt-4 p-4 bg-emerald-50 text-emerald-700 rounded-xl text-sm font-medium text-center flex items-center justify-center gap-2">
-                    {Icons.check} {data.contact.success}
-                  </div>
-                )}
-                {formStatus === 'error' && (
-                  <div className="mt-4 p-4 bg-red-50 text-red-700 rounded-xl text-sm font-medium text-center">
-                    {data.contact.error}
-                  </div>
-                )}
+                {formStatus === 'success' && (<div className="mt-4 p-4 bg-emerald-50 text-emerald-700 rounded-xl text-sm font-medium text-center flex items-center justify-center gap-2">{Icons.check} {data.contact.success}</div>)}
+                {formStatus === 'error' && (<div className="mt-4 p-4 bg-red-50 text-red-700 rounded-xl text-sm font-medium text-center">{data.contact.error}</div>)}
               </form>
             </div>
 
-            {/* Contact Info */}
             <div className={`lg:col-span-2 reveal ${revealedSections.has('contact') ? 'visible' : ''}`} style={{ transitionDelay: '200ms' }}>
               <div className="space-y-5">
-                {/* Phone Personnel */}
-                <a href="tel:+212662409860" className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl hover:bg-[#0D1F5C]/[0.03] transition-all group border border-transparent hover:border-[#C9A84C]/20">
-                  <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1F5C] transition-all shadow-sm">
-                    {Icons.phone}
-                  </div>
-                  <div>
-                    <div className="text-sm text-[#6B7280] mb-1">{lang === 'fr' ? 'Téléphone Personnel' : 'هاتف شخصي'}</div>
-                    <div className="text-[#0D1F5C] font-semibold" dir="ltr">06 62 40 98 60</div>
-                  </div>
-                </a>
+                {[
+                  { href: 'tel:+212662409860', label: lang === 'fr' ? 'Téléphone Personnel' : 'هاتف شخصي', value: '06 62 40 98 60', icon: Icons.phone },
+                  { href: 'tel:+212537838938', label: lang === 'fr' ? 'Téléphone Agence' : 'هاتف الوكالة', value: '05 37 83 89 38', icon: Icons.phone },
+                  { href: 'mailto:oijih.assurance25@gmail.com', label: data.contact.email, value: 'oijih.assurance25@gmail.com', icon: Icons.email },
+                ].map((item, i) => (
+                  <a key={i} href={item.href} className="flex items-start gap-4 p-5 bg-white rounded-xl hover:bg-[#0D1F5C]/[0.02] transition-all group border border-transparent hover:border-[#C9A84C]/20 shadow-sm">
+                    <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1F5C] transition-all shadow-sm">{item.icon}</div>
+                    <div>
+                      <div className="text-sm text-[#6B7280] mb-1">{item.label}</div>
+                      <div className="text-[#0D1F5C] font-semibold text-sm" dir="ltr">{item.value}</div>
+                    </div>
+                  </a>
+                ))}
 
-                {/* Phone Agence */}
-                <a href="tel:+212537838938" className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl hover:bg-[#0D1F5C]/[0.03] transition-all group border border-transparent hover:border-[#C9A84C]/20">
-                  <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1F5C] transition-all shadow-sm">
-                    {Icons.phone}
-                  </div>
-                  <div>
-                    <div className="text-sm text-[#6B7280] mb-1">{lang === 'fr' ? 'Téléphone Agence' : 'هاتف الوكالة'}</div>
-                    <div className="text-[#0D1F5C] font-semibold" dir="ltr">05 37 83 89 38</div>
-                  </div>
-                </a>
-
-                {/* Email */}
-                <a href="mailto:oijih.assurance25@gmail.com" className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl hover:bg-[#0D1F5C]/[0.03] transition-all group border border-transparent hover:border-[#C9A84C]/20">
-                  <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1F5C] transition-all shadow-sm">
-                    {Icons.email}
-                  </div>
-                  <div>
-                    <div className="text-sm text-[#6B7280] mb-1">{data.contact.email}</div>
-                    <div className="text-[#0D1F5C] font-semibold text-sm" dir="ltr">oijih.assurance25@gmail.com</div>
-                  </div>
-                </a>
-
-                {/* Address */}
-                <div className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl border border-transparent hover:border-[#C9A84C]/20 transition-all">
-                  <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 shadow-sm">
-                    {Icons.location}
-                  </div>
+                <div className="flex items-start gap-4 p-5 bg-white rounded-xl border border-transparent hover:border-[#C9A84C]/20 transition-all shadow-sm">
+                  <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 shadow-sm">{Icons.location}</div>
                   <div>
                     <div className="text-sm text-[#6B7280] mb-1">{lang === 'fr' ? 'Adresse' : 'العنوان'}</div>
                     <div className="text-[#0D1F5C] font-semibold text-sm leading-relaxed">
-                      {lang === 'fr'
-                        ? 'N°960, Lotissement Sidi Abdellah, Secteur Al Fath, Laayayda, Salé, Maroc'
-                        : 'رقم 960، تجزئة سيدي عبد الله، قطاع الفتح، العيايدة، سلا، المغرب'}
+                      {lang === 'fr' ? 'N°960, Lotissement Sidi Abdellah, Secteur Al Fath, Laayayda, Salé, Maroc' : 'رقم 960، تجزئة سيدي عبد الله، قطاع الفتح، العيايدة، سلا، المغرب'}
                     </div>
                   </div>
                 </div>
 
-                {/* WhatsApp CTA */}
-                <a
-                  href={whatsappLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-3 p-4 bg-[#25D366]/10 rounded-xl text-[#25D366] font-semibold hover:bg-[#25D366]/20 transition-all border border-[#25D366]/20"
-                >
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 p-4 bg-[#25D366]/10 rounded-xl text-[#25D366] font-semibold hover:bg-[#25D366]/20 transition-all border border-[#25D366]/20">
                   {Icons.whatsapp}
                   {lang === 'fr' ? 'Écrivez-nous sur WhatsApp' : 'راسلونا على واتساب'}
                 </a>
@@ -1072,163 +870,91 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ──────── Google Maps ──────── */}
-      <section id="map" className="py-20 md:py-28 bg-[#F8F7F4]">
+      {/* ══════ Google Maps ══════ */}
+      <section id="map" className="py-20 md:py-28 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`reveal ${revealedSections.has('map') ? 'visible' : ''}`} id="map-reveal">
             <div className="text-center mb-12">
               <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Localisation' : 'الموقع'}</span>
-              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>
-                {data.map.title}
-              </h2>
+              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>{data.map.title}</h2>
               <div className="section-divider mx-auto mb-6" />
               <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.map.subtitle}</p>
             </div>
           </div>
-
           <div className={`reveal ${revealedSections.has('map') ? 'visible' : ''}`}>
             <div className="map-container">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3306.5!2d-6.7985!3d34.0531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDAzJzExLjIiTiA2wrA0Nyc1NC42Ilc!5e0!3m2!1sfr!2sma!4v1"
-                width="100%"
-                height="400"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="OIJIH Assurances Location"
-                className="w-full"
-              />
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3306.5!2d-6.7985!3d34.0531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDAzJzExLjIiTiA2wrA0Nyc1NC42Ilc!5e0!3m2!1sfr!2sma!4v1" width="100%" height="400" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="OIJIH Assurances Location" className="w-full" />
             </div>
-
             <div className="flex flex-wrap gap-4 mt-8 justify-center">
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=34.0531,-6.7985"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#0D1F5C] hover:bg-[#162572] text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all hover:shadow-xl hover:shadow-[#0D1F5C]/20 hover:-translate-y-0.5"
-              >
-                {Icons.externalLink}
-                {data.map.openMaps}
-              </a>
-              <a
-                href="https://www.google.com/maps/dir/?api=1&destination=34.0531,-6.7985"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all hover:shadow-xl hover:shadow-[#C9A84C]/20 hover:-translate-y-0.5"
-              >
-                {Icons.location}
-                {data.map.directions}
-              </a>
+              <a href="https://www.google.com/maps/search/?api=1&query=34.0531,-6.7985" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#0D1F5C] hover:bg-[#162572] text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all hover:shadow-xl hover:shadow-[#0D1F5C]/20 hover:-translate-y-0.5">{Icons.externalLink}{data.map.openMaps}</a>
+              <a href="https://www.google.com/maps/dir/?api=1&destination=34.0531,-6.7985" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all hover:shadow-xl hover:shadow-[#C9A84C]/20 hover:-translate-y-0.5">{Icons.location}{data.map.directions}</a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ──────── Footer ──────── */}
+      {/* ══════ Footer ══════ */}
       <footer className="bg-[#0D1F5C] pt-16 pb-8 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
-            {/* Logo & Slogan */}
             <div className="lg:col-span-1">
               <img src="/logo-white.png" alt="OIJIH Assurances" className="h-16 md:h-20 w-auto mb-5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]" />
               <p className="text-white/60 text-sm leading-relaxed mb-2">{data.footer.slogan}</p>
               <p className="text-[#C9A84C] font-semibold text-sm">{data.footer.tagline}</p>
             </div>
-
-            {/* Quick Links */}
             <div>
               <h4 className="font-semibold text-[#C9A84C] mb-5 text-sm tracking-wider uppercase">{data.footer.quickLinks}</h4>
               <ul className="space-y-3">
                 {navItems.slice(0, 5).map((item) => (
-                  <li key={item.key}>
-                    <button
-                      onClick={() => scrollTo(item.target)}
-                      className="footer-link text-white/50 hover:text-[#C9A84C] text-sm transition-all"
-                    >
-                      {data.nav[item.key as keyof typeof data.nav]}
-                    </button>
-                  </li>
+                  <li key={item.key}><button onClick={() => scrollTo(item.target)} className="footer-link text-white/50 hover:text-[#C9A84C] text-sm transition-all">{data.nav[item.key as keyof typeof data.nav]}</button></li>
                 ))}
               </ul>
             </div>
-
-            {/* Contact */}
             <div>
               <h4 className="font-semibold text-[#C9A84C] mb-5 text-sm tracking-wider uppercase">{data.footer.contactUs}</h4>
               <div className="space-y-3 text-sm">
-                <a href="tel:+212662409860" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors" dir="ltr">
-                  <span className="text-[#C9A84C]">{Icons.phone}</span> 06 62 40 98 60
-                </a>
-                <a href="tel:+212537838938" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors" dir="ltr">
-                  <span className="text-[#C9A84C]">{Icons.phone}</span> 05 37 83 89 38
-                </a>
-                <a href="mailto:oijih.assurance25@gmail.com" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors" dir="ltr">
-                  <span className="text-[#C9A84C]">{Icons.email}</span> oijih.assurance25@gmail.com
-                </a>
+                <a href="tel:+212662409860" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors" dir="ltr"><span className="text-[#C9A84C]">{Icons.phone}</span> 06 62 40 98 60</a>
+                <a href="tel:+212537838938" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors" dir="ltr"><span className="text-[#C9A84C]">{Icons.phone}</span> 05 37 83 89 38</a>
+                <a href="mailto:oijih.assurance25@gmail.com" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors" dir="ltr"><span className="text-[#C9A84C]">{Icons.email}</span> oijih.assurance25@gmail.com</a>
                 <div className="flex items-start gap-3 text-white/50 pt-1">
                   <span className="text-[#C9A84C] mt-0.5">{Icons.location}</span>
-                  <span className="text-xs leading-relaxed">
-                    {lang === 'fr'
-                      ? 'N°960, Lot. Sidi Abdellah, Al Fath, Laayayda, Salé'
-                      : 'رقم 960، تجزئة سيدي عبد الله، الفتح، العيايدة، سلا'}
-                  </span>
+                  <span className="text-xs leading-relaxed">{lang === 'fr' ? 'N°960, Lot. Sidi Abdellah, Al Fath, Laayayda, Salé' : 'رقم 960، تجزئة سيدي عبد الله، الفتح، العيايدة، سلا'}</span>
                 </div>
               </div>
             </div>
-
-            {/* Social Media */}
             <div>
               <h4 className="font-semibold text-[#C9A84C] mb-5 text-sm tracking-wider uppercase">{lang === 'fr' ? 'Suivez-nous' : 'تابعونا'}</h4>
               <div className="flex gap-3">
-                <a href="#" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#C9A84C] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#C9A84C]">
-                  {Icons.facebook}
-                </a>
-                <a href="#" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#C9A84C] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#C9A84C]">
-                  {Icons.instagram}
-                </a>
-                <a href="#" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#C9A84C] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#C9A84C]">
-                  {Icons.linkedin}
-                </a>
-                <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#25D366] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#25D366]">
-                  {Icons.whatsapp}
-                </a>
+                {[Icons.facebook, Icons.instagram, Icons.linkedin].map((icon, i) => (
+                  <a key={i} href="#" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#C9A84C] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#C9A84C]">{icon}</a>
+                ))}
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#25D366] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#25D366]">{Icons.whatsapp}</a>
               </div>
-
-              {/* Values */}
               <div className="mt-6 flex flex-wrap gap-2">
                 {(lang === 'fr' ? ['Confiance', 'Proximité', 'Engagement'] : ['الثقة', 'القرب', 'الالتزام']).map((v, i) => (
-                  <span key={i} className="text-xs bg-white/[0.06] text-[#C9A84C] px-3 py-1.5 rounded-full border border-white/[0.06]">
-                    {v}
-                  </span>
+                  <span key={i} className="text-xs bg-white/[0.06] text-[#C9A84C] px-3 py-1.5 rounded-full border border-white/[0.06]">{v}</span>
                 ))}
               </div>
             </div>
           </div>
-
-          {/* Bottom Bar */}
           <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-white/30 text-sm">
-              &copy; {new Date().getFullYear()} OIJIH Assurances / تأمينات وجيه. {data.footer.rights}
-            </p>
-            <p className="text-white/20 text-xs">
-              {lang === 'fr' ? 'Courtier d\'assurance agréé à Salé, Maroc' : 'وكيل تأمين معتمد في سلا، المغرب'}
-            </p>
+            <p className="text-white/30 text-sm">&copy; {new Date().getFullYear()} OIJIH Assurances / تأمينات وجيه. {data.footer.rights}</p>
+            <p className="text-white/20 text-xs">{lang === 'fr' ? 'Courtier d\'assurance agréé à Salé, Maroc' : 'وكيل تأمين معتمد في سلا، المغرب'}</p>
           </div>
         </div>
       </footer>
 
-      {/* ──────── Floating WhatsApp Button ──────── */}
-      <a
-        href={whatsappLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="whatsapp-btn fixed bottom-6 z-50 w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-2xl shadow-[#25D366]/30 hover:scale-110 transition-transform"
-        style={{ [isRTL ? 'left' : 'right']: '1.5rem' }}
-        aria-label="WhatsApp"
-      >
+      {/* ══════ Floating WhatsApp ══════ */}
+      <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="whatsapp-btn fixed bottom-6 z-50 w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-2xl shadow-[#25D366]/30" style={{ [isRTL ? 'left' : 'right']: '1.5rem' }} aria-label="WhatsApp">
         {Icons.whatsapp}
       </a>
+
+      {/* ══════ Back to Top ══════ */}
+      {showBackToTop && (
+        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="back-to-top fixed bottom-24 z-50 w-12 h-12 bg-[#C9A84C] hover:bg-[#B08F35] rounded-full flex items-center justify-center text-white shadow-lg shadow-[#C9A84C]/30" style={{ [isRTL ? 'left' : 'right']: '1.75rem' }} aria-label="Back to top">
+          {Icons.arrowUp}
+        </button>
+      )}
     </div>
   );
 }

@@ -1,0 +1,636 @@
+   600→        </div>
+   601→
+   602→        {/* Mobile Menu */}
+   603→        <div
+   604→          className={`lg:hidden absolute top-full left-0 right-0 bg-white shadow-2xl transition-all duration-300 ${
+   605→            mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
+   606→          }`}
+   607→        >
+   608→          <div className="px-4 py-6 space-y-2">
+   609→            {navItems.map((item) => (
+   610→              <button
+   611→                key={item.key}
+   612→                onClick={() => scrollTo(item.target)}
+   613→                className={`block w-full text-left rtl:text-right py-3 px-4 rounded-xl font-medium transition-all ${
+   614→                  activeSection === item.target
+   615→                    ? 'text-[#C9A84C] bg-[#C9A84C]/5'
+   616→                    : 'text-[#0D1F5C] hover:text-[#C9A84C] hover:bg-[#C9A84C]/5'
+   617→                }`}
+   618→              >
+   619→                {data.nav[item.key as keyof typeof data.nav]}
+   620→              </button>
+   621→            ))}
+   622→            <button
+   623→              onClick={() => scrollTo('contact')}
+   624→              className="w-full bg-[#C9A84C] hover:bg-[#B08F35] text-white px-5 py-3.5 rounded-xl text-sm font-semibold transition-all mt-2"
+   625→            >
+   626→              {data.nav.cta}
+   627→            </button>
+   628→          </div>
+   629→        </div>
+   630→      </nav>
+   631→
+   632→      {/* ──────── Hero ──────── */}
+   633→      <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
+   634→        {/* Background */}
+   635→        <div className="absolute inset-0 bg-[#0D1F5C] hero-gradient hero-pattern" />
+   636→
+   637→        {/* Decorative geometric elements */}
+   638→        <div className="absolute top-20 left-10 w-72 h-72 bg-[#C9A84C]/5 rounded-full blur-3xl animate-pulse" />
+   639→        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+   640→        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-white/[0.03] rounded-full" />
+   641→        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-white/[0.03] rounded-full" />
+   642→
+   643→        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40">
+   644→          <div className="grid lg:grid-cols-2 gap-12 items-center">
+   645→            {/* Text Content */}
+   646→            <div className="animate-fade-in-up">
+   647→              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-5 py-2.5 rounded-full mb-8 border border-white/10">
+   648→                <span className="w-2 h-2 bg-[#C9A84C] rounded-full animate-pulse" />
+   649→                <span className="text-white/80 text-sm font-medium">{lang === 'fr' ? 'L\'assurance de votre sécurité' : 'ضمانك وأمانك'}</span>
+   650→              </div>
+   651→
+   652→              <h1 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-6`}>
+   653→                {data.hero.headline1}
+   654→                <br />
+   655→                <span className="gradient-text">{data.hero.headline2}</span>
+   656→              </h1>
+   657→
+   658→              <p className="text-white/60 text-lg md:text-xl max-w-xl mb-10 leading-relaxed">
+   659→                {data.hero.subtext}
+   660→              </p>
+   661→
+   662→              <div className="flex flex-wrap gap-4 mb-14">
+   663→                <button
+   664→                  onClick={() => scrollTo('contact')}
+   665→                  className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-8 py-4 rounded-full font-semibold transition-all hover:shadow-2xl hover:shadow-[#C9A84C]/30 hover:-translate-y-1 active:translate-y-0"
+   666→                >
+   667→                  {data.hero.btnDevis}
+   668→                  <span className="rtl-flip">{Icons.arrowRight}</span>
+   669→                </button>
+   670→                <a
+   671→                  href="tel:+212537838938"
+   672→                  className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-8 py-4 rounded-full font-semibold transition-all border border-white/20 hover:border-white/30"
+   673→                >
+   674→                  {Icons.phone}
+   675→                  {data.hero.btnCall}
+   676→                </a>
+   677→              </div>
+   678→
+   679→              {/* Stats with animated counters */}
+   680→              <div className="grid grid-cols-3 gap-8 max-w-lg">
+   681→                <AnimatedCounter end={500} suffix="+" label={data.hero.stat1Label} />
+   682→                <AnimatedCounter end={10} suffix="+" label={data.hero.stat2Label} />
+   683→                <AnimatedCounter end={24} suffix="h" label={data.hero.stat3Label} />
+   684→              </div>
+   685→            </div>
+   686→
+   687→            {/* Logo Display - Navy background version, no white card */}
+   688→            <div className="hidden lg:flex justify-center items-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
+   689→              <div className="relative">
+   690→                <img
+   691→                  src="/logo-navy.png"
+   692→                  alt="OIJIH Assurances"
+   693→                  className="w-[340px] md:w-[420px] h-auto drop-shadow-[0_20px_60px_rgba(0,0,0,0.4)] animate-float rounded-2xl"
+   694→                />
+   695→                {/* Subtle gold glow behind logo */}
+   696→                <div className="absolute inset-0 bg-[#C9A84C]/8 rounded-2xl blur-3xl scale-110 -z-10" />
+   697→              </div>
+   698→            </div>
+   699→          </div>
+   700→        </div>
+   701→
+   702→        {/* Bottom wave */}
+   703→        <div className="absolute bottom-0 left-0 right-0">
+   704→          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+   705→            <path d="M0 60L60 52C120 44 240 28 360 32C480 36 600 60 720 68C840 76 960 68 1080 56C1200 44 1320 28 1380 20L1440 12V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0V60Z" fill="white"/>
+   706→          </svg>
+   707→        </div>
+   708→      </section>
+   709→
+   710→      {/* ──────── Services ──────── */}
+   711→      <section id="services" className="py-20 md:py-28 bg-[#F8F7F4]">
+   712→        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   713→          <div className={`reveal ${revealedSections.has('services') ? 'visible' : ''}`} id="services-reveal">
+   714→            <div className="text-center mb-16">
+   715→              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Nos Expertises' : 'خبراتنا'}</span>
+   716→              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>
+   717→                {data.services.title}
+   718→              </h2>
+   719→              <div className="section-divider mx-auto mb-6" />
+   720→              <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.services.subtitle}</p>
+   721→            </div>
+   722→          </div>
+   723→
+   724→          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+   725→            {data.services.items.map((item, i) => (
+   726→              <div
+   727→                key={i}
+   728→                className={`reveal card-hover bg-white rounded-2xl border border-[#E5E7EB] p-7 md:p-8 group ${revealedSections.has('services') ? 'visible' : ''}`}
+   729→                style={{ transitionDelay: `${i * 80}ms` }}
+   730→              >
+   731→                <div className="icon-container mb-6">{serviceIcons[i]}</div>
+   732→                <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-xl font-bold text-[#0D1F5C] mb-3`}>
+   733→                  {item.title}
+   734→                </h3>
+   735→                <p className="text-[#6B7280] text-sm leading-relaxed mb-6">{item.desc}</p>
+   736→                <button
+   737→                  onClick={() => scrollTo('contact')}
+   738→                  className="inline-flex items-center gap-2 text-[#C9A84C] font-semibold text-sm group-hover:gap-3 transition-all"
+   739→                >
+   740→                  {item.cta}
+   741→                  <span className="rtl-flip transition-transform group-hover:translate-x-1">{Icons.arrowRight}</span>
+   742→                </button>
+   743→              </div>
+   744→            ))}
+   745→          </div>
+   746→        </div>
+   747→      </section>
+   748→
+   749→      {/* ──────── Why Us ──────── */}
+   750→      <section id="why" className="py-20 md:py-28 bg-[#F8F7F4]">
+   751→        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   752→          <div className={`reveal ${revealedSections.has('why') ? 'visible' : ''}`} id="why-reveal">
+   753→            <div className="text-center mb-16">
+   754→              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Nos Valeurs' : 'قيمنا'}</span>
+   755→              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>
+   756→                {data.why.title}
+   757→              </h2>
+   758→              <div className="section-divider mx-auto mb-6" />
+   759→              <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.why.subtitle}</p>
+   760→            </div>
+   761→          </div>
+   762→
+   763→          <div className="grid md:grid-cols-3 gap-8">
+   764→            {data.why.items.map((item, i) => (
+   765→              <div
+   766→                key={i}
+   767→                className={`reveal card-hover bg-white rounded-2xl p-8 md:p-10 text-center shadow-sm border border-transparent hover:border-[#C9A84C]/20 ${revealedSections.has('why') ? 'visible' : ''}`}
+   768→                style={{ transitionDelay: `${i * 120}ms` }}
+   769→              >
+   770→                <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-[#0D1F5C]/[0.03] text-[#C9A84C] mb-6 transition-all group-hover:bg-[#C9A84C]/10 group-hover:scale-110">
+   771→                  {whyIcons[i]}
+   772→                </div>
+   773→                <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-2xl font-bold text-[#0D1F5C] mb-4`}>
+   774→                  {item.title}
+   775→                </h3>
+   776→                <p className="text-[#6B7280] leading-relaxed">{item.desc}</p>
+   777→              </div>
+   778→            ))}
+   779→          </div>
+   780→        </div>
+   781→      </section>
+   782→
+   783→      {/* ──────── How It Works ──────── */}
+   784→      <section id="process" className="py-20 md:py-28 bg-[#0D1F5C] relative overflow-hidden">
+   785→        {/* Decorative elements */}
+   786→        <div className="absolute inset-0 hero-pattern opacity-30" />
+   787→        <div className="absolute top-0 left-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+   788→        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+   789→        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   790→          <div className={`reveal ${revealedSections.has('process') ? 'visible' : ''}`} id="process-reveal">
+   791→            <div className="text-center mb-16">
+   792→              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Étapes Simples' : 'خطوات بسيطة'}</span>
+   793→              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4`}>
+   794→                {data.process.title}
+   795→              </h2>
+   796→              <div className="section-divider mx-auto mb-6" />
+   797→              <p className="text-white/50 text-lg max-w-2xl mx-auto">{data.process.subtitle}</p>
+   798→            </div>
+   799→          </div>
+   800→
+   801→          <div className="grid md:grid-cols-3 gap-8 relative">
+   802→            {/* Connector line (desktop only) */}
+   803→            <div className="hidden md:block absolute top-[88px] left-[20%] right-[20%] h-[2px]">
+   804→              <div className="w-full h-full bg-gradient-to-r from-[#C9A84C]/30 via-[#C9A84C] to-[#C9A84C]/30" />
+   805→            </div>
+   806→
+   807→            {data.process.steps.map((step, i) => (
+   808→              <div
+   809→                key={i}
+   810→                className={`reveal relative text-center ${revealedSections.has('process') ? 'visible' : ''}`}
+   811→                style={{ transitionDelay: `${i * 150}ms` }}
+   812→              >
+   813→                {/* Step number — bigger circle with gold border, no checkmark */}
+   814→                <div className="relative z-10 inline-flex items-center justify-center w-36 h-36 md:w-40 md:h-40 rounded-full border-4 border-[#C9A84C] bg-[#0D1F5C] text-white mb-6 mx-auto shadow-2xl shadow-[#C9A84C]/15">
+   815→                  <span className="text-4xl md:text-5xl font-bold text-[#C9A84C]">{`0${i + 1}`}</span>
+   816→                </div>
+   817→                {/* Step icon */}
+   818→                <div className="flex justify-center mb-5">
+   819→                  <div className="w-14 h-14 rounded-xl bg-[#C9A84C]/10 border border-[#C9A84C]/20 text-[#C9A84C] flex items-center justify-center">
+   820→                    {processStepIcons[i]}
+   821→                  </div>
+   822→                </div>
+   823→                <h3 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-xl font-bold text-white mb-3`}>
+   824→                  {step.title}
+   825→                </h3>
+   826→                <p className="text-white/60 leading-relaxed max-w-sm mx-auto">{step.desc}</p>
+   827→              </div>
+   828→            ))}
+   829→          </div>
+   830→        </div>
+   831→      </section>
+   832→
+   833→      {/* ──────── Testimonials ──────── */}
+   834→      <section id="testimonials" className="py-20 md:py-28 bg-[#0D1F5C] relative overflow-hidden">
+   835→        <div className="absolute inset-0 hero-pattern opacity-50" />
+   836→        <div className="absolute top-0 left-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+   837→        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-3xl" />
+   838→        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   839→          <div className={`reveal ${revealedSections.has('testimonials') ? 'visible' : ''}`} id="testimonials-reveal">
+   840→            <div className="text-center mb-16">
+   841→              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4`}>
+   842→                {data.testimonials.title}
+   843→              </h2>
+   844→              <div className="section-divider mx-auto mb-6" />
+   845→              <p className="text-white/50 text-lg max-w-2xl mx-auto">{data.testimonials.subtitle}</p>
+   846→            </div>
+   847→          </div>
+   848→
+   849→          <div className="grid md:grid-cols-3 gap-8">
+   850→            {data.testimonials.items.map((item, i) => (
+   851→              <div
+   852→                key={i}
+   853→                className={`reveal testimonial-card bg-white/15 backdrop-blur-md border border-white/20 rounded-2xl p-8 transition-all duration-300 hover:bg-white/20 hover:border-white/30 hover:-translate-y-1 ${revealedSections.has('testimonials') ? 'visible' : ''}`}
+   854→                style={{ transitionDelay: `${i * 120}ms` }}
+   855→              >
+   856→                {/* Stars */}
+   857→                <div className="flex gap-1 text-[#C9A84C] mb-5">
+   858→                  {[...Array(5)].map((_, j) => (
+   859→                    <span key={j}>{Icons.star}</span>
+   860→                  ))}
+   861→                </div>
+   862→
+   863→                <p className="text-white/80 leading-relaxed mb-8 text-sm">{item.text}</p>
+   864→
+   865→                <div className="flex items-center gap-3 pt-5 border-t border-white/15">
+   866→                  {/* Photo placeholder circle with person icon */}
+   867→                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#C9A84C] to-[#B08F35] flex items-center justify-center text-white shadow-lg overflow-hidden">
+   868→                    {Icons.person}
+   869→                  </div>
+   870→                  <div>
+   871→                    <div className="text-white font-semibold text-sm">{item.name}</div>
+   872→                    <div className="text-white/50 text-xs">{item.role}</div>
+   873→                  </div>
+   874→                </div>
+   875→              </div>
+   876→            ))}
+   877→          </div>
+   878→        </div>
+   879→      </section>
+   880→
+   881→      {/* ──────── Contact ──────── */}
+   882→      <section id="contact" className="py-20 md:py-28 bg-[#F8F7F4]">
+   883→        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   884→          <div className={`reveal ${revealedSections.has('contact') ? 'visible' : ''}`} id="contact-reveal">
+   885→            <div className="text-center mb-16">
+   886→              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Écrivez-nous' : 'اكتبوا لنا'}</span>
+   887→              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>
+   888→                {data.contact.title}
+   889→              </h2>
+   890→              <div className="section-divider mx-auto mb-6" />
+   891→              <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.contact.subtitle}</p>
+   892→            </div>
+   893→          </div>
+   894→
+   895→          <div className="grid lg:grid-cols-5 gap-12">
+   896→            {/* Form */}
+   897→            <div className={`lg:col-span-3 reveal ${revealedSections.has('contact') ? 'visible' : ''}`}>
+   898→              <form onSubmit={handleSubmit} className="bg-[#F8F7F4] rounded-2xl p-6 md:p-10 border border-[#E5E7EB]">
+   899→                <div className="grid sm:grid-cols-2 gap-5 mb-5">
+   900→                  <div>
+   901→                    <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.firstName}</label>
+   902→                    <input
+   903→                      type="text"
+   904→                      required
+   905→                      value={formData.firstName}
+   906→                      onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+   907→                      className="w-full px-4 py-3.5 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all placeholder:text-[#9CA3AF]"
+   908→                      placeholder={lang === 'fr' ? 'Votre prénom' : 'اسمكم'}
+   909→                    />
+   910→                  </div>
+   911→                  <div>
+   912→                    <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.lastName}</label>
+   913→                    <input
+   914→                      type="text"
+   915→                      required
+   916→                      value={formData.lastName}
+   917→                      onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+   918→                      className="w-full px-4 py-3.5 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all placeholder:text-[#9CA3AF]"
+   919→                      placeholder={lang === 'fr' ? 'Votre nom' : 'نسبكم'}
+   920→                    />
+   921→                  </div>
+   922→                </div>
+   923→
+   924→                <div className="grid sm:grid-cols-2 gap-5 mb-5">
+   925→                  <div>
+   926→                    <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.phone}</label>
+   927→                    <input
+   928→                      type="tel"
+   929→                      required
+   930→                      value={formData.phone}
+   931→                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+   932→                      className="w-full px-4 py-3.5 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all placeholder:text-[#9CA3AF]"
+   933→                      placeholder="06 XX XX XX XX"
+   934→                      dir="ltr"
+   935→                    />
+   936→                  </div>
+   937→                  <div>
+   938→                    <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.email}</label>
+   939→                    <input
+   940→                      type="email"
+   941→                      required
+   942→                      value={formData.email}
+   943→                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+   944→                      className="w-full px-4 py-3.5 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all placeholder:text-[#9CA3AF]"
+   945→                      placeholder="email@exemple.com"
+   946→                      dir="ltr"
+   947→                    />
+   948→                  </div>
+   949→                </div>
+   950→
+   951→                <div className="mb-5">
+   952→                  <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.insuranceType}</label>
+   953→                  <select
+   954→                    required
+   955→                    value={formData.insuranceType}
+   956→                    onChange={(e) => setFormData({ ...formData, insuranceType: e.target.value })}
+   957→                    className="w-full px-4 py-3.5 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%230D1F5C%22%20stroke-width%3D%222%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-[length:12px] bg-[position:right_1rem_center] bg-no-repeat"
+   958→                  >
+   959→                    <option value="">{data.contact.selectType}</option>
+   960→                    {insuranceTypes[lang].map((type, i) => (
+   961→                      <option key={i} value={type}>{type}</option>
+   962→                    ))}
+   963→                  </select>
+   964→                </div>
+   965→
+   966→                <div className="mb-6">
+   967→                  <label className="block text-sm font-medium text-[#0D1F5C] mb-2">{data.contact.message}</label>
+   968→                  <textarea
+   969→                    rows={4}
+   970→                    value={formData.message}
+   971→                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+   972→                    className="w-full px-4 py-3.5 rounded-xl border border-[#E5E7EB] bg-white text-[#0D1F5C] text-sm transition-all resize-none placeholder:text-[#9CA3AF]"
+   973→                    placeholder={lang === 'fr' ? 'Décrivez votre besoin...' : 'صفوا حاجتكم...'}
+   974→                  />
+   975→                </div>
+   976→
+   977→                <button
+   978→                  type="submit"
+   979→                  disabled={formStatus === 'sending'}
+   980→                  className="w-full bg-[#0D1F5C] hover:bg-[#162572] text-white py-4 rounded-xl font-semibold transition-all hover:shadow-xl hover:shadow-[#0D1F5C]/20 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-base"
+   981→                >
+   982→                  {formStatus === 'sending' ? (
+   983→                    <>
+   984→                      <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+   985→                      {data.contact.sending}
+   986→                    </>
+   987→                  ) : (
+   988→                    <>
+   989→                      {data.contact.send}
+   990→                      <span className="rtl-flip">{Icons.arrowRight}</span>
+   991→                    </>
+   992→                  )}
+   993→                </button>
+   994→
+   995→                {formStatus === 'success' && (
+   996→                  <div className="mt-4 p-4 bg-emerald-50 text-emerald-700 rounded-xl text-sm font-medium text-center flex items-center justify-center gap-2">
+   997→                    {Icons.check} {data.contact.success}
+   998→                  </div>
+   999→                )}
+  1000→                {formStatus === 'error' && (
+  1001→                  <div className="mt-4 p-4 bg-red-50 text-red-700 rounded-xl text-sm font-medium text-center">
+  1002→                    {data.contact.error}
+  1003→                  </div>
+  1004→                )}
+  1005→              </form>
+  1006→            </div>
+  1007→
+  1008→            {/* Contact Info */}
+  1009→            <div className={`lg:col-span-2 reveal ${revealedSections.has('contact') ? 'visible' : ''}`} style={{ transitionDelay: '200ms' }}>
+  1010→              <div className="space-y-5">
+  1011→                {/* Phone Personnel */}
+  1012→                <a href="tel:+212662409860" className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl hover:bg-[#0D1F5C]/[0.03] transition-all group border border-transparent hover:border-[#C9A84C]/20">
+  1013→                  <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1F5C] transition-all shadow-sm">
+  1014→                    {Icons.phone}
+  1015→                  </div>
+  1016→                  <div>
+  1017→                    <div className="text-sm text-[#6B7280] mb-1">{lang === 'fr' ? 'Téléphone Personnel' : 'هاتف شخصي'}</div>
+  1018→                    <div className="text-[#0D1F5C] font-semibold" dir="ltr">06 62 40 98 60</div>
+  1019→                  </div>
+  1020→                </a>
+  1021→
+  1022→                {/* Phone Agence */}
+  1023→                <a href="tel:+212537838938" className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl hover:bg-[#0D1F5C]/[0.03] transition-all group border border-transparent hover:border-[#C9A84C]/20">
+  1024→                  <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1F5C] transition-all shadow-sm">
+  1025→                    {Icons.phone}
+  1026→                  </div>
+  1027→                  <div>
+  1028→                    <div className="text-sm text-[#6B7280] mb-1">{lang === 'fr' ? 'Téléphone Agence' : 'هاتف الوكالة'}</div>
+  1029→                    <div className="text-[#0D1F5C] font-semibold" dir="ltr">05 37 83 89 38</div>
+  1030→                  </div>
+  1031→                </a>
+  1032→
+  1033→                {/* Email */}
+  1034→                <a href="mailto:oijih.assurance25@gmail.com" className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl hover:bg-[#0D1F5C]/[0.03] transition-all group border border-transparent hover:border-[#C9A84C]/20">
+  1035→                  <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 group-hover:bg-[#C9A84C] group-hover:text-[#0D1F5C] transition-all shadow-sm">
+  1036→                    {Icons.email}
+  1037→                  </div>
+  1038→                  <div>
+  1039→                    <div className="text-sm text-[#6B7280] mb-1">{data.contact.email}</div>
+  1040→                    <div className="text-[#0D1F5C] font-semibold text-sm" dir="ltr">oijih.assurance25@gmail.com</div>
+  1041→                  </div>
+  1042→                </a>
+  1043→
+  1044→                {/* Address */}
+  1045→                <div className="flex items-start gap-4 p-5 bg-[#F8F7F4] rounded-xl border border-transparent hover:border-[#C9A84C]/20 transition-all">
+  1046→                  <div className="w-12 h-12 rounded-xl bg-[#0D1F5C] text-[#C9A84C] flex items-center justify-center shrink-0 shadow-sm">
+  1047→                    {Icons.location}
+  1048→                  </div>
+  1049→                  <div>
+  1050→                    <div className="text-sm text-[#6B7280] mb-1">{lang === 'fr' ? 'Adresse' : 'العنوان'}</div>
+  1051→                    <div className="text-[#0D1F5C] font-semibold text-sm leading-relaxed">
+  1052→                      {lang === 'fr'
+  1053→                        ? 'N°960, Lotissement Sidi Abdellah, Secteur Al Fath, Laayayda, Salé, Maroc'
+  1054→                        : 'رقم 960، تجزئة سيدي عبد الله، قطاع الفتح، العيايدة، سلا، المغرب'}
+  1055→                    </div>
+  1056→                  </div>
+  1057→                </div>
+  1058→
+  1059→                {/* WhatsApp CTA */}
+  1060→                <a
+  1061→                  href={whatsappLink}
+  1062→                  target="_blank"
+  1063→                  rel="noopener noreferrer"
+  1064→                  className="flex items-center justify-center gap-3 p-4 bg-[#25D366]/10 rounded-xl text-[#25D366] font-semibold hover:bg-[#25D366]/20 transition-all border border-[#25D366]/20"
+  1065→                >
+  1066→                  {Icons.whatsapp}
+  1067→                  {lang === 'fr' ? 'Écrivez-nous sur WhatsApp' : 'راسلونا على واتساب'}
+  1068→                </a>
+  1069→              </div>
+  1070→            </div>
+  1071→          </div>
+  1072→        </div>
+  1073→      </section>
+  1074→
+  1075→      {/* ──────── Google Maps ──────── */}
+  1076→      <section id="map" className="py-20 md:py-28 bg-[#F8F7F4]">
+  1077→        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  1078→          <div className={`reveal ${revealedSections.has('map') ? 'visible' : ''}`} id="map-reveal">
+  1079→            <div className="text-center mb-12">
+  1080→              <span className="inline-block text-[#C9A84C] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Localisation' : 'الموقع'}</span>
+  1081→              <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>
+  1082→                {data.map.title}
+  1083→              </h2>
+  1084→              <div className="section-divider mx-auto mb-6" />
+  1085→              <p className="text-[#6B7280] text-lg max-w-2xl mx-auto">{data.map.subtitle}</p>
+  1086→            </div>
+  1087→          </div>
+  1088→
+  1089→          <div className={`reveal ${revealedSections.has('map') ? 'visible' : ''}`}>
+  1090→            <div className="map-container">
+  1091→              <iframe
+  1092→                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3306.5!2d-6.7985!3d34.0531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDAzJzExLjIiTiA2wrA0Nyc1NC42Ilc!5e0!3m2!1sfr!2sma!4v1"
+  1093→                width="100%"
+  1094→                height="400"
+  1095→                style={{ border: 0 }}
+  1096→                allowFullScreen
+  1097→                loading="lazy"
+  1098→                referrerPolicy="no-referrer-when-downgrade"
+  1099→                title="OIJIH Assurances Location"
+  1100→                className="w-full"
+  1101→              />
+  1102→            </div>
+  1103→
+  1104→            <div className="flex flex-wrap gap-4 mt-8 justify-center">
+  1105→              <a
+  1106→                href="https://www.google.com/maps/search/?api=1&query=34.0531,-6.7985"
+  1107→                target="_blank"
+  1108→                rel="noopener noreferrer"
+  1109→                className="inline-flex items-center gap-2 bg-[#0D1F5C] hover:bg-[#162572] text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all hover:shadow-xl hover:shadow-[#0D1F5C]/20 hover:-translate-y-0.5"
+  1110→              >
+  1111→                {Icons.externalLink}
+  1112→                {data.map.openMaps}
+  1113→              </a>
+  1114→              <a
+  1115→                href="https://www.google.com/maps/dir/?api=1&destination=34.0531,-6.7985"
+  1116→                target="_blank"
+  1117→                rel="noopener noreferrer"
+  1118→                className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B08F35] text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all hover:shadow-xl hover:shadow-[#C9A84C]/20 hover:-translate-y-0.5"
+  1119→              >
+  1120→                {Icons.location}
+  1121→                {data.map.directions}
+  1122→              </a>
+  1123→            </div>
+  1124→          </div>
+  1125→        </div>
+  1126→      </section>
+  1127→
+  1128→      {/* ──────── Footer ──────── */}
+  1129→      <footer className="bg-[#0D1F5C] pt-16 pb-8 text-white">
+  1130→        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  1131→          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+  1132→            {/* Logo & Slogan */}
+  1133→            <div className="lg:col-span-1">
+  1134→              <img src="/logo-white.png" alt="OIJIH Assurances" className="h-16 md:h-20 w-auto mb-5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]" />
+  1135→              <p className="text-white/60 text-sm leading-relaxed mb-2">{data.footer.slogan}</p>
+  1136→              <p className="text-[#C9A84C] font-semibold text-sm">{data.footer.tagline}</p>
+  1137→            </div>
+  1138→
+  1139→            {/* Quick Links */}
+  1140→            <div>
+  1141→              <h4 className="font-semibold text-[#C9A84C] mb-5 text-sm tracking-wider uppercase">{data.footer.quickLinks}</h4>
+  1142→              <ul className="space-y-3">
+  1143→                {navItems.slice(0, 5).map((item) => (
+  1144→                  <li key={item.key}>
+  1145→                    <button
+  1146→                      onClick={() => scrollTo(item.target)}
+  1147→                      className="footer-link text-white/50 hover:text-[#C9A84C] text-sm transition-all"
+  1148→                    >
+  1149→                      {data.nav[item.key as keyof typeof data.nav]}
+  1150→                    </button>
+  1151→                  </li>
+  1152→                ))}
+  1153→              </ul>
+  1154→            </div>
+  1155→
+  1156→            {/* Contact */}
+  1157→            <div>
+  1158→              <h4 className="font-semibold text-[#C9A84C] mb-5 text-sm tracking-wider uppercase">{data.footer.contactUs}</h4>
+  1159→              <div className="space-y-3 text-sm">
+  1160→                <a href="tel:+212662409860" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors" dir="ltr">
+  1161→                  <span className="text-[#C9A84C]">{Icons.phone}</span> 06 62 40 98 60
+  1162→                </a>
+  1163→                <a href="tel:+212537838938" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors" dir="ltr">
+  1164→                  <span className="text-[#C9A84C]">{Icons.phone}</span> 05 37 83 89 38
+  1165→                </a>
+  1166→                <a href="mailto:oijih.assurance25@gmail.com" className="flex items-center gap-3 text-white/50 hover:text-[#C9A84C] transition-colors" dir="ltr">
+  1167→                  <span className="text-[#C9A84C]">{Icons.email}</span> oijih.assurance25@gmail.com
+  1168→                </a>
+  1169→                <div className="flex items-start gap-3 text-white/50 pt-1">
+  1170→                  <span className="text-[#C9A84C] mt-0.5">{Icons.location}</span>
+  1171→                  <span className="text-xs leading-relaxed">
+  1172→                    {lang === 'fr'
+  1173→                      ? 'N°960, Lot. Sidi Abdellah, Al Fath, Laayayda, Salé'
+  1174→                      : 'رقم 960، تجزئة سيدي عبد الله، الفتح، العيايدة، سلا'}
+  1175→                  </span>
+  1176→                </div>
+  1177→              </div>
+  1178→            </div>
+  1179→
+  1180→            {/* Social Media */}
+  1181→            <div>
+  1182→              <h4 className="font-semibold text-[#C9A84C] mb-5 text-sm tracking-wider uppercase">{lang === 'fr' ? 'Suivez-nous' : 'تابعونا'}</h4>
+  1183→              <div className="flex gap-3">
+  1184→                <a href="#" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#C9A84C] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#C9A84C]">
+  1185→                  {Icons.facebook}
+  1186→                </a>
+  1187→                <a href="#" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#C9A84C] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#C9A84C]">
+  1188→                  {Icons.instagram}
+  1189→                </a>
+  1190→                <a href="#" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#C9A84C] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#C9A84C]">
+  1191→                  {Icons.linkedin}
+  1192→                </a>
+  1193→                <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/[0.06] hover:bg-[#25D366] flex items-center justify-center text-white/60 hover:text-white transition-all hover:scale-110 border border-white/[0.06] hover:border-[#25D366]">
+  1194→                  {Icons.whatsapp}
+  1195→                </a>
+  1196→              </div>
+  1197→
+  1198→              {/* Values */}
+  1199→              <div className="mt-6 flex flex-wrap gap-2">
+  1200→                {(lang === 'fr' ? ['Confiance', 'Proximité', 'Engagement'] : ['الثقة', 'القرب', 'الالتزام']).map((v, i) => (
+  1201→                  <span key={i} className="text-xs bg-white/[0.06] text-[#C9A84C] px-3 py-1.5 rounded-full border border-white/[0.06]">
+  1202→                    {v}
+  1203→                  </span>
+  1204→                ))}
+  1205→              </div>
+  1206→            </div>
+  1207→          </div>
+  1208→
+  1209→          {/* Bottom Bar */}
+  1210→          <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+  1211→            <p className="text-white/30 text-sm">
+  1212→              &copy; {new Date().getFullYear()} OIJIH Assurances / تأمينات وجيه. {data.footer.rights}
+  1213→            </p>
+  1214→            <p className="text-white/20 text-xs">
+  1215→              {lang === 'fr' ? 'Courtier d\'assurance agréé à Salé, Maroc' : 'وكيل تأمين معتمد في سلا، المغرب'}
+  1216→            </p>
+  1217→          </div>
+  1218→        </div>
+  1219→      </footer>
+  1220→
+  1221→      {/* ──────── Floating WhatsApp Button ──────── */}
+  1222→      <a
+  1223→        href={whatsappLink}
+  1224→        target="_blank"
+  1225→        rel="noopener noreferrer"
+  1226→        className="whatsapp-btn fixed bottom-6 z-50 w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-2xl shadow-[#25D366]/30 hover:scale-110 transition-transform"
+  1227→        style={{ [isRTL ? 'left' : 'right']: '1.5rem' }}
+  1228→        aria-label="WhatsApp"
+  1229→      >
+  1230→        {Icons.whatsapp}
+  1231→      </a>
+  1232→    </div>
+  1233→  );
+  1234→}
+  1235→
