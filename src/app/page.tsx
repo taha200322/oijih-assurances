@@ -498,14 +498,20 @@ export default function Home() {
   return (
     <div className={`min-h-screen flex flex-col ${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-inter)]'}`}>
       {/* ──────── Navbar ──────── */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'nav-glass-scrolled py-2 shadow-sm' : 'nav-glass py-3 md:py-4'}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? 'bg-white/95 backdrop-blur-xl py-2 shadow-sm'
+          : 'bg-transparent py-3 md:py-4'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            {/* Logo */}
-            <button onClick={() => scrollTo('hero')} className="flex items-center gap-3 group">
-              <div className="bg-white rounded-lg p-1.5 shadow-sm transition-transform group-hover:scale-105">
-                <img src="/logo.png" alt="OIJIH Assurances" className="h-8 md:h-10 w-auto" />
-              </div>
+            {/* Logo — white version on transparent navbar, original on scrolled white navbar */}
+            <button onClick={() => scrollTo('hero')} className="flex items-center group">
+              <img
+                src={scrolled ? '/logo.png' : '/logo-white.png'}
+                alt="OIJIH Assurances"
+                className={`h-20 md:h-[140px] w-auto transition-all duration-500 group-hover:scale-[1.03] ${!scrolled ? 'drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]' : ''}`}
+              />
             </button>
 
             {/* Desktop Nav Links */}
@@ -517,7 +523,9 @@ export default function Home() {
                   className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-full ${
                     activeSection === item.target
                       ? 'text-[#C9A84C]'
-                      : 'text-[#0D1F5C] hover:text-[#C9A84C]'
+                      : scrolled
+                        ? 'text-[#0D1F5C] hover:text-[#C9A84C]'
+                        : 'text-white/80 hover:text-[#C9A84C]'
                   }`}
                 >
                   {data.nav[item.key as keyof typeof data.nav]}
@@ -531,16 +539,16 @@ export default function Home() {
             {/* Right side: Language + CTA */}
             <div className="flex items-center gap-3">
               {/* Language Switcher */}
-              <div className="lang-switch">
+              <div className={`lang-switch transition-colors duration-500 ${!scrolled ? 'border-white/20' : ''}`}>
                 <button
                   onClick={() => setLang('fr')}
-                  className={`lang-btn ${lang === 'fr' ? 'lang-btn-active' : ''}`}
+                  className={`lang-btn ${lang === 'fr' ? 'lang-btn-active' : ''} ${!scrolled && lang !== 'fr' ? 'text-white/60' : ''}`}
                 >
                   FR
                 </button>
                 <button
                   onClick={() => setLang('ar')}
-                  className={`lang-btn ${lang === 'ar' ? 'lang-btn-active' : ''}`}
+                  className={`lang-btn ${lang === 'ar' ? 'lang-btn-active' : ''} ${!scrolled && lang !== 'ar' ? 'text-white/60' : ''}`}
                 >
                   AR
                 </button>
@@ -557,7 +565,7 @@ export default function Home() {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 text-[#0D1F5C] hover:text-[#C9A84C] transition-colors"
+                className={`lg:hidden p-2 transition-colors ${scrolled ? 'text-[#0D1F5C] hover:text-[#C9A84C]' : 'text-white hover:text-[#C9A84C]'}`}
               >
                 {mobileMenuOpen ? Icons.close : Icons.menu}
               </button>
@@ -650,16 +658,16 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Logo Display - Premium */}
-            <div className="hidden lg:flex justify-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            {/* Logo Display - Navy background version, no white card */}
+            <div className="hidden lg:flex justify-center items-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
               <div className="relative">
-                <div className="absolute inset-0 bg-[#C9A84C]/10 rounded-[2rem] blur-2xl scale-110" />
-                <div className="relative bg-white rounded-[2rem] p-10 animate-float shadow-2xl shadow-black/20">
-                  <img src="/logo.png" alt="OIJIH Assurances" className="w-72 h-auto drop-shadow-lg" />
-                </div>
-                {/* Decorative dots */}
-                <div className="absolute -top-4 -right-4 w-8 h-8 bg-[#C9A84C] rounded-full opacity-60 animate-pulse" />
-                <div className="absolute -bottom-2 -left-6 w-6 h-6 bg-[#C9A84C]/40 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
+                <img
+                  src="/logo-navy.png"
+                  alt="OIJIH Assurances"
+                  className="w-[340px] md:w-[420px] h-auto drop-shadow-[0_20px_60px_rgba(0,0,0,0.4)] animate-float rounded-2xl"
+                />
+                {/* Subtle gold glow behind logo */}
+                <div className="absolute inset-0 bg-[#C9A84C]/8 rounded-2xl blur-3xl scale-110 -z-10" />
               </div>
             </div>
           </div>
@@ -1089,9 +1097,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
             {/* Logo & Slogan */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-xl p-2 inline-block mb-5 shadow-lg">
-                <img src="/logo.png" alt="OIJIH Assurances" className="h-12 w-auto" />
-              </div>
+              <img src="/logo-white.png" alt="OIJIH Assurances" className="h-16 md:h-20 w-auto mb-5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]" />
               <p className="text-white/60 text-sm leading-relaxed mb-2">{data.footer.slogan}</p>
               <p className="text-[#C9A84C] font-semibold text-sm">{data.footer.tagline}</p>
             </div>
