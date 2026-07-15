@@ -717,7 +717,7 @@ export default function Home() {
       {/* ══════ Services ══════ */}
       <section id="services" className="py-20 md:py-28 bg-[#F8F7F4] relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`reveal ${revealedSections.has('services') ? 'visible' : ''}`} id="services-reveal">
+          <div className={`reveal ${revealedSections.has('services') ? 'visible' : ''}`} id="services">
             <div className="text-center mb-16">
               <span className="inline-block text-[#A8875A] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Nos Expertises' : 'خبراتنا'}</span>
               <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>{data.services.title}</h2>
@@ -745,7 +745,7 @@ export default function Home() {
       {/* ══════ Why Us ══════ */}
       <section id="why" className="py-20 md:py-28 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`reveal ${revealedSections.has('why') ? 'visible' : ''}`} id="why-reveal">
+          <div className={`reveal ${revealedSections.has('why') ? 'visible' : ''}`} id="why">
             <div className="text-center mb-16">
               <span className="inline-block text-[#A8875A] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Nos Valeurs' : 'قيمنا'}</span>
               <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>{data.why.title}</h2>
@@ -775,7 +775,7 @@ export default function Home() {
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#A8875A]/5 rounded-full blur-3xl" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`reveal ${revealedSections.has('process') ? 'visible' : ''}`} id="process-reveal">
+          <div className={`reveal ${revealedSections.has('process') ? 'visible' : ''}`} id="process">
             <div className="text-center mb-16">
               <span className="inline-block text-[#A8875A] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Étapes Simples' : 'خطوات بسيطة'}</span>
               <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4`}>{data.process.title}</h2>
@@ -812,7 +812,7 @@ export default function Home() {
         <div className="absolute top-0 left-0 w-96 h-96 bg-[#A8875A]/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#A8875A]/5 rounded-full blur-3xl" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`reveal ${revealedSections.has('testimonials') ? 'visible' : ''}`} id="testimonials-reveal">
+          <div className={`reveal ${revealedSections.has('testimonials') ? 'visible' : ''}`} id="testimonials">
             <div className="text-center mb-16">
               <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4`}>{data.testimonials.title}</h2>
               <div className="section-divider mx-auto mb-6" />
@@ -840,10 +840,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ══════ FAQ ══════ */}
+      <section id="faq" className="py-20 md:py-28 bg-white relative">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`reveal ${revealedSections.has('faq') ? 'visible' : ''}`} id="faq">
+            <div className="text-center mb-14">
+              <span className="inline-block text-[#A8875A] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Besoin d\'infos ?' : 'تحتاجون معلومات؟'}</span>
+              <h2 className={`text-3xl md:text-5xl font-bold text-[#0D1F5C] mb-4 ${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'}`}>
+                {data.faq.title}
+              </h2>
+              <div className="section-divider mx-auto mb-4" />
+              <p className="text-[#0D1F5C]/60 text-lg max-w-2xl mx-auto">{data.faq.subtitle}</p>
+            </div>
+            <div className="space-y-4">
+              {data.faq.items.map((item, i) => (
+                <FaqItem key={i} question={item.q} answer={item.a} isRTL={isRTL} index={i} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ══════ Contact ══════ */}
       <section id="contact" className="py-20 md:py-28 bg-[#F8F7F4] relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`reveal ${revealedSections.has('contact') ? 'visible' : ''}`} id="contact-reveal">
+          <div className={`reveal ${revealedSections.has('contact') ? 'visible' : ''}`} id="contact">
             <div className="text-center mb-16">
               <span className="inline-block text-[#A8875A] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Écrivez-nous' : 'اكتبوا لنا'}</span>
               <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>{data.contact.title}</h2>
@@ -935,7 +956,7 @@ export default function Home() {
       {/* ══════ Google Maps ══════ */}
       <section id="map" className="py-20 md:py-28 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`reveal ${revealedSections.has('map') ? 'visible' : ''}`} id="map-reveal">
+          <div className={`reveal ${revealedSections.has('map') ? 'visible' : ''}`} id="map">
             <div className="text-center mb-12">
               <span className="inline-block text-[#A8875A] font-semibold text-sm tracking-wider uppercase mb-3">{lang === 'fr' ? 'Localisation' : 'الموقع'}</span>
               <h2 className={`${isRTL ? 'font-[var(--font-cairo)]' : 'font-[var(--font-playfair)]'} text-3xl md:text-4xl lg:text-5xl font-bold text-[#0D1F5C] mb-4`}>{data.map.title}</h2>
