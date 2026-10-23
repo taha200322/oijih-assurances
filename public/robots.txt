@@ -1,11 +1,6 @@
-# OIJIH Assurances - robots.txt
 User-agent: *
 Allow: /
 Disallow: /api/
-Disallow: /_next/
+Disallow: /merci
 
-# Sitemap
-Sitemap: https://oijih-assurances.ma/sitemap.xml
-
-# Crawl-delay
-Crawl-delay: 1
+Sitemap: https://oijihassurances.com/sitemap.xml
