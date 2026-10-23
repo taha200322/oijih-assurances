@@ -49,7 +49,7 @@ export const site = {
 
   // Google Sheets form receiver (Apps Script Web App URL)
   // 👉 Paste your new URL between the quotes
-  formScriptUrl: '',
+  formScriptUrl: 'https://script.google.com/macros/s/AKfycbxA-Q51oBvWL_sdtLXwZhujBGlrCrhsYXT0VhyIDFgmsY3wXWC2lN1L3aCf6-Pqu34x/exec',
 
   // Facebook / Meta Pixel ID (numbers only)
   // 👉 Paste your Pixel ID between the quotes when you create it
